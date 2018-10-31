@@ -1,0 +1,8 @@
+#+title: Entropy emacs packages git repo collection
+#+author: Entropy
+
+#+attr_org: :width 400px
+[[file:annex/img/github-logo_2018-10-31_22-33-43.png]] [[file:annex/img/melpa1_2018-10-31_22-36-02.png]]
+
+
+*This project was collection of emacs extensions used for [[https://github.com/c0001/entropy-emacs][entropy-emacs]].*
