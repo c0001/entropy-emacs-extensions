@@ -427,3 +427,24 @@
 [submodule "elements/submodules/GitHub-Theme-for-Emacs"]
 	path = elements/submodules/GitHub-Theme-for-Emacs
 	url = https://github.com/c0001/GitHub-Theme-for-Emacs.git
+[submodule "elements/submodules/doneburn-theme"]
+	path = elements/submodules/doneburn-theme
+	url = https://github.com/c0001/doneburn-theme.git
+[submodule "elements/submodules/el2org"]
+	path = elements/submodules/el2org
+	url = https://github.com/c0001/el2org.git
+[submodule "elements/submodules/eldoc-eval"]
+	path = elements/submodules/eldoc-eval
+	url = https://github.com/c0001/eldoc-eval.git
+[submodule "elements/submodules/elfeed"]
+	path = elements/submodules/elfeed
+	url = https://github.com/c0001/elfeed.git
+[submodule "elements/submodules/elisp-refs"]
+	path = elements/submodules/elisp-refs
+	url = https://github.com/c0001/elisp-refs.git
+[submodule "elements/submodules/emacs-async"]
+	path = elements/submodules/emacs-async
+	url = https://github.com/c0001/emacs-async.git
+[submodule "elements/submodules/emacs-color-themes"]
+	path = elements/submodules/emacs-color-themes
+	url = https://github.com/c0001/emacs-color-themes.git
