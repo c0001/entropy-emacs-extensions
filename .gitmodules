@@ -448,3 +448,6 @@
 [submodule "elements/submodules/emacs-color-themes"]
 	path = elements/submodules/emacs-color-themes
 	url = https://github.com/c0001/emacs-color-themes.git
+[submodule "elements/submodules/nsis-mode"]
+	path = elements/submodules/nsis-mode
+	url = https://github.com/c0001/nsis-mode.git
