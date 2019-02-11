@@ -451,3 +451,6 @@
 [submodule "elements/submodules/nsis-mode"]
 	path = elements/submodules/nsis-mode
 	url = https://github.com/c0001/nsis-mode.git
+[submodule "elements/submodules/makey"]
+	path = elements/submodules/makey
+	url = https://github.com/c0001/makey.git
