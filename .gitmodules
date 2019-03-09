@@ -454,3 +454,6 @@
 [submodule "elements/submodules/makey"]
 	path = elements/submodules/makey
 	url = https://github.com/c0001/makey.git
+[submodule "elements/submodules/emacs-maple-preview"]
+	path = elements/submodules/emacs-maple-preview
+	url = https://github.com/c0001/emacs-maple-preview.git
