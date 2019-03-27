@@ -463,3 +463,12 @@
 [submodule "elements/submodules/apel"]
 	path = elements/submodules/apel
 	url = https://github.com/c0001/apel.git
+[submodule "elements/submodules/zeal-at-point"]
+	path = elements/submodules/zeal-at-point
+	url = https://github.com/c0001/zeal-at-point.git
+[submodule "elements/submodules/search-web.el"]
+	path = elements/submodules/search-web.el
+	url = https://github.com/c0001/search-web.el.git
+[submodule "elements/submodules/org-reveal"]
+	path = elements/submodules/org-reveal
+	url = https://github.com/c0001/org-reveal.git
