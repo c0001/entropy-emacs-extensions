@@ -460,3 +460,6 @@
 [submodule "elements/submodules/doom-modeline"]
 	path = elements/submodules/doom-modeline
 	url = https://github.com/c0001/doom-modeline.git
+[submodule "elements/submodules/apel"]
+	path = elements/submodules/apel
+	url = https://github.com/c0001/apel.git
