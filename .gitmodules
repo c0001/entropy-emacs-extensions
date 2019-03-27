@@ -457,3 +457,6 @@
 [submodule "elements/submodules/emacs-maple-preview"]
 	path = elements/submodules/emacs-maple-preview
 	url = https://github.com/c0001/emacs-maple-preview.git
+[submodule "elements/submodules/doom-modeline"]
+	path = elements/submodules/doom-modeline
+	url = https://github.com/c0001/doom-modeline.git
