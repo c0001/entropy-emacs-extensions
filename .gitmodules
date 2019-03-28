@@ -472,3 +472,12 @@
 [submodule "elements/submodules/org-reveal"]
 	path = elements/submodules/org-reveal
 	url = https://github.com/c0001/org-reveal.git
+[submodule "elements/submodules/entropy-undo-tree"]
+	path = elements/submodules/entropy-undo-tree
+	url = https://github.com/c0001/entropy-undo-tree.git
+[submodule "elements/submodules/entropy-windresize"]
+	path = elements/submodules/entropy-windresize
+	url = https://github.com/c0001/entropy-windresize.git
+[submodule "elements/submodules/entropy-font-lock-plus"]
+	path = elements/submodules/entropy-font-lock-plus
+	url = https://github.com/c0001/entropy-font-lock-plus.git
