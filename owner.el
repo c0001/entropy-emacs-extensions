@@ -638,7 +638,11 @@
     (:repo
      "entropy-windresize"
      :uri
-     "https://github.com/c0001/entropy-windresize.git")))
+     "https://github.com/c0001/entropy-windresize.git")
+    (:repo
+     "transient"
+     :uri
+     "https://github.com/magit/transient.git")))
 
 
 (provide 'owner)

@@ -478,3 +478,6 @@
 [submodule "elements/submodules/youdao-dictionary.el"]
 	path = elements/submodules/youdao-dictionary.el
 	url = https://github.com/xuchunyang/youdao-dictionary.el.git
+[submodule "elements/submodules/transient"]
+	path = elements/submodules/transient
+	url = https://github.com/magit/transient.git
