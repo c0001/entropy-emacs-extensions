@@ -448,9 +448,6 @@
 [submodule "elements/submodules/volatile-highlights.el"]
 	path = elements/submodules/volatile-highlights.el
 	url = https://github.com/k-talo/volatile-highlights.el.git
-[submodule "elements/submodules/w3m"]
-	path = elements/submodules/w3m
-	url = https://github.com/thomasf/w3m.git
 [submodule "elements/submodules/web-beautify"]
 	path = elements/submodules/web-beautify
 	url = https://github.com/yasuyk/web-beautify.git
