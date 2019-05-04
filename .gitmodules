@@ -478,3 +478,6 @@
 [submodule "elements/submodules/transient"]
 	path = elements/submodules/transient
 	url = https://github.com/magit/transient.git
+[submodule "elements/submodules/emacs-w3m"]
+	path = elements/submodules/emacs-w3m
+	url = https://github.com/emacs-w3m/emacs-w3m.git
