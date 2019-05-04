@@ -38,7 +38,7 @@
     (:repo
      "w3m"
      :uri
-     "https://github.com/thomasf/w3m.git")
+     "https://github.com/emacs-w3m/emacs-w3m.git")
     (:repo
      "volatile-highlights.el"
      :uri
