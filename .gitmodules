@@ -481,3 +481,9 @@
 [submodule "elements/submodules/emacs-w3m"]
 	path = elements/submodules/emacs-w3m
 	url = https://github.com/emacs-w3m/emacs-w3m.git
+[submodule "elements/submodules/beacon"]
+	path = elements/submodules/beacon
+	url = https://github.com/Malabarba/beacon.git
+[submodule "elements/submodules/all-the-icons-ivy"]
+	path = elements/submodules/all-the-icons-ivy
+	url = https://github.com/asok/all-the-icons-ivy.git
