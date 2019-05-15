@@ -9,4 +9,6 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 
+
+cd $DIR
 touch init
