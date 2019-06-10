@@ -490,3 +490,6 @@
 [submodule "elements/submodules/eterm-256color"]
 	path = elements/submodules/eterm-256color
 	url = https://github.com/dieggsy/eterm-256color.git
+[submodule "elements/submodules/xterm-color"]
+	path = elements/submodules/xterm-color
+	url = https://github.com/atomontage/xterm-color.git
