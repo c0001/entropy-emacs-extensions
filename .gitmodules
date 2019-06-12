@@ -493,3 +493,6 @@
 [submodule "elements/submodules/xterm-color"]
 	path = elements/submodules/xterm-color
 	url = https://github.com/atomontage/xterm-color.git
+[submodule "elements/submodules/shackle"]
+	path = elements/submodules/shackle
+	url = https://github.com/wasamasa/shackle.git
