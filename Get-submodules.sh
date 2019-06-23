@@ -163,3 +163,4 @@ git submodule add -b master https://github.com/asok/all-the-icons-ivy.git elemen
 git submodule add -b master https://github.com/dieggsy/eterm-256color.git elements/submodules/eterm-256color
 git submodule add -b master https://github.com/atomontage/xterm-color.git elements/submodules/xterm-color
 git submodule add -b master https://github.com/wasamasa/shackle.git elements/submodules/shackle
+git submodule add -b master https://github.com/Yevgnen/ivy-rich.git elements/submodules/ivy-rich

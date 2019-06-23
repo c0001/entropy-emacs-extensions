@@ -658,3 +658,7 @@
 	path = elements/submodules/shackle
 	url = https://github.com/wasamasa/shackle.git
 	branch = master
+[submodule "elements/submodules/ivy-rich"]
+	path = elements/submodules/ivy-rich
+	url = https://github.com/Yevgnen/ivy-rich.git
+	branch = master
