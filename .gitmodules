@@ -13,9 +13,6 @@
 [submodule "elements/submodules/zeal-at-point"]
 	path = elements/submodules/zeal-at-point
 	url = https://github.com/jinzhu/zeal-at-point.git
-[submodule "elements/submodules/apel"]
-	path = elements/submodules/apel
-	url = https://github.com/wanderlust/apel.git
 [submodule "elements/submodules/doom-modeline"]
 	path = elements/submodules/doom-modeline
 	url = https://github.com/seagle0128/doom-modeline.git
