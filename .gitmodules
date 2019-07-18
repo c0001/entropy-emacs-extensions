@@ -674,3 +674,7 @@
 	path = elements/submodules/counsel-world-clock
 	url = https://github.com/kchenphy/counsel-world-clock.git
 	branch = master
+[submodule "elements/submodules/find-file-in-project"]
+	path = elements/submodules/find-file-in-project
+	url = https://github.com/technomancy/find-file-in-project.git
+	branch = master
