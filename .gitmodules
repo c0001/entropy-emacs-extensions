@@ -670,3 +670,7 @@
 	path = elements/submodules/lsp-ui
 	url = https://github.com/emacs-lsp/lsp-ui.git
 	branch = master
+[submodule "elements/submodules/counsel-world-clock"]
+	path = elements/submodules/counsel-world-clock
+	url = https://github.com/kchenphy/counsel-world-clock.git
+	branch = master
