@@ -164,3 +164,7 @@ git submodule add -b master https://github.com/dieggsy/eterm-256color.git elemen
 git submodule add -b master https://github.com/atomontage/xterm-color.git elements/submodules/xterm-color
 git submodule add -b master https://github.com/wasamasa/shackle.git elements/submodules/shackle
 git submodule add -b master https://github.com/Yevgnen/ivy-rich.git elements/submodules/ivy-rich
+git submodule add -b master https://github.com/emacs-lsp/lsp-mode.git elements/submodules/lsp-mode
+git submodule add -b master https://github.com/emacs-lsp/lsp-ui.git elements/submodules/lsp-ui
+git submodule add -b master https://github.com/kchenphy/counsel-world-clock.git elements/counsel-world-clock
+git submodule add -b master https://github.com/technomancy/find-file-in-project.git elements/find-file-in-project
