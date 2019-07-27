@@ -1,3 +1,50 @@
+;;; entropy-emacs-extensions-load.el --- enntropy emacs git charged extensions management
+;;
+;; * Copyright (C) date  author
+;; #+BEGIN_EXAMPLE
+;; Author:        Entropy <bmsac0001@gmail.com>
+;; Maintainer:    Entropy <bmsac001@gmail.com>
+;; URL:           https://github.com/c0001/entropy-emacs-extensions/blob/master/entropy-emacs-extensions-load.el
+;; Package-Version: 0.1.6
+;; Compatibility: GNU Emacs emacs-version;
+;; Package-Requires: ((emacs "25.3") (cl-lib "0.5"))
+;; 
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;; 
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;; 
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;; #+END_EXAMPLE
+;; 
+;; * Commentary:
+;; This package was the management for elisp loading part for
+;; [[https://github.com/c0001/entropy-emacs][entropy-emacs]].
+;;
+;; The mainly functional aim of it was to add all submodules into
+;; emacs's load-path and theme-load-path.
+;;
+;; * Configuration:
+;;
+;; Although this package are originally and designed for
+;; entropy-emacs, but the functional parts are independently beside
+;; it, thus the common usage method are proper for this package too,
+;; this means that you can use this project for your own emacs
+;; configuration too.
+;;
+;; #+BEGIN_SRC elisp
+;;   (add-to-list 'load-path "path-of-this")
+;;   (require 'entropy-emacs-extensions-load)
+;; #+END_SRC
+;; 
+;; * Code:
+
 (defvar eemacs-ext-root (file-name-directory load-file-name))
 (defvar eemacs-ext-submodules-root (expand-file-name "elements/submodules" eemacs-ext-root))
 (defvar eemacs-ext-info-root (expand-file-name "elements/info-files" eemacs-ext-root))
@@ -28,14 +75,14 @@
       (add-to-list 'load-path el)
       (eemacs-ext--add-subdirs-to-load-path el))))
 
-;; info path adding
+;; Info path adding
 (setq Info-default-directory-list
       (append (list eemacs-ext-info-root) Info-default-directory-list))
 
-;; library load-path adding
+;; Library load-path adding
 (eemacs-ext--load-path eemacs-ext-submodules-root)
 
-;; theme path loading
+;; Theme path loading
 (let* ((base-dir (expand-file-name (expand-file-name "elements/submodules" eemacs-ext-root)))
        (theme-list '("color-theme-sanityinc-tomorrow"
                      "birds-of-paradise-plus-theme.el"
@@ -59,4 +106,5 @@
             (add-to-list 'custom-theme-load-path x))
         theme-list))
 
+;; Profide
 (provide 'entropy-emacs-extensions-load.el)
