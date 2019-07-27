@@ -166,5 +166,7 @@ git submodule add -b master https://github.com/wasamasa/shackle.git elements/sub
 git submodule add -b master https://github.com/Yevgnen/ivy-rich.git elements/submodules/ivy-rich
 git submodule add -b master https://github.com/emacs-lsp/lsp-mode.git elements/submodules/lsp-mode
 git submodule add -b master https://github.com/emacs-lsp/lsp-ui.git elements/submodules/lsp-ui
-git submodule add -b master https://github.com/kchenphy/counsel-world-clock.git elements/counsel-world-clock
-git submodule add -b master https://github.com/technomancy/find-file-in-project.git elements/find-file-in-project
+git submodule add -b master https://github.com/kchenphy/counsel-world-clock.git elements/submodules/counsel-world-clock
+git submodule add -b master https://github.com/technomancy/find-file-in-project.git elements/submodules/find-file-in-project
+git submodule add -b master https://github.com/SavchenkoValeriy/emacs-chocolate-theme.git elements/submodules/emacs-chocolate-theme
+git submodule add -b master https://github.com/jasonm23/autothemer.git elements/submodules/autothemer

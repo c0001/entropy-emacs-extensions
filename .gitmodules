@@ -682,3 +682,7 @@
 	path = elements/submodules/emacs-chocolate-theme
 	url = https://github.com/SavchenkoValeriy/emacs-chocolate-theme.git
 	branch = master
+[submodule "elements/submodules/autothemer"]
+	path = elements/submodules/autothemer
+	url = https://github.com/jasonm23/autothemer.git
+	branch = master
