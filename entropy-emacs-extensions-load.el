@@ -98,7 +98,8 @@
                      "darkokai"
                      "color-theme-ujelly"
                      "srcery-emacs"
-                     "emacs-chocolate-theme")))
+                     "emacs-chocolate-theme"
+                     "emacs-doom-themes/themes")))
   (setq theme-list (mapcar #'(lambda (x)
                                (expand-file-name x base-dir))
                            theme-list))
