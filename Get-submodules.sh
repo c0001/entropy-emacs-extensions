@@ -170,3 +170,4 @@ git submodule add -b master https://github.com/kchenphy/counsel-world-clock.git 
 git submodule add -b master https://github.com/technomancy/find-file-in-project.git elements/submodules/find-file-in-project
 git submodule add -b master https://github.com/SavchenkoValeriy/emacs-chocolate-theme.git elements/submodules/emacs-chocolate-theme
 git submodule add -b master https://github.com/jasonm23/autothemer.git elements/submodules/autothemer
+git submodule add -b master https://github.com/cireu/counsel-ffdata.git elements/submodules/counsel-ffdata

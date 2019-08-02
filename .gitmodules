@@ -686,3 +686,7 @@
 	path = elements/submodules/autothemer
 	url = https://github.com/jasonm23/autothemer.git
 	branch = master
+[submodule "elements/submodules/counsel-ffdata"]
+	path = elements/submodules/counsel-ffdata
+	url = https://github.com/cireu/counsel-ffdata.git
+	branch = master
