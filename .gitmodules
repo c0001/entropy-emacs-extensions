@@ -690,3 +690,11 @@
 	path = elements/submodules/counsel-ffdata
 	url = https://github.com/cireu/counsel-ffdata.git
 	branch = master
+[submodule "elements/submodules/emacs-neotree"]
+	path = elements/submodules/emacs-neotree
+	url = https://github.com/jaypei/emacs-neotree.git
+	branch = dev
+[submodule "elements/submodules/yafolding.el"]
+	path = elements/submodules/yafolding.el
+	url = https://github.com/zenozeng/yafolding.el.git
+	branch = master
