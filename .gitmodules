@@ -698,3 +698,11 @@
 	path = elements/submodules/yafolding.el
 	url = https://github.com/zenozeng/yafolding.el.git
 	branch = master
+[submodule "elements/submodules/emacs-solaire-mode"]
+	path = elements/submodules/emacs-solaire-mode
+	url = https://github.com/hlissner/emacs-solaire-mode.git
+	branch = master
+[submodule "elements/submodules/emacs-hide-mode-line"]
+	path = elements/submodules/emacs-hide-mode-line
+	url = https://github.com/hlissner/emacs-hide-mode-line.git
+	branch = master
