@@ -46,7 +46,8 @@
 ;; * Code:
 
 (defvar eemacs-ext-root (file-name-directory load-file-name))
-(defvar eemacs-ext-submodules-root (expand-file-name "elements/submodules" eemacs-ext-root))
+(defvar eemacs-ext-submodules-upstream-root (expand-file-name "elements/submodules/upstream" eemacs-ext-root))
+(defvar eemacs-ext-submodules-selfcloned-root (expand-file-name "elements/submodules/self-clone" eemacs-ext-root))
 (defvar eemacs-ext-info-root (expand-file-name "elements/info-files" eemacs-ext-root))
 
 (defun eemacs-ext-list-subdir (dir-root)
@@ -75,37 +76,41 @@
       (add-to-list 'load-path el)
       (eemacs-ext--add-subdirs-to-load-path el))))
 
+(defun eemacs-ext--load-theme-path (top-dir theme-subdir)
+  (let (theme-list)
+    (setq theme-list (mapcar #'(lambda (x)
+                                 (expand-file-name x top-dir))
+                             theme-subdir))
+    (mapc #'(lambda (x)
+              (add-to-list 'custom-theme-load-path x))
+          theme-list)))
+
 ;; Info path adding
 (setq Info-default-directory-list
       (append (list eemacs-ext-info-root) Info-default-directory-list))
 
 ;; Library load-path adding
-(eemacs-ext--load-path eemacs-ext-submodules-root)
+(eemacs-ext--load-path eemacs-ext-submodules-upstream-root)
+(eemacs-ext--load-path eemacs-ext-submodules-selfcloned-root)
 
 ;; Theme path loading
-(let* ((base-dir (expand-file-name (expand-file-name "elements/submodules" eemacs-ext-root)))
-       (theme-list '("color-theme-sanityinc-tomorrow"
-                     "birds-of-paradise-plus-theme.el"
-                     "gotham-theme"
-                     "atom-dark-theme-emacs"
-                     "atom-one-dark-theme"
-                     "GitHub-Theme-for-Emacs"
-                     "doneburn-theme"
-                     "emacs-klere-theme"
-                     "emacs-material-theme"
-                     "spacemacs-theme"
-                     "emacs-color-themes"
-                     "darkokai"
-                     "color-theme-ujelly"
-                     "srcery-emacs"
-                     "emacs-chocolate-theme"
-                     "emacs-doom-themes/themes")))
-  (setq theme-list (mapcar #'(lambda (x)
-                               (expand-file-name x base-dir))
-                           theme-list))
-  (mapc #'(lambda (x)
-            (add-to-list 'custom-theme-load-path x))
-        theme-list))
+(eemacs-ext--load-theme-path (expand-file-name eemacs-ext-submodules-upstream-root)
+                             '("color-theme-sanityinc-tomorrow"
+                               "birds-of-paradise-plus-theme.el"
+                               "gotham-theme"
+                               "atom-dark-theme-emacs"
+                               "atom-one-dark-theme"
+                               "GitHub-Theme-for-Emacs"
+                               "doneburn-theme"
+                               "emacs-klere-theme"
+                               "emacs-material-theme"
+                               "spacemacs-theme"
+                               "emacs-color-themes"
+                               "darkokai"
+                               "color-theme-ujelly"
+                               "srcery-emacs"
+                               "emacs-chocolate-theme"
+                               "emacs-doom-themes/themes"))
 
-;; Profide
+;; * Provide
 (provide 'entropy-emacs-extensions-load.el)
