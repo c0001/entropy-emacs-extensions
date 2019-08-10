@@ -706,3 +706,11 @@
 	path = elements/submodules/emacs-hide-mode-line
 	url = https://github.com/hlissner/emacs-hide-mode-line.git
 	branch = master
+[submodule "elements/submodules/outorg"]
+	path = elements/submodules/outorg
+	url = https://github.com/alphapapa/outorg.git
+	branch = master
+[submodule "elements/submodules/outshine"]
+	path = elements/submodules/outshine
+	url = https://github.com/alphapapa/outshine.git
+	branch = master
