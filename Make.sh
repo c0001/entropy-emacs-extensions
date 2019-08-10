@@ -11,22 +11,22 @@ DIR="$( cd -P "$( dirname "$SOURCE" )" >/dev/null && pwd )"
 
 
 # ** variable declaration
-submodules_dir=$DIR/elements/submodules
+upstream_submodules_dir=$DIR/elements/submodules/upstream
 infos_dir=$DIR/elements/info-files
 
 [ ! -d "${infos_dir}" ] && mkdir ${infos_dir}
 
-dash_dir=${submodules_dir}/dash.el
-ghub_dir=${submodules_dir}/ghub
-magit_dir=${submodules_dir}/magit
-magit_popup_dir=${submodules_dir}/magit-popup
-webserver_dir=${submodules_dir}/emacs-web-server
-witheditor_dir=${submodules_dir}/with-editor
-ivy_dir=${submodules_dir}/swiper
-nsis_dir=${submodules_dir}/nsis-mode
-ew3m_dir=${submodules_dir}/emacs-w3m
-transient_dir=${submodules_dir}/transient
-usepackage_dir=${submodules_dir}/use-package
+dash_dir=${upstream_submodules_dir}/dash.el
+ghub_dir=${upstream_submodules_dir}/ghub
+magit_dir=${upstream_submodules_dir}/magit
+magit_popup_dir=${upstream_submodules_dir}/magit-popup
+webserver_dir=${upstream_submodules_dir}/emacs-web-server
+witheditor_dir=${upstream_submodules_dir}/with-editor
+ivy_dir=${upstream_submodules_dir}/swiper
+nsis_dir=${upstream_submodules_dir}/nsis-mode
+ew3m_dir=${upstream_submodules_dir}/emacs-w3m
+transient_dir=${upstream_submodules_dir}/transient
+usepackage_dir=${upstream_submodules_dir}/use-package
 
 # ** commands requested check
 Checking_shell ()
