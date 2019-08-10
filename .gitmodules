@@ -1,716 +1,716 @@
 [submodule "elements/submodules/entropy-windresize"]
-	path = elements/submodules/entropy-windresize
+	path = elements/submodules/self-clone/entropy-windresize
 	url = https://github.com/c0001/entropy-windresize.git
 	branch = master
 [submodule "elements/submodules/entropy-undo-tree"]
-	path = elements/submodules/entropy-undo-tree
+	path = elements/submodules/self-clone/entropy-undo-tree
 	url = https://github.com/c0001/entropy-undo-tree.git
 	branch = master
 [submodule "elements/submodules/org-reveal"]
-	path = elements/submodules/org-reveal
+	path = elements/submodules/upstream/org-reveal
 	url = https://github.com/yjwen/org-reveal.git
 	branch = master
 [submodule "elements/submodules/search-web.el"]
-	path = elements/submodules/search-web.el
+	path = elements/submodules/upstream/search-web.el
 	url = https://github.com/tomoya/search-web.el.git
 	branch = master
 [submodule "elements/submodules/zeal-at-point"]
-	path = elements/submodules/zeal-at-point
+	path = elements/submodules/upstream/zeal-at-point
 	url = https://github.com/jinzhu/zeal-at-point.git
 	branch = master
 [submodule "elements/submodules/doom-modeline"]
-	path = elements/submodules/doom-modeline
+	path = elements/submodules/upstream/doom-modeline
 	url = https://github.com/seagle0128/doom-modeline.git
 	branch = master
 [submodule "elements/submodules/emacs-maple-preview"]
-	path = elements/submodules/emacs-maple-preview
+	path = elements/submodules/upstream/emacs-maple-preview
 	url = https://github.com/honmaple/emacs-maple-preview.git
 	branch = master
 [submodule "elements/submodules/makey"]
-	path = elements/submodules/makey
+	path = elements/submodules/upstream/makey
 	url = https://github.com/mickeynp/makey.git
 	branch = master
 [submodule "elements/submodules/nsis-mode"]
-	path = elements/submodules/nsis-mode
+	path = elements/submodules/upstream/nsis-mode
 	url = https://github.com/mattfidler/nsis-mode.git
 	branch = master
 [submodule "elements/submodules/emacs-color-themes"]
-	path = elements/submodules/emacs-color-themes
+	path = elements/submodules/upstream/emacs-color-themes
 	url = https://github.com/owainlewis/emacs-color-themes.git
 	branch = master
 [submodule "elements/submodules/emacs-async"]
-	path = elements/submodules/emacs-async
+	path = elements/submodules/upstream/emacs-async
 	url = https://github.com/jwiegley/emacs-async.git
 	branch = master
 [submodule "elements/submodules/elisp-refs"]
-	path = elements/submodules/elisp-refs
+	path = elements/submodules/upstream/elisp-refs
 	url = https://github.com/Wilfred/elisp-refs.git
 	branch = master
 [submodule "elements/submodules/elfeed"]
-	path = elements/submodules/elfeed
+	path = elements/submodules/upstream/elfeed
 	url = https://github.com/skeeto/elfeed.git
 	branch = master
 [submodule "elements/submodules/eldoc-eval"]
-	path = elements/submodules/eldoc-eval
+	path = elements/submodules/upstream/eldoc-eval
 	url = https://github.com/thierryvolpiatto/eldoc-eval.git
 	branch = master
 [submodule "elements/submodules/el2org"]
-	path = elements/submodules/el2org
+	path = elements/submodules/upstream/el2org
 	url = https://github.com/tumashu/el2org.git
 	branch = master
 [submodule "elements/submodules/doneburn-theme"]
-	path = elements/submodules/doneburn-theme
+	path = elements/submodules/upstream/doneburn-theme
 	url = https://github.com/manuel-uberti/doneburn-theme.git
 	branch = master
 [submodule "elements/submodules/GitHub-Theme-for-Emacs"]
-	path = elements/submodules/GitHub-Theme-for-Emacs
+	path = elements/submodules/upstream/GitHub-Theme-for-Emacs
 	url = https://github.com/philiparvidsson/GitHub-Theme-for-Emacs.git
 	branch = master
 [submodule "elements/submodules/ac-php"]
-	path = elements/submodules/ac-php
+	path = elements/submodules/upstream/ac-php
 	url = https://github.com/xcwen/ac-php.git
 	branch = master
 [submodule "elements/submodules/alert"]
-	path = elements/submodules/alert
+	path = elements/submodules/upstream/alert
 	url = https://github.com/jwiegley/alert.git
 	branch = master
 [submodule "elements/submodules/all-the-icons-dired"]
-	path = elements/submodules/all-the-icons-dired
+	path = elements/submodules/upstream/all-the-icons-dired
 	url = https://github.com/jtbm37/all-the-icons-dired.git
 	branch = master
 [submodule "elements/submodules/all-the-icons.el"]
-	path = elements/submodules/all-the-icons.el
+	path = elements/submodules/upstream/all-the-icons.el
 	url = https://github.com/domtronn/all-the-icons.el.git
 	branch = master
 [submodule "elements/submodules/anaconda-mode"]
-	path = elements/submodules/anaconda-mode
+	path = elements/submodules/upstream/anaconda-mode
 	url = https://github.com/proofit404/anaconda-mode.git
 	branch = master
 [submodule "elements/submodules/atom-dark-theme-emacs"]
-	path = elements/submodules/atom-dark-theme-emacs
+	path = elements/submodules/upstream/atom-dark-theme-emacs
 	url = https://github.com/whitlockjc/atom-dark-theme-emacs.git
 	branch = master
 [submodule "elements/submodules/atom-one-dark-theme"]
-	path = elements/submodules/atom-one-dark-theme
+	path = elements/submodules/upstream/atom-one-dark-theme
 	url = https://github.com/jonathanchu/atom-one-dark-theme.git
 	branch = master
 [submodule "elements/submodules/atomic-chrome"]
-	path = elements/submodules/atomic-chrome
+	path = elements/submodules/upstream/atomic-chrome
 	url = https://github.com/alpha22jp/atomic-chrome.git
 	branch = master
 [submodule "elements/submodules/auto-complete"]
-	path = elements/submodules/auto-complete
+	path = elements/submodules/upstream/auto-complete
 	url = https://github.com/auto-complete/auto-complete.git
 	branch = master
 [submodule "elements/submodules/auto-sudoedit"]
-	path = elements/submodules/auto-sudoedit
+	path = elements/submodules/upstream/auto-sudoedit
 	url = https://github.com/ncaq/auto-sudoedit.git
 	branch = master
 [submodule "elements/submodules/auto-yasnippet"]
-	path = elements/submodules/auto-yasnippet
+	path = elements/submodules/upstream/auto-yasnippet
 	url = https://github.com/abo-abo/auto-yasnippet.git
 	branch = master
 [submodule "elements/submodules/avy"]
-	path = elements/submodules/avy
+	path = elements/submodules/upstream/avy
 	url = https://github.com/abo-abo/avy.git
 	branch = master
 [submodule "elements/submodules/benchmark-init-el"]
-	path = elements/submodules/benchmark-init-el
+	path = elements/submodules/upstream/benchmark-init-el
 	url = https://github.com/dholm/benchmark-init-el.git
 	branch = master
 [submodule "elements/submodules/bing-dict.el"]
-	path = elements/submodules/bing-dict.el
+	path = elements/submodules/upstream/bing-dict.el
 	url = https://github.com/cute-jumper/bing-dict.el.git
 	branch = master
 [submodule "elements/submodules/birds-of-paradise-plus-theme.el"]
-	path = elements/submodules/birds-of-paradise-plus-theme.el
+	path = elements/submodules/upstream/birds-of-paradise-plus-theme.el
 	url = https://github.com/jimeh/birds-of-paradise-plus-theme.el.git
 	branch = master
 [submodule "elements/submodules/browse-at-remote"]
-	path = elements/submodules/browse-at-remote
+	path = elements/submodules/upstream/browse-at-remote
 	url = https://github.com/rmuslimov/browse-at-remote.git
 	branch = master
 [submodule "elements/submodules/browse-kill-ring"]
-	path = elements/submodules/browse-kill-ring
+	path = elements/submodules/upstream/browse-kill-ring
 	url = https://github.com/T-J-Teru/browse-kill-ring.git
 	branch = master
 [submodule "elements/submodules/buffer-move"]
-	path = elements/submodules/buffer-move
+	path = elements/submodules/upstream/buffer-move
 	url = https://github.com/lukhas/buffer-move.git
 	branch = master
 [submodule "elements/submodules/cal-china-x"]
-	path = elements/submodules/cal-china-x
+	path = elements/submodules/upstream/cal-china-x
 	url = https://github.com/xwl/cal-china-x.git
 	branch = master
 [submodule "elements/submodules/chinese-word-at-point.el"]
-	path = elements/submodules/chinese-word-at-point.el
+	path = elements/submodules/upstream/chinese-word-at-point.el
 	url = https://github.com/xuchunyang/chinese-word-at-point.el.git
 	branch = master
 [submodule "elements/submodules/color-theme-sanityinc-tomorrow"]
-	path = elements/submodules/color-theme-sanityinc-tomorrow
+	path = elements/submodules/upstream/color-theme-sanityinc-tomorrow
 	url = https://github.com/purcell/color-theme-sanityinc-tomorrow.git
 	branch = master
 [submodule "elements/submodules/color-theme-ujelly"]
-	path = elements/submodules/color-theme-ujelly
+	path = elements/submodules/upstream/color-theme-ujelly
 	url = https://github.com/marktran/color-theme-ujelly.git
 	branch = master
 [submodule "elements/submodules/command-log-mode"]
-	path = elements/submodules/command-log-mode
+	path = elements/submodules/upstream/command-log-mode
 	url = https://github.com/lewang/command-log-mode.git
 	branch = master
 [submodule "elements/submodules/company-anaconda"]
-	path = elements/submodules/company-anaconda
+	path = elements/submodules/upstream/company-anaconda
 	url = https://github.com/proofit404/company-anaconda.git
 	branch = master
 [submodule "elements/submodules/company-c-headers"]
-	path = elements/submodules/company-c-headers
+	path = elements/submodules/upstream/company-c-headers
 	url = https://github.com/randomphrase/company-c-headers.git
 	branch = master
 [submodule "elements/submodules/company-irony"]
-	path = elements/submodules/company-irony
+	path = elements/submodules/upstream/company-irony
 	url = https://github.com/Sarcasm/company-irony.git
 	branch = master
 [submodule "elements/submodules/company-mode"]
-	path = elements/submodules/company-mode
+	path = elements/submodules/upstream/company-mode
 	url = https://github.com/company-mode/company-mode.git
 	branch = master
 [submodule "elements/submodules/company-posframe"]
-	path = elements/submodules/company-posframe
+	path = elements/submodules/upstream/company-posframe
 	url = https://github.com/tumashu/company-posframe.git
 	branch = master
 [submodule "elements/submodules/company-quickhelp"]
-	path = elements/submodules/company-quickhelp
+	path = elements/submodules/upstream/company-quickhelp
 	url = https://github.com/expez/company-quickhelp.git
 	branch = master
 [submodule "elements/submodules/company-shell"]
-	path = elements/submodules/company-shell
+	path = elements/submodules/upstream/company-shell
 	url = https://github.com/Alexander-Miller/company-shell.git
 	branch = master
 [submodule "elements/submodules/company-tern"]
-	path = elements/submodules/company-tern
+	path = elements/submodules/upstream/company-tern
 	url = https://github.com/proofit404/company-tern.git
 	branch = master
 [submodule "elements/submodules/company-web"]
-	path = elements/submodules/company-web
+	path = elements/submodules/upstream/company-web
 	url = https://github.com/osv/company-web.git
 	branch = master
 [submodule "elements/submodules/darkokai"]
-	path = elements/submodules/darkokai
+	path = elements/submodules/upstream/darkokai
 	url = https://github.com/sjrmanning/darkokai.git
 	branch = master
 [submodule "elements/submodules/dash.el"]
-	path = elements/submodules/dash.el
+	path = elements/submodules/upstream/dash.el
 	url = https://github.com/magnars/dash.el.git
 	branch = master
 [submodule "elements/submodules/diff-hl"]
-	path = elements/submodules/diff-hl
+	path = elements/submodules/upstream/diff-hl
 	url = https://github.com/dgutov/diff-hl.git
 	branch = master
 [submodule "elements/submodules/diminish.el"]
-	path = elements/submodules/diminish.el
+	path = elements/submodules/upstream/diminish.el
 	url = https://github.com/myrjola/diminish.el.git
 	branch = master
 [submodule "elements/submodules/dired-hacks"]
-	path = elements/submodules/dired-hacks
+	path = elements/submodules/upstream/dired-hacks
 	url = https://github.com/Fuco1/dired-hacks.git
 	branch = master
 [submodule "elements/submodules/dired-quick-sort"]
-	path = elements/submodules/dired-quick-sort
+	path = elements/submodules/upstream/dired-quick-sort
 	url = https://github.com/emacsmirror/dired-quick-sort.git
 	branch = master
 [submodule "elements/submodules/disable-mouse"]
-	path = elements/submodules/disable-mouse
+	path = elements/submodules/upstream/disable-mouse
 	url = https://github.com/purcell/disable-mouse.git
 	branch = master
 [submodule "elements/submodules/discover-my-major"]
-	path = elements/submodules/discover-my-major
+	path = elements/submodules/upstream/discover-my-major
 	url = https://github.com/emacsmirror/discover-my-major.git
 	branch = master
 [submodule "elements/submodules/emacs-copyit"]
-	path = elements/submodules/emacs-copyit
+	path = elements/submodules/upstream/emacs-copyit
 	url = https://github.com/zonuexe/emacs-copyit.git
 	branch = master
 [submodule "elements/submodules/emacs-counsel-css"]
-	path = elements/submodules/emacs-counsel-css
+	path = elements/submodules/upstream/emacs-counsel-css
 	url = https://github.com/hlissner/emacs-counsel-css.git
 	branch = master
 [submodule "elements/submodules/emacs-doom-themes"]
-	path = elements/submodules/emacs-doom-themes
+	path = elements/submodules/upstream/emacs-doom-themes
 	url = https://github.com/hlissner/emacs-doom-themes.git
 	branch = master
 [submodule "elements/submodules/emacs-git-messenger"]
-	path = elements/submodules/emacs-git-messenger
+	path = elements/submodules/upstream/emacs-git-messenger
 	url = https://github.com/syohex/emacs-git-messenger.git
 	branch = master
 [submodule "elements/submodules/emacs-helm-ag"]
-	path = elements/submodules/emacs-helm-ag
+	path = elements/submodules/upstream/emacs-helm-ag
 	url = https://github.com/syohex/emacs-helm-ag.git
 	branch = master
 [submodule "elements/submodules/emacs-htmlize"]
-	path = elements/submodules/emacs-htmlize
+	path = elements/submodules/upstream/emacs-htmlize
 	url = https://github.com/hniksic/emacs-htmlize.git
 	branch = master
 [submodule "elements/submodules/emacs-klere-theme"]
-	path = elements/submodules/emacs-klere-theme
+	path = elements/submodules/upstream/emacs-klere-theme
 	url = https://github.com/WammKD/emacs-klere-theme.git
 	branch = master
 [submodule "elements/submodules/emacs-material-theme"]
-	path = elements/submodules/emacs-material-theme
+	path = elements/submodules/upstream/emacs-material-theme
 	url = https://github.com/cpaulik/emacs-material-theme.git
 	branch = master
 [submodule "elements/submodules/emacs-memoize"]
-	path = elements/submodules/emacs-memoize
+	path = elements/submodules/upstream/emacs-memoize
 	url = https://github.com/skeeto/emacs-memoize.git
 	branch = master
 [submodule "elements/submodules/emacs-simple-httpd"]
-	path = elements/submodules/emacs-simple-httpd
+	path = elements/submodules/upstream/emacs-simple-httpd
 	url = https://github.com/skeeto/emacs-web-server.git
 	branch = master
 [submodule "elements/submodules/emacs-smeargle"]
-	path = elements/submodules/emacs-smeargle
+	path = elements/submodules/upstream/emacs-smeargle
 	url = https://github.com/syohex/emacs-smeargle.git
 	branch = master
 [submodule "elements/submodules/emacs-web-server"]
-	path = elements/submodules/emacs-web-server
+	path = elements/submodules/upstream/emacs-web-server
 	url = https://github.com/eschulte/emacs-web-server.git
 	branch = master
 [submodule "elements/submodules/emacs-websocket"]
-	path = elements/submodules/emacs-websocket
+	path = elements/submodules/upstream/emacs-websocket
 	url = https://github.com/ahyatt/emacs-websocket.git
 	branch = master
 [submodule "elements/submodules/emacs-which-key"]
-	path = elements/submodules/emacs-which-key
+	path = elements/submodules/upstream/emacs-which-key
 	url = https://github.com/justbur/emacs-which-key.git
 	branch = master
 [submodule "elements/submodules/emmet-mode"]
-	path = elements/submodules/emmet-mode
+	path = elements/submodules/upstream/emmet-mode
 	url = https://github.com/smihica/emmet-mode.git
 	branch = master
 [submodule "elements/submodules/esup"]
-	path = elements/submodules/esup
+	path = elements/submodules/upstream/esup
 	url = https://github.com/jschaf/esup.git
 	branch = master
 [submodule "elements/submodules/eyebrowse"]
-	path = elements/submodules/eyebrowse
+	path = elements/submodules/upstream/eyebrowse
 	url = https://github.com/wasamasa/eyebrowse.git
 	branch = master
 [submodule "elements/submodules/f.el"]
-	path = elements/submodules/f.el
+	path = elements/submodules/upstream/f.el
 	url = https://github.com/rejeep/f.el.git
 	branch = master
 [submodule "elements/submodules/ghub"]
-	path = elements/submodules/ghub
+	path = elements/submodules/upstream/ghub
 	url = https://github.com/magit/ghub.git
 	branch = master
 [submodule "elements/submodules/git-modes"]
-	path = elements/submodules/git-modes
+	path = elements/submodules/upstream/git-modes
 	url = https://github.com/magit/git-modes.git
 	branch = master
 [submodule "elements/submodules/git-timemachine"]
-	path = elements/submodules/git-timemachine
+	path = elements/submodules/upstream/git-timemachine
 	url = https://github.com/emacsmirror/git-timemachine.git
 	branch = master
 [submodule "elements/submodules/gntp.el"]
-	path = elements/submodules/gntp.el
+	path = elements/submodules/upstream/gntp.el
 	url = https://github.com/tekai/gntp.el.git
 	branch = master
 [submodule "elements/submodules/go-mode.el"]
-	path = elements/submodules/go-mode.el
+	path = elements/submodules/upstream/go-mode.el
 	url = https://github.com/dominikh/go-mode.el.git
 	branch = master
 [submodule "elements/submodules/google-translate"]
-	path = elements/submodules/google-translate
+	path = elements/submodules/upstream/google-translate
 	url = https://github.com/atykhonov/google-translate.git
 	branch = master
 [submodule "elements/submodules/gotham-theme"]
-	path = elements/submodules/gotham-theme
+	path = elements/submodules/upstream/gotham-theme
 	url = https://github.com/wasamasa/gotham-theme.git
 	branch = master
 [submodule "elements/submodules/graphql.el"]
-	path = elements/submodules/graphql.el
+	path = elements/submodules/upstream/graphql.el
 	url = https://github.com/vermiculus/graphql.el.git
 	branch = master
 [submodule "elements/submodules/helm"]
-	path = elements/submodules/helm
+	path = elements/submodules/upstream/helm
 	url = https://github.com/emacs-helm/helm.git
 	branch = master
 [submodule "elements/submodules/highlight-indent-guides"]
-	path = elements/submodules/highlight-indent-guides
+	path = elements/submodules/upstream/highlight-indent-guides
 	url = https://github.com/DarthFennec/highlight-indent-guides.git
 	branch = master
 [submodule "elements/submodules/highlight-parentheses.el"]
-	path = elements/submodules/highlight-parentheses.el
+	path = elements/submodules/upstream/highlight-parentheses.el
 	url = https://github.com/tsdh/highlight-parentheses.el.git
 	branch = master
 [submodule "elements/submodules/hl-todo"]
-	path = elements/submodules/hl-todo
+	path = elements/submodules/upstream/hl-todo
 	url = https://github.com/tarsius/hl-todo.git
 	branch = master
 [submodule "elements/submodules/hydra"]
-	path = elements/submodules/hydra
+	path = elements/submodules/upstream/hydra
 	url = https://github.com/abo-abo/hydra.git
 	branch = master
 [submodule "elements/submodules/imp.el"]
-	path = elements/submodules/imp.el
+	path = elements/submodules/upstream/imp.el
 	url = https://github.com/netguy204/imp.el.git
 	branch = master
 [submodule "elements/submodules/interactive-align"]
-	path = elements/submodules/interactive-align
+	path = elements/submodules/upstream/interactive-align
 	url = https://github.com/mkcms/interactive-align.git
 	branch = master
 [submodule "elements/submodules/irony-eldoc"]
-	path = elements/submodules/irony-eldoc
+	path = elements/submodules/upstream/irony-eldoc
 	url = https://github.com/ikirill/irony-eldoc.git
 	branch = master
 [submodule "elements/submodules/irony-mode"]
-	path = elements/submodules/irony-mode
+	path = elements/submodules/upstream/irony-mode
 	url = https://github.com/Sarcasm/irony-mode.git
 	branch = master
 [submodule "elements/submodules/ivy-xref"]
-	path = elements/submodules/ivy-xref
+	path = elements/submodules/upstream/ivy-xref
 	url = https://github.com/alexmurray/ivy-xref.git
 	branch = master
 [submodule "elements/submodules/js2-mode"]
-	path = elements/submodules/js2-mode
+	path = elements/submodules/upstream/js2-mode
 	url = https://github.com/mooz/js2-mode.git
 	branch = master
 [submodule "elements/submodules/js2-refactor.el"]
-	path = elements/submodules/js2-refactor.el
+	path = elements/submodules/upstream/js2-refactor.el
 	url = https://github.com/magnars/js2-refactor.el.git
 	branch = master
 [submodule "elements/submodules/json-mode"]
-	path = elements/submodules/json-mode
+	path = elements/submodules/upstream/json-mode
 	url = https://github.com/joshwnj/json-mode.git
 	branch = master
 [submodule "elements/submodules/json-reformat"]
-	path = elements/submodules/json-reformat
+	path = elements/submodules/upstream/json-reformat
 	url = https://github.com/gongo/json-reformat.git
 	branch = master
 [submodule "elements/submodules/json-snatcher"]
-	path = elements/submodules/json-snatcher
+	path = elements/submodules/upstream/json-snatcher
 	url = https://github.com/Sterlingg/json-snatcher.git
 	branch = master
 [submodule "elements/submodules/log4e"]
-	path = elements/submodules/log4e
+	path = elements/submodules/upstream/log4e
 	url = https://github.com/aki2o/log4e.git
 	branch = master
 [submodule "elements/submodules/loop.el"]
-	path = elements/submodules/loop.el
+	path = elements/submodules/upstream/loop.el
 	url = https://github.com/Wilfred/loop.el.git
 	branch = master
 [submodule "elements/submodules/lua-mode"]
-	path = elements/submodules/lua-mode
+	path = elements/submodules/upstream/lua-mode
 	url = https://github.com/immerrr/lua-mode.git
 	branch = master
 [submodule "elements/submodules/macrostep"]
-	path = elements/submodules/macrostep
+	path = elements/submodules/upstream/macrostep
 	url = https://github.com/joddie/macrostep.git
 	branch = master
 [submodule "elements/submodules/magit"]
-	path = elements/submodules/magit
+	path = elements/submodules/upstream/magit
 	url = https://github.com/magit/magit.git
 	branch = master
 [submodule "elements/submodules/magit-gitflow"]
-	path = elements/submodules/magit-gitflow
+	path = elements/submodules/upstream/magit-gitflow
 	url = https://github.com/jtatarik/magit-gitflow.git
 	branch = master
 [submodule "elements/submodules/magit-popup"]
-	path = elements/submodules/magit-popup
+	path = elements/submodules/upstream/magit-popup
 	url = https://github.com/magit/magit-popup.git
 	branch = master
 [submodule "elements/submodules/magit-svn"]
-	path = elements/submodules/magit-svn
+	path = elements/submodules/upstream/magit-svn
 	url = https://github.com/emacsorphanage/magit-svn.git
 	branch = master
 [submodule "elements/submodules/markdown-mode"]
-	path = elements/submodules/markdown-mode
+	path = elements/submodules/upstream/markdown-mode
 	url = https://github.com/jrblevin/markdown-mode.git
 	branch = master
 [submodule "elements/submodules/markdown-preview-mode"]
-	path = elements/submodules/markdown-preview-mode
+	path = elements/submodules/upstream/markdown-preview-mode
 	url = https://github.com/ancane/markdown-preview-mode.git
 	branch = master
 [submodule "elements/submodules/mode-line-bell"]
-	path = elements/submodules/mode-line-bell
+	path = elements/submodules/upstream/mode-line-bell
 	url = https://github.com/purcell/mode-line-bell.git
 	branch = master
 [submodule "elements/submodules/multiple-cursors.el"]
-	path = elements/submodules/multiple-cursors.el
+	path = elements/submodules/upstream/multiple-cursors.el
 	url = https://github.com/magnars/multiple-cursors.el.git
 	branch = master
 [submodule "elements/submodules/names"]
-	path = elements/submodules/names
+	path = elements/submodules/upstream/names
 	url = https://github.com/Malabarba/names.git
 	branch = master
 [submodule "elements/submodules/openwith"]
-	path = elements/submodules/openwith
+	path = elements/submodules/upstream/openwith
 	url = https://github.com/emacsmirror/openwith.git
 	branch = master
 [submodule "elements/submodules/org-bullets"]
-	path = elements/submodules/org-bullets
+	path = elements/submodules/upstream/org-bullets
 	url = https://github.com/emacsorphanage/org-bullets.git
 	branch = master
 [submodule "elements/submodules/org-download"]
-	path = elements/submodules/org-download
+	path = elements/submodules/upstream/org-download
 	url = https://github.com/abo-abo/org-download.git
 	branch = master
 [submodule "elements/submodules/org-pomodoro"]
-	path = elements/submodules/org-pomodoro
+	path = elements/submodules/upstream/org-pomodoro
 	url = https://github.com/lolownia/org-pomodoro.git
 	branch = master
 [submodule "elements/submodules/ox-gfm"]
-	path = elements/submodules/ox-gfm
+	path = elements/submodules/upstream/ox-gfm
 	url = https://github.com/larstvei/ox-gfm.git
 	branch = master
 [submodule "elements/submodules/page-break-lines"]
-	path = elements/submodules/page-break-lines
+	path = elements/submodules/upstream/page-break-lines
 	url = https://github.com/purcell/page-break-lines.git
 	branch = master
 [submodule "elements/submodules/php-mode"]
-	path = elements/submodules/php-mode
+	path = elements/submodules/upstream/php-mode
 	url = https://github.com/emacs-php/php-mode.git
 	branch = master
 [submodule "elements/submodules/pomidor"]
-	path = elements/submodules/pomidor
+	path = elements/submodules/upstream/pomidor
 	url = https://github.com/TatriX/pomidor.git
 	branch = master
 [submodule "elements/submodules/poporg"]
-	path = elements/submodules/poporg
+	path = elements/submodules/upstream/poporg
 	url = https://github.com/QBobWatson/poporg.git
 	branch = master
 [submodule "elements/submodules/popup-el"]
-	path = elements/submodules/popup-el
+	path = elements/submodules/upstream/popup-el
 	url = https://github.com/auto-complete/popup-el.git
 	branch = master
 [submodule "elements/submodules/popwin-el"]
-	path = elements/submodules/popwin-el
+	path = elements/submodules/upstream/popwin-el
 	url = https://github.com/m2ym/popwin-el.git
 	branch = master
 [submodule "elements/submodules/pos-tip"]
-	path = elements/submodules/pos-tip
+	path = elements/submodules/upstream/pos-tip
 	url = https://github.com/emacsmirror/pos-tip.git
 	branch = master
 [submodule "elements/submodules/posframe"]
-	path = elements/submodules/posframe
+	path = elements/submodules/upstream/posframe
 	url = https://github.com/tumashu/posframe.git
 	branch = master
 [submodule "elements/submodules/powerline"]
-	path = elements/submodules/powerline
+	path = elements/submodules/upstream/powerline
 	url = https://github.com/milkypostman/powerline.git
 	branch = master
 [submodule "elements/submodules/py-autopep8.el"]
-	path = elements/submodules/py-autopep8.el
+	path = elements/submodules/upstream/py-autopep8.el
 	url = https://github.com/paetzke/py-autopep8.el.git
 	branch = master
 [submodule "elements/submodules/pyim"]
-	path = elements/submodules/pyim
+	path = elements/submodules/upstream/pyim
 	url = https://github.com/tumashu/pyim.git
 	branch = master
 [submodule "elements/submodules/pyim-basedict"]
-	path = elements/submodules/pyim-basedict
+	path = elements/submodules/upstream/pyim-basedict
 	url = https://github.com/tumashu/pyim-basedict.git
 	branch = master
 [submodule "elements/submodules/pythonic"]
-	path = elements/submodules/pythonic
+	path = elements/submodules/upstream/pythonic
 	url = https://github.com/proofit404/pythonic.git
 	branch = master
 [submodule "elements/submodules/rainbow-delimiters"]
-	path = elements/submodules/rainbow-delimiters
+	path = elements/submodules/upstream/rainbow-delimiters
 	url = https://github.com/Fanael/rainbow-delimiters.git
 	branch = master
 [submodule "elements/submodules/rainbow-mode"]
-	path = elements/submodules/rainbow-mode
+	path = elements/submodules/upstream/rainbow-mode
 	url = https://github.com/emacsmirror/rainbow-mode.git
 	branch = master
 [submodule "elements/submodules/s.el"]
-	path = elements/submodules/s.el
+	path = elements/submodules/upstream/s.el
 	url = https://github.com/magnars/s.el.git
 	branch = master
 [submodule "elements/submodules/shell-pop-el"]
-	path = elements/submodules/shell-pop-el
+	path = elements/submodules/upstream/shell-pop-el
 	url = https://github.com/kyagi/shell-pop-el.git
 	branch = master
 [submodule "elements/submodules/shrink-path.el"]
-	path = elements/submodules/shrink-path.el
+	path = elements/submodules/upstream/shrink-path.el
 	url = https://gitlab.com/bennya/shrink-path.el.git
 	branch = master
 [submodule "elements/submodules/skewer-mode"]
-	path = elements/submodules/skewer-mode
+	path = elements/submodules/upstream/skewer-mode
 	url = https://github.com/skeeto/skewer-mode.git
 	branch = master
 [submodule "elements/submodules/spaceline"]
-	path = elements/submodules/spaceline
+	path = elements/submodules/upstream/spaceline
 	url = https://github.com/TheBB/spaceline.git
 	branch = master
 [submodule "elements/submodules/spaceline-all-the-icons.el"]
-	path = elements/submodules/spaceline-all-the-icons.el
+	path = elements/submodules/upstream/spaceline-all-the-icons.el
 	url = https://github.com/domtronn/spaceline-all-the-icons.el.git
 	branch = master
 [submodule "elements/submodules/spacemacs-theme"]
-	path = elements/submodules/spacemacs-theme
+	path = elements/submodules/upstream/spacemacs-theme
 	url = https://github.com/nashamri/spacemacs-theme.git
 	branch = master
 [submodule "elements/submodules/srcery-emacs"]
-	path = elements/submodules/srcery-emacs
+	path = elements/submodules/upstream/srcery-emacs
 	url = https://github.com/srcery-colors/srcery-emacs.git
 	branch = master
 [submodule "elements/submodules/ssh-agency"]
-	path = elements/submodules/ssh-agency
+	path = elements/submodules/upstream/ssh-agency
 	url = https://github.com/magit/ssh-agency.git
 	branch = master
 [submodule "elements/submodules/swiper"]
-	path = elements/submodules/swiper
+	path = elements/submodules/upstream/swiper
 	url = https://github.com/abo-abo/swiper.git
 	branch = master
 [submodule "elements/submodules/symbol-overlay"]
-	path = elements/submodules/symbol-overlay
+	path = elements/submodules/upstream/symbol-overlay
 	url = https://github.com/wolray/symbol-overlay.git
 	branch = master
 [submodule "elements/submodules/tern"]
-	path = elements/submodules/tern
+	path = elements/submodules/upstream/tern
 	url = https://github.com/ternjs/tern.git
 	branch = master
 [submodule "elements/submodules/toc-org"]
-	path = elements/submodules/toc-org
+	path = elements/submodules/upstream/toc-org
 	url = https://github.com/snosov1/toc-org.git
 	branch = master
 [submodule "elements/submodules/treepy.el"]
-	path = elements/submodules/treepy.el
+	path = elements/submodules/upstream/treepy.el
 	url = https://github.com/volrath/treepy.el.git
 	branch = master
 [submodule "elements/submodules/use-package"]
-	path = elements/submodules/use-package
+	path = elements/submodules/upstream/use-package
 	url = https://github.com/jwiegley/use-package.git
 	branch = master
 [submodule "elements/submodules/uuidgen-el"]
-	path = elements/submodules/uuidgen-el
+	path = elements/submodules/upstream/uuidgen-el
 	url = https://github.com/kanru/uuidgen-el.git
 	branch = master
 [submodule "elements/submodules/visual-regexp.el"]
-	path = elements/submodules/visual-regexp.el
+	path = elements/submodules/upstream/visual-regexp.el
 	url = https://github.com/benma/visual-regexp.el.git
 	branch = master
 [submodule "elements/submodules/volatile-highlights.el"]
-	path = elements/submodules/volatile-highlights.el
+	path = elements/submodules/upstream/volatile-highlights.el
 	url = https://github.com/k-talo/volatile-highlights.el.git
 	branch = master
 [submodule "elements/submodules/web-beautify"]
-	path = elements/submodules/web-beautify
+	path = elements/submodules/upstream/web-beautify
 	url = https://github.com/yasuyk/web-beautify.git
 	branch = master
 [submodule "elements/submodules/web-completion-data"]
-	path = elements/submodules/web-completion-data
+	path = elements/submodules/upstream/web-completion-data
 	url = https://github.com/osv/web-completion-data.git
 	branch = master
 [submodule "elements/submodules/web-mode"]
-	path = elements/submodules/web-mode
+	path = elements/submodules/upstream/web-mode
 	url = https://github.com/fxbois/web-mode.git
 	branch = master
 [submodule "elements/submodules/window-number"]
-	path = elements/submodules/window-number
+	path = elements/submodules/upstream/window-number
 	url = https://github.com/nikolas/window-number.git
 	branch = master
 [submodule "elements/submodules/with-editor"]
-	path = elements/submodules/with-editor
+	path = elements/submodules/upstream/with-editor
 	url = https://github.com/magit/with-editor.git
 	branch = master
 [submodule "elements/submodules/xcscope.el"]
-	path = elements/submodules/xcscope.el
+	path = elements/submodules/upstream/xcscope.el
 	url = https://github.com/dkogan/xcscope.el.git
 	branch = master
 [submodule "elements/submodules/yasnippet"]
-	path = elements/submodules/yasnippet
+	path = elements/submodules/upstream/yasnippet
 	url = https://github.com/joaotavora/yasnippet.git
 	branch = master
 [submodule "elements/submodules/yasnippet-snippets"]
-	path = elements/submodules/yasnippet-snippets
+	path = elements/submodules/upstream/yasnippet-snippets
 	url = https://github.com/AndreaCrotti/yasnippet-snippets.git
 	branch = master
 [submodule "elements/submodules/youdao-dictionary.el"]
-	path = elements/submodules/youdao-dictionary.el
+	path = elements/submodules/upstream/youdao-dictionary.el
 	url = https://github.com/xuchunyang/youdao-dictionary.el.git
 	branch = master
 [submodule "elements/submodules/transient"]
-	path = elements/submodules/transient
+	path = elements/submodules/upstream/transient
 	url = https://github.com/magit/transient.git
 	branch = master
 [submodule "elements/submodules/emacs-w3m"]
-	path = elements/submodules/emacs-w3m
+	path = elements/submodules/upstream/emacs-w3m
 	url = https://github.com/emacs-w3m/emacs-w3m.git
 	branch = master
 [submodule "elements/submodules/beacon"]
-	path = elements/submodules/beacon
+	path = elements/submodules/upstream/beacon
 	url = https://github.com/Malabarba/beacon.git
 	branch = master
 [submodule "elements/submodules/all-the-icons-ivy"]
-	path = elements/submodules/all-the-icons-ivy
+	path = elements/submodules/upstream/all-the-icons-ivy
 	url = https://github.com/asok/all-the-icons-ivy.git
 	branch = master
 [submodule "elements/submodules/eterm-256color"]
-	path = elements/submodules/eterm-256color
+	path = elements/submodules/upstream/eterm-256color
 	url = https://github.com/dieggsy/eterm-256color.git
 	branch = master
 [submodule "elements/submodules/xterm-color"]
-	path = elements/submodules/xterm-color
+	path = elements/submodules/upstream/xterm-color
 	url = https://github.com/atomontage/xterm-color.git
 	branch = master
 [submodule "elements/submodules/shackle"]
-	path = elements/submodules/shackle
+	path = elements/submodules/upstream/shackle
 	url = https://github.com/wasamasa/shackle.git
 	branch = master
 [submodule "elements/submodules/ivy-rich"]
-	path = elements/submodules/ivy-rich
+	path = elements/submodules/upstream/ivy-rich
 	url = https://github.com/Yevgnen/ivy-rich.git
 	branch = master
 [submodule "elements/submodules/lsp-mode"]
-	path = elements/submodules/lsp-mode
+	path = elements/submodules/upstream/lsp-mode
 	url = https://github.com/emacs-lsp/lsp-mode.git
 	branch = master
 [submodule "elements/submodules/lsp-ui"]
-	path = elements/submodules/lsp-ui
+	path = elements/submodules/upstream/lsp-ui
 	url = https://github.com/emacs-lsp/lsp-ui.git
 	branch = master
 [submodule "elements/submodules/counsel-world-clock"]
-	path = elements/submodules/counsel-world-clock
+	path = elements/submodules/upstream/counsel-world-clock
 	url = https://github.com/kchenphy/counsel-world-clock.git
 	branch = master
 [submodule "elements/submodules/find-file-in-project"]
-	path = elements/submodules/find-file-in-project
+	path = elements/submodules/upstream/find-file-in-project
 	url = https://github.com/technomancy/find-file-in-project.git
 	branch = master
 [submodule "elements/submodules/emacs-chocolate-theme"]
-	path = elements/submodules/emacs-chocolate-theme
+	path = elements/submodules/upstream/emacs-chocolate-theme
 	url = https://github.com/SavchenkoValeriy/emacs-chocolate-theme.git
 	branch = master
 [submodule "elements/submodules/autothemer"]
-	path = elements/submodules/autothemer
+	path = elements/submodules/upstream/autothemer
 	url = https://github.com/jasonm23/autothemer.git
 	branch = master
 [submodule "elements/submodules/counsel-ffdata"]
-	path = elements/submodules/counsel-ffdata
+	path = elements/submodules/upstream/counsel-ffdata
 	url = https://github.com/cireu/counsel-ffdata.git
 	branch = master
 [submodule "elements/submodules/emacs-neotree"]
-	path = elements/submodules/emacs-neotree
+	path = elements/submodules/upstream/emacs-neotree
 	url = https://github.com/jaypei/emacs-neotree.git
 	branch = dev
 [submodule "elements/submodules/yafolding.el"]
-	path = elements/submodules/yafolding.el
+	path = elements/submodules/upstream/yafolding.el
 	url = https://github.com/zenozeng/yafolding.el.git
 	branch = master
 [submodule "elements/submodules/emacs-solaire-mode"]
-	path = elements/submodules/emacs-solaire-mode
+	path = elements/submodules/upstream/emacs-solaire-mode
 	url = https://github.com/hlissner/emacs-solaire-mode.git
 	branch = master
 [submodule "elements/submodules/emacs-hide-mode-line"]
-	path = elements/submodules/emacs-hide-mode-line
+	path = elements/submodules/upstream/emacs-hide-mode-line
 	url = https://github.com/hlissner/emacs-hide-mode-line.git
 	branch = master
 [submodule "elements/submodules/outorg"]
-	path = elements/submodules/outorg
+	path = elements/submodules/upstream/outorg
 	url = https://github.com/alphapapa/outorg.git
 	branch = master
 [submodule "elements/submodules/outshine"]
-	path = elements/submodules/outshine
+	path = elements/submodules/upstream/outshine
 	url = https://github.com/alphapapa/outshine.git
 	branch = master
