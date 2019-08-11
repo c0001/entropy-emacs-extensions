@@ -3,6 +3,9 @@
 (defvar eemacs-ext/ggsh--submodule-file
   (expand-file-name ".gitmodules" eemacs-ext/ggsh--root-dir))
 
+(defvar eemacs-ext/ggsh--batch-file
+  (expand-file-name "get-modules.sh" eemacs-ext/ggsh--root-dir))
+
 (defvar eemacs-ext/ggsh--entry-head-regexp
   "^\\[submodule \"\\([^ ]+\\)\"\\]$")
 
@@ -94,5 +97,17 @@
          (goto-char (point-max)))))
     (if just-check-unregular unregular
       (if check-unregular (cons sh-list unregular) sh-list))))
+
+(defun eemacs-ext/ggsh--gen-sh-file ()
+  (interactive)
+  (let ((sh-list (eemacs-ext/ggsh--get-sh-list))
+        (inhibit-read-only t))
+    (with-current-buffer (find-file-noselect eemacs-ext/ggsh--batch-file)
+      (goto-char (point-min))
+      (dolist (cmd sh-list)
+        (insert (concat cmd "\n")))
+      (save-buffer)
+      (kill-buffer))
+    (message "Submodules getting commands generated done!")))
 
 (provide 'eemacs-ext-gen-submodules-get-sh)
