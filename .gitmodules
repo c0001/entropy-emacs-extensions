@@ -742,3 +742,7 @@
 	path = elements/submodules/upstream/spinner.el
 	url = https://github.com/Malabarba/spinner.el.git
 	branch = master
+[submodule "elements/submodules/melpa"]
+	path = elements/submodules/melpa
+	url = https://github.com/c0001/melpa.git
+	branch = entropy-emacs
