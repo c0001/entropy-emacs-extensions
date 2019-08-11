@@ -1,0 +1,1 @@
+(discover-my-major :fetcher github :repo "discover-my-major")

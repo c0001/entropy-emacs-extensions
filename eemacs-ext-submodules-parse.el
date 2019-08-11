@@ -63,10 +63,10 @@
               (cdr (assoc 'url matched-list))
               (cdr (assoc 'path matched-list)))))))
 
-(defun eemacs-ext/ggsh--check-unregular (matched-list fbk)
+(defun eemacs-ext/ggsh--check-unregular (matched-list &optional fbk)
   (let ((url (cdr (assoc 'url matched-list)))
         (path (cdr (assoc 'path matched-list)))
-        path-trail url-trail)
+        path-trail url-trail rtn)
     (setq path-trail
           (replace-regexp-in-string
            "^.*/\\([^ /]+\\)$" "\\1" path)
@@ -74,9 +74,12 @@
           (replace-regexp-in-string
            "^.*/\\([^ /]+?\\)\\(\\.git\\)?$" "\\1" url))
     (unless (equal url-trail path-trail)
-      (push url (symbol-value fbk)))))
+      (when fbk
+        (push url (symbol-value fbk)))
+      (setq rtn t))
+    rtn))
 
-(defun eemacs-ext/ggsh--get-sh-list (&optional check-unregular just-check-unregular)
+(defun eemacs-ext/ggsh--get-submodules-list (&optional check-unregular just-check-unregular)
   (let (sh-list bottom temp_match unregular)
     (eemacs-ext/ggsh--with-submodule-buffer
      (goto-char (point-min))
@@ -100,7 +103,7 @@
 
 (defun eemacs-ext/ggsh--gen-sh-file ()
   (interactive)
-  (let ((sh-list (eemacs-ext/ggsh--get-sh-list))
+  (let ((sh-list (eemacs-ext/ggsh--get-submodules-list))
         (inhibit-read-only t))
     (with-current-buffer (find-file-noselect eemacs-ext/ggsh--batch-file)
       (goto-char (point-min))
@@ -110,4 +113,4 @@
       (kill-buffer))
     (message "Submodules getting commands generated done!")))
 
-(provide 'eemacs-ext-gen-submodules-get-sh)
+(provide 'eemacs-ext-submodules-parse)

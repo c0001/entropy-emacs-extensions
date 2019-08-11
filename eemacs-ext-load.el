@@ -113,4 +113,4 @@
                                "emacs-doom-themes/themes"))
 
 ;; * Provide
-(provide 'entropy-emacs-extensions-load.el)
+(provide 'eemacs-ext-load)

@@ -358,10 +358,6 @@
 	path = elements/submodules/upstream/interactive-align
 	url = https://github.com/mkcms/interactive-align.git
 	branch = master
-[submodule "elements/submodules/upstream/imp.el"]
-	path = elements/submodules/upstream/imp.el
-	url = https://github.com/netguy204/imp.el.git
-	branch = master
 [submodule "elements/submodules/upstream/hydra"]
 	path = elements/submodules/upstream/hydra
 	url = https://github.com/abo-abo/hydra.git
@@ -706,11 +702,47 @@
 	path = elements/submodules/upstream/org-reveal
 	url = https://github.com/yjwen/org-reveal.git
 	branch = master
-[submodule "elements/submodules/self-clone/entropy-undo-tree"]
-	path = elements/submodules/self-clone/entropy-undo-tree
-	url = https://github.com/c0001/entropy-undo-tree.git
+[submodule "elements/submodules/melpa"]
+	path = elements/submodules/melpa
+	url = https://github.com/c0001/melpa.git
+	branch = entropy-emacs
+[submodule "elements/submodules/upstream/undo-tree"]
+	path = elements/submodules/upstream/undo-tree
+	url = https://github.com/c0001/undo-tree.git
 	branch = master
-[submodule "elements/submodules/self-clone/entropy-windresize"]
-	path = elements/submodules/self-clone/entropy-windresize
-	url = https://github.com/c0001/entropy-windresize.git
+[submodule "elements/submodules/upstream/windresize"]
+	path = elements/submodules/upstream/windresize
+	url = https://github.com/c0001/windresize.git
+	branch = master
+[submodule "elements/submodules/upstream/impatient-mode"]
+	path = elements/submodules/upstream/impatient-mode
+	url = https://github.com/skeeto/impatient-mode.git
+	branch = master
+[submodule "elements/submodules/upstream/emms"]
+	path = elements/submodules/upstream/emms
+	url = https://git.savannah.gnu.org/git/emms.git
+	branch = master
+[submodule "elements/submodules/upstream/company-lsp"]
+	path = elements/submodules/upstream/company-lsp
+	url = https://github.com/tigersoldier/company-lsp.git
+	branch = master
+[submodule "elements/submodules/upstream/emacsql"]
+	path = elements/submodules/upstream/emacsql
+	url = https://github.com/skeeto/emacsql.git
+	branch = master
+[submodule "elements/submodules/upstream/ht.el"]
+	path = elements/submodules/upstream/ht.el
+	url = https://github.com/Wilfred/ht.el.git
+	branch = master
+[submodule "elements/submodules/upstream/multi-term"]
+	path = elements/submodules/upstream/multi-term
+	url = https://github.com/manateelazycat/multi-term.git
+	branch = master
+[submodule "elements/submodules/upstream/paradox"]
+	path = elements/submodules/upstream/paradox
+	url = https://github.com/Malabarba/paradox.git
+	branch = master
+[submodule "elements/submodules/upstream/spinner.el"]
+	path = elements/submodules/upstream/spinner.el
+	url = https://github.com/Malabarba/spinner.el.git
 	branch = master

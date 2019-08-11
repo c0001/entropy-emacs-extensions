@@ -1,0 +1,1 @@
+(windresize :fetcher github :repo "windresize")

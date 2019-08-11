@@ -1,0 +1,4 @@
+(emms
+ :fetcher github
+ :repo "emms"
+ :files ("lisp/*.el" "doc/emms.texinfo"))

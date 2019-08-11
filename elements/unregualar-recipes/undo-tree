@@ -1,0 +1,1 @@
+(undo-tree :fetcher github :repo "undo-tree")
