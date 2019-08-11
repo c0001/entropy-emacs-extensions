@@ -702,10 +702,6 @@
 	path = elements/submodules/upstream/org-reveal
 	url = https://github.com/yjwen/org-reveal.git
 	branch = master
-[submodule "elements/submodules/melpa"]
-	path = elements/submodules/melpa
-	url = https://github.com/c0001/melpa.git
-	branch = entropy-emacs
 [submodule "elements/submodules/upstream/undo-tree"]
 	path = elements/submodules/upstream/undo-tree
 	url = https://github.com/c0001/undo-tree.git
