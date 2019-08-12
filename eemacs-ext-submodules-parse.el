@@ -13,7 +13,7 @@
   "^\\[submodule \"\\([^ ]+\\)\"\\]$")
 
 (defmacro eemacs-ext/ggsh--with-submodule-buffer (&rest body)
-  (let ((buffer (find-file-noselect eemacs-ext/ggsh--submodule-file)))
+  (let ((buffer (find-file-noselect eemacs-ext/ggsh--submodule-file nil t)))
     `(with-current-buffer ,buffer
        ,@body)))
 
@@ -115,7 +115,7 @@
   (interactive)
   (let ((fmtstr-list (eemacs-ext/ggsh--get-submodules-get-cmd-list))
         (inhibit-read-only t))
-    (with-current-buffer (find-file-noselect eemacs-ext/ggsh--batch-file)
+    (with-current-buffer (find-file-noselect eemacs-ext/ggsh--batch-file nil t)
       (goto-char (point-min))
       (dolist (cmd fmtstr-list)
         (insert (concat cmd "\n")))
@@ -148,7 +148,7 @@
           (push "" cache)
           (setq count (1+ count)))))
     (setq cache (reverse cache))
-    (with-current-buffer (find-file-noselect eemacs-ext/ggsh--branch-toggle-file)
+    (with-current-buffer (find-file-noselect eemacs-ext/ggsh--branch-toggle-file nil t)
       (erase-buffer)
       (goto-char (point-min))
       (dolist (el cache)

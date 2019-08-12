@@ -16,6 +16,8 @@ EemacsextMake_upstream_submodules_dir=$EemacsextMake_DIR/elements/submodules/ups
 EemacsextMake_infosdir=$EemacsextMake_DIR/elements/info-files
 
 EemacsextMake_elbatch_modulesparse=${EemacsextMake_DIR}/eemacs-ext-submodules-parse.el
+EemacsextMake_elbatch_branchtoggle_batch_file=${EemacsextMake_DIR}/toggle-branch.sh
+
 declare -a EemacsextMake_local_recipes
 
 EemacsextMake_local_recipes_list_file=${EemacsextMake_DIR}/eemacs-ext-recipes-upstream.txt
@@ -88,6 +90,19 @@ EemacsextMake_cl_member_array ()
     else
         return 1
     fi
+}
+
+EemacsextMake_wait_seconds ()
+{
+    secs=$1
+    shift
+    msg=$@
+    while [ $secs -gt 0 ]
+    do
+        printf "\r\033[KWaiting %.d seconds $msg" $((secs--))
+        sleep 1
+    done
+    echo
 }
 
 # *** common usage branch
@@ -306,14 +321,34 @@ EemacsextMake_Finished ()
 # ** main
 [[ -f $EemacsextMake_DIR/init ]] && rm ${EemacsextMake_DIR}/init
 
+echo -e "\e[32mTidy up working directory ...\e[0m"
+EemacsextMake_wait_seconds 10 "\e[33m[you can cancel this procedure in 10s]\e[0m ..."
 cd ${EemacsextMake_DIR}
-
+git submodule deinit --all -f
+[[ $? -ne 0 ]] && exit
 git submodule update --init
+[[ $? -ne 0 ]] && exit
 
+echo ""
+
+echo -e "\e[32mToggle submodule branch ...\e[0m"
+EemacsextMake_wait_seconds 10 "\e[33m[you can cancel this procedure in 10s]\e[0m ..."
+cd ${EemacsextMake_DIR}
+emacs -Q --batch -l ${EemacsextMake_elbatch_modulesparse} --eval "(eemacs-ext/ggsh--gen-branch-toggle-cmd)"
+[[ $? -ne 0 ]] && exit
+cd ${EemacsextMake_DIR}
+bash ${EemacsextMake_elbatch_branchtoggle_batch_file}
+[[ $? -ne 0 ]] && exit
+
+echo ""
+
+echo -e "\e[32mMain process starting ....\e[0m"
+echo -e "=====================================\n"
+cd ${EemacsextMake_DIR}
 EemacsextMake_Checking_shell
-
+echo ""
 EemacsextMake_Extact_Info
-
+echo ""
 EemacsextMake_BuildRecipes
 
 EemacsextMake_Finished
