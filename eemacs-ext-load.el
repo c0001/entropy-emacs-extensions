@@ -44,12 +44,21 @@
 ;; #+END_SRC
 ;; 
 ;; * Code:
+;; ** variables
+;; *** customized variable
+(defcustom eemacs-ext-use-type 'melpa
+  "eemacs-extension usage identifier.")
 
-(defvar eemacs-ext-root (file-name-directory load-file-name))
-(defvar eemacs-ext-submodules-upstream-root (expand-file-name "elements/submodules/upstream" eemacs-ext-root))
-(defvar eemacs-ext-submodules-selfcloned-root (expand-file-name "elements/submodules/self-clone" eemacs-ext-root))
-(defvar eemacs-ext-info-root (expand-file-name "elements/info-files" eemacs-ext-root))
+;; *** const variables
+(defconst eemacs-ext-root (file-name-directory load-file-name))
+(defconst eemacs-ext-submodules-upstream-root (expand-file-name "elements/submodules/upstream" eemacs-ext-root))
+(defconst eemacs-ext-submodules-selfcloned-root (expand-file-name "elements/submodules/self-clone" eemacs-ext-root))
+(defconst eemacs-ext-info-root (expand-file-name "elements/info-files" eemacs-ext-root))
+(defconst eemacs-ext-melpa-root (expand-file-name "elements/submodules/melpa" eemacs-ext-root))
 
+
+;; ** libraries
+;; *** common library
 (defun eemacs-ext-list-subdir (dir-root)
   "List subdir of root dir DIR-ROOT"
   (let ((dirlist (entropy/emacs-list-dir-lite dir-root))
@@ -85,32 +94,42 @@
               (add-to-list 'custom-theme-load-path x))
           theme-list)))
 
-;; Info path adding
-(setq Info-default-directory-list
-      (append (list eemacs-ext-info-root) Info-default-directory-list))
+;; ** Intialize procedure
 
-;; Library load-path adding
-(eemacs-ext--load-path eemacs-ext-submodules-upstream-root)
-(eemacs-ext--load-path eemacs-ext-submodules-selfcloned-root)
+;; *** For common usage
+(unless (eq eemacs-ext-use-type 'melpa)
+  ;; Info path adding
+  (setq Info-default-directory-list
+        (append (list eemacs-ext-info-root) Info-default-directory-list))
 
-;; Theme path loading
-(eemacs-ext--load-theme-path (expand-file-name eemacs-ext-submodules-upstream-root)
-                             '("color-theme-sanityinc-tomorrow"
-                               "birds-of-paradise-plus-theme.el"
-                               "gotham-theme"
-                               "atom-dark-theme-emacs"
-                               "atom-one-dark-theme"
-                               "GitHub-Theme-for-Emacs"
-                               "doneburn-theme"
-                               "emacs-klere-theme"
-                               "emacs-material-theme"
-                               "spacemacs-theme"
-                               "emacs-color-themes"
-                               "darkokai"
-                               "color-theme-ujelly"
-                               "srcery-emacs"
-                               "emacs-chocolate-theme"
-                               "emacs-doom-themes/themes"))
+  ;; Library load-path adding
+  (eemacs-ext--load-path eemacs-ext-submodules-upstream-root)
+  (eemacs-ext--load-path eemacs-ext-submodules-selfcloned-root)
+
+  ;; Theme path loading
+  (eemacs-ext--load-theme-path (expand-file-name eemacs-ext-submodules-upstream-root)
+                               '("color-theme-sanityinc-tomorrow"
+                                 "birds-of-paradise-plus-theme.el"
+                                 "gotham-theme"
+                                 "atom-dark-theme-emacs"
+                                 "atom-one-dark-theme"
+                                 "GitHub-Theme-for-Emacs"
+                                 "doneburn-theme"
+                                 "emacs-klere-theme"
+                                 "emacs-material-theme"
+                                 "spacemacs-theme"
+                                 "emacs-color-themes"
+                                 "darkokai"
+                                 "color-theme-ujelly"
+                                 "srcery-emacs"
+                                 "emacs-chocolate-theme"
+                                 "emacs-doom-themes/themes")))
+
+;; *** For melpa usage
+(when (eq eemacs-ext-use-type 'melpa)
+  (setq package-archives
+        '(("entropy-emacs" . eemacs-ext-melpa-root))))
+
 
 ;; * Provide
 (provide 'eemacs-ext-load)

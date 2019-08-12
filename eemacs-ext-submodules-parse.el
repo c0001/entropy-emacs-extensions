@@ -3,6 +3,9 @@
 (defvar eemacs-ext/ggsh--submodule-file
   (expand-file-name ".gitmodules" eemacs-ext/ggsh--root-dir))
 
+(defvar eemacs-ext/ggsh--branch-toggle-file
+  (expand-file-name "toggle-branch.sh" eemacs-ext/ggsh--root-dir))
+
 (defvar eemacs-ext/ggsh--batch-file
   (expand-file-name "get-modules.sh" eemacs-ext/ggsh--root-dir))
 
@@ -75,12 +78,12 @@
            "^.*/\\([^ /]+?\\)\\(\\.git\\)?$" "\\1" url))
     (unless (equal url-trail path-trail)
       (when fbk
-        (push url (symbol-value fbk)))
+        (push matched-list (symbol-value fbk)))
       (setq rtn t))
     rtn))
 
 (defun eemacs-ext/ggsh--get-submodules-list (&optional check-unregular just-check-unregular)
-  (let (sh-list bottom temp_match unregular)
+  (let (submodule-module-list bottom temp_match unregular)
     (eemacs-ext/ggsh--with-submodule-buffer
      (goto-char (point-min))
      (while (not (eobp))
@@ -92,25 +95,54 @@
          (when check-unregular
            (eemacs-ext/ggsh--check-unregular temp_match 'unregular))
          (unless just-check-unregular
-           (push (eemacs-ext/ggsh--format-sh
-                  temp_match)
-                 sh-list))
+           (push temp_match submodule-module-list))
          (end-of-line))
        (unless bottom
          (goto-char (point-max)))))
     (if just-check-unregular unregular
-      (if check-unregular (cons sh-list unregular) sh-list))))
+      (if check-unregular (cons submodule-module-list unregular) submodule-module-list))))
+
+(defun eemacs-ext/ggsh--get-submodules-get-cmd-list ()
+  (let ((module-list (eemacs-ext/ggsh--get-submodules-list))
+        rtn)
+    (dolist (el module-list)
+      (push
+       (eemacs-ext/ggsh--format-sh el)
+       rtn))
+    rtn))
 
 (defun eemacs-ext/ggsh--gen-sh-file ()
   (interactive)
-  (let ((sh-list (eemacs-ext/ggsh--get-submodules-list))
+  (let ((fmtstr-list (eemacs-ext/ggsh--get-submodules-get-cmd-list))
         (inhibit-read-only t))
     (with-current-buffer (find-file-noselect eemacs-ext/ggsh--batch-file)
       (goto-char (point-min))
-      (dolist (cmd sh-list)
+      (dolist (cmd fmtstr-list)
         (insert (concat cmd "\n")))
       (save-buffer)
       (kill-buffer))
     (message "Submodules getting commands generated done!")))
+
+(defun eemacs-ext/ggsh--gen-branch-toggle-cmd ()
+  (interactive)
+  (let ((module-list (eemacs-ext/ggsh--get-submodules-list))
+        cache
+        (inhibit-read-only t))
+    (dolist (el module-list)
+      (let ((path (cdr (assoc 'path el)))
+            (branch (cdr (assoc 'branch el))))
+        (when branch
+          (push
+           (format "cd %s && git checkout %s; cd %s" path branch eemacs-ext/ggsh--root-dir)
+           cache))))
+    (with-current-buffer (find-file-noselect eemacs-ext/ggsh--branch-toggle-file)
+      (erase-buffer)
+      (goto-char (point-min))
+      (dolist (el cache)
+        (insert (concat el "\n")))
+      (save-buffer)
+      (kill-buffer))
+    (message "Toggle-branch batch file generated done!")))
+
 
 (provide 'eemacs-ext-submodules-parse)
