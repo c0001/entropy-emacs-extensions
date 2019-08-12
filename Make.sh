@@ -18,7 +18,7 @@ EemacsextMake_infosdir=$EemacsextMake_DIR/elements/info-files
 EemacsextMake_elbatch_modulesparse=${EemacsextMake_DIR}/eemacs-ext-submodules-parse.el
 declare -a EemacsextMake_local_recipes
 
-EemacsextMake_local_recipes_list_file=${EemacsextMake_DIR}/eemac-ext-recipes-upstream.txt
+EemacsextMake_local_recipes_list_file=${EemacsextMake_DIR}/eemacs-ext-recipes-upstream.txt
 
 EemacsextMake_unregular_recipes_dir=${EemacsextMake_DIR}/elements/unregualar-recipes
 
@@ -304,7 +304,11 @@ EemacsextMake_Finished ()
 }
 
 # ** main
-[[ -f $EemacsextMake_DIR/init ]] && rm $EemacsextMake_DIR/init
+[[ -f $EemacsextMake_DIR/init ]] && rm ${EemacsextMake_DIR}/init
+
+cd ${EemacsextMake_DIR}
+
+git submodule update --init
 
 EemacsextMake_Checking_shell
 

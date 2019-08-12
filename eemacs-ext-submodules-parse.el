@@ -127,14 +127,27 @@
   (interactive)
   (let ((module-list (eemacs-ext/ggsh--get-submodules-list))
         cache
-        (inhibit-read-only t))
+        (inhibit-read-only t)
+        (flag (format-time-string "%Y%m%d%H%M%S"))
+        (count 1))
     (dolist (el module-list)
       (let ((path (cdr (assoc 'path el)))
             (branch (cdr (assoc 'branch el))))
         (when branch
+          (push "echo -e \"\\n==================================================\""
+                cache)
+          (push (format "echo \"%s: for path '%s' toggle branch to 'entropy-%s-%s'\""
+                        count path branch flag)
+                cache)
+          (push "echo -e \"==================================================\\n\""
+                cache)
           (push
-           (format "cd %s && git checkout %s; cd %s" path branch eemacs-ext/ggsh--root-dir)
-           cache))))
+           (format "cd %s && git checkout -b entropy-%s-%s && git branch -u origin/%s; cd %s"
+                   path branch flag branch eemacs-ext/ggsh--root-dir)
+           cache)
+          (push "" cache)
+          (setq count (1+ count)))))
+    (setq cache (reverse cache))
     (with-current-buffer (find-file-noselect eemacs-ext/ggsh--branch-toggle-file)
       (erase-buffer)
       (goto-char (point-min))
