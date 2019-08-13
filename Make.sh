@@ -283,6 +283,10 @@ EemacsextMake_BuildRecipes ()
         fi
     done
     [[ ${#EemacsextMake_initial_failed_mkpkg[@]} -ne  0 ]] && EemacsextMake_initial_fails_types+=(1) && exit 1
+    # initialize packages archives contents used for package.el builtin with emacs
+    make index
+    # recovery the recipes patch
+    cd ${EemacsextMake_melpadir} && git checkout recipes
 }
 
 EemacsextMake_RecipeBuild_ErrorPrompts ()

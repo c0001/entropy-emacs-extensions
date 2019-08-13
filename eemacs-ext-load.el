@@ -27,8 +27,45 @@
 ;; This package was the management for elisp loading part for
 ;; [[https://github.com/c0001/entropy-emacs][entropy-emacs]].
 ;;
-;; The mainly functional aim of it was to add all submodules into
-;; emacs's load-path and theme-load-path.
+;; Built as the local melpa upstream for =entropy-emacs= to retrieve
+;; package which commit version is specified by =entropy-emacs=.
+;;
+;; There's two loading way for =entropy-emacs=, the submodule loading
+;; directl road and the local-melpa `package-archives' post way. By
+;; defautly, this package will scanning all the submodules of which
+;; was one emacs-extensions package cloned from the popular
+;; repository hoster and adding them into the `load-path' or
+;; `custom-theme-load-path' so that =entropy-emacs= can use load them
+;; directly instead of retrieving them from the upstream when some
+;; features are missing. The main purpose for maintain all
+;; =entropy-emacs= extensions as the commit remained submodules to
+;; guarantee the extensions compatibility with =entropy-emacs=.
+;;
+;; So as what metioned in above paragraph, the extensions
+;; compatibility tracking is through the package repo commit specific
+;; way, but loading directly from the extension version charged repo
+;; will using too much ~loading-time~ against what the traditionally
+;; emacs package loading mechanism by loading the bite-compiled file
+;; instead of using the raw =elisp= file to reducing ~loading-time~,
+;; thus the second using way for =entropy-emacs-extensions= was to
+;; make it as the `package-archives` as what did as [[https://melpa.org][melpa]] do to
+;; install all =entropy-emacs= depended commit specific extensions
+;; froms this project, as that for what, =entropy-emacs= forked
+;; =melpa= to built the =entropy-emacs-melpa= using for [[https://melpa.org/#/getting-started][package.el]],
+;; on this way, this package will set the ~package-archives~ to
+;; ~("entropy-emacs" . "path-to-local-malpa")~.
+;;
+;; Rely on which usage you selected, the customized variable
+;; =entropy/emacs-use-extensions-type= was what you needed to set
+;; according to your wish, there's two valid options for assigning
+;; into it (defaultly was ~'submodules~):
+;; 1) 'submodules: loading directly from the submodules of
+;;    =entrop-emacs-extensions='s submodules.
+;;
+;; 2) 'submodules-melpa-local: using =entropy-emacs-extensions= as the
+;;    local melpa which hosted all =entropy-emacs= specified
+;;    extensions.
+;;
 ;;
 ;; * Configuration:
 ;;
@@ -39,6 +76,7 @@
 ;; configuration too.
 ;;
 ;; #+BEGIN_SRC elisp
+;;   (setq entropy/emacs-use-extensions-type 'submodules-melpa-local)
 ;;   (add-to-list 'load-path "path-of-this")
 ;;   (require 'entropy-emacs-extensions-load)
 ;; #+END_SRC
@@ -46,8 +84,7 @@
 ;; * Code:
 ;; ** variables
 ;; *** customized variable
-(defcustom eemacs-ext-use-type 'melpa
-  "eemacs-extension usage identifier.")
+(defvar entropy/emacs-use-extensions-type 'submodules)
 
 ;; *** const variables
 (defconst eemacs-ext-root (file-name-directory load-file-name))
@@ -55,6 +92,7 @@
 (defconst eemacs-ext-submodules-selfcloned-root (expand-file-name "elements/submodules/self-clone" eemacs-ext-root))
 (defconst eemacs-ext-info-root (expand-file-name "elements/info-files" eemacs-ext-root))
 (defconst eemacs-ext-melpa-root (expand-file-name "elements/submodules/melpa" eemacs-ext-root))
+(defconst eemacs-ext-melpa-packages (expand-file-name "packages" eemacs-ext-melpa-root))
 
 
 ;; ** libraries
@@ -97,7 +135,7 @@
 ;; ** Intialize procedure
 
 ;; *** For common usage
-(unless (eq eemacs-ext-use-type 'melpa)
+(when (eq entropy/emacs-use-extensions-type 'submodules)
   ;; Info path adding
   (setq Info-default-directory-list
         (append (list eemacs-ext-info-root) Info-default-directory-list))
@@ -126,9 +164,9 @@
                                  "emacs-doom-themes/themes")))
 
 ;; *** For melpa usage
-(when (eq eemacs-ext-use-type 'melpa)
+(when (eq entropy/emacs-use-extensions-type 'submodules-melpa-local)
   (setq package-archives
-        '(("entropy-emacs" . eemacs-ext-melpa-root))))
+        `(("entropy-emacs" . ,eemacs-ext-melpa-packages))))
 
 
 ;; * Provide
