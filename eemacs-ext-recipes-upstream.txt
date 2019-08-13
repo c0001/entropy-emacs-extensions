@@ -9,6 +9,7 @@ auto-sudoedit
 auto-yasnippet
 avy
 beacon
+benchmark-init
 bing-dict
 birds-of-paradise-plus-theme
 browse-at-remote
@@ -50,10 +51,12 @@ doom-themes
 el2org
 eldoc-eval
 elfeed
+elisp-slime-nav
 elisp-refs
 emacsql
 emmet-mode
 emms
+epl
 esup
 eterm-256color
 eyebrowse
@@ -70,11 +73,13 @@ gotham-theme
 helm-ag
 helm
 helm-core
+helm-pt
 hide-mode-line
 highlight-indent-guides
 highlight-parentheses
 hl-todo
 ialign
+ibuffer-projectile
 impatient-mode
 htmlize
 irony-eldoc
@@ -118,6 +123,7 @@ paradox
 hydra
 lv
 php-mode
+pkg-info
 pomidor
 alert
 log4e

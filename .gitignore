@@ -3,3 +3,4 @@
 /elements/info-files/*.info
 /get-modules.sh
 /toggle-branch.sh
+*~
