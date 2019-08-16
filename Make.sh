@@ -323,41 +323,111 @@ EemacsextMake_Finished ()
 }
 
 # ** main
-[[ -f $EemacsextMake_DIR/init ]] && rm ${EemacsextMake_DIR}/init
+EemacsextMake_Main_Remove_InitFlag ()
+{
+    [[ -f $EemacsextMake_DIR/init ]] && rm ${EemacsextMake_DIR}/init
+}
 
-echo -e "\e[32mTidy up working directory ...\e[0m"
-EemacsextMake_wait_seconds 10 "\e[33m[you can cancel this procedure in 10s]\e[0m ..."
-cd ${EemacsextMake_DIR}
-git submodule deinit --all -f
-[[ $? -ne 0 ]] && exit
-git submodule update --init
-[[ $? -ne 0 ]] && exit
+EemacsextMake_Main_Tidyup_WorkTree ()
+{
+    echo -e "\e[32mTidy up working directory ...\e[0m"
+    EemacsextMake_wait_seconds 10 "\e[33m[you can cancel this procedure in 10s]\e[0m ..."
+    cd ${EemacsextMake_DIR}
+    git submodule deinit --all -f
+    [[ $? -ne 0 ]] && exit
+    git submodule update --init
+    [[ $? -ne 0 ]] && exit
+    echo ""
+}
 
-echo ""
+EemacsextMake_Main_Toggle_SubBranch ()
+{
+    [[ -f ${EemacsextMake_elbatch_branchtoggle_batch_file} ]] && rm -f ${EemacsextMake_elbatch_branchtoggle_batch_file}
+    local recovery=$1
+    cd ${EemacsextMake_DIR}
+    if [[ -z $recovery ]]
+    then
+        echo -e "\e[32mToggle submodule branch ...\e[0m"
+        emacs -Q --batch -l ${EemacsextMake_elbatch_modulesparse} --eval "(eemacs-ext/ggsh--gen-branch-toggle-cmd)"
+    else
+        emacs -Q --batch -l ${EemacsextMake_elbatch_modulesparse} --eval "(eemacs-ext/ggsh--gen-branch-toggle-cmd t)"
+    fi
+    [[ $? -ne 0 ]] && exit
+    cd ${EemacsextMake_DIR}
+    if [[ -f ${EemacsextMake_elbatch_branchtoggle_batch_file} ]]
+    then
+        bash ${EemacsextMake_elbatch_branchtoggle_batch_file}
+        [[ $? -ne 0 ]] && exit
+    else
+        echo -e "\e[31mPlease initialize submodules first!\e[0m"
+        exit
+    fi
+    echo ""
+}
 
-echo -e "\e[32mToggle submodule branch ...\e[0m"
-EemacsextMake_wait_seconds 10 "\e[33m[you can cancel this procedure in 10s]\e[0m ..."
-cd ${EemacsextMake_DIR}
-emacs -Q --batch -l ${EemacsextMake_elbatch_modulesparse} --eval "(eemacs-ext/ggsh--gen-branch-toggle-cmd)"
-[[ $? -ne 0 ]] && exit
-cd ${EemacsextMake_DIR}
-bash ${EemacsextMake_elbatch_branchtoggle_batch_file}
-[[ $? -ne 0 ]] && exit
+EemacsextMake_Main_Tidyup_TempBranches ()
+{
+    echo -e "\e[32mDelete temporal branches ...\e[0m"
+    EemacsextMake_Main_Toggle_SubBranch t
+    cd ${EemacsextMake_DIR}
+    git submodule foreach \
+        "if [[ ! -z \$(git for-each-ref --format=\"%(refname:short)\" refs/heads/EemacsExtTempo-*) ]];then
+            git for-each-ref --format=\"%(refname:short)\" refs/heads/EemacsExtTempo-* | xargs git branch -D -f;
+         else
+            echo -e \"\e[32mNone tempo branches\e[0m\"
+         fi;"
+    echo ""
+}
 
-echo ""
+EemacsextMake_Main_All ()
+{
+    EemacsextMake_Main_Remove_InitFlag
+    EemacsextMake_Main_Tidyup_WorkTree
+    EemacsextMake_Main_Tidyup_TempBranches
+    EemacsextMake_Main_Toggle_SubBranch
+    echo -e "\e[32mMain process starting ....\e[0m"
+    echo -e "=====================================\n"
+    cd ${EemacsextMake_DIR}
+    echo ""
+    EemacsextMake_Extact_Info
+    echo ""
+    EemacsextMake_BuildRecipes
+    EemacsextMake_Finished
+}
 
-echo -e "\e[32mMain process starting ....\e[0m"
-echo -e "=====================================\n"
-cd ${EemacsextMake_DIR}
+EemacsextMake_Main_Help ()
+{
+    echo -e "Valid argument are:"
+    echo -e ""
+    echo -e "- 'init':            tidy up working directory and initialize submodules"
+    echo -e "- 'tidy-branches':   remove all temporal banches making by 'toggle-branches'"
+    echo -e "- 'toggle-branches': toggle working branchs to temporal one which named with prefix '[entropy-emacs]-'"
+    echo -e "- 'patch-recipes':   patch recipes adapting for entropy-emacs"
+    echo -e "- 'build_recipes':   build all recipes (it will doing 'patch-recipes' firstly)"
+    echo -e "- 'make-infos':      make up all submodules texinfo doc"
+    echo -e "- 'all':             build project"
+}
+
+EemacsextMake_Main_Choice ()
+{
+    case $1 in
+        init) EemacsextMake_Main_Tidyup_WorkTree ;;
+        tidy-branches) EemacsextMake_Main_Tidyup_TempBranches ;;
+        toggle-branches) EemacsextMake_Main_Toggle_SubBranch ;;
+        patch-recipes) cd ${EemacsextMake_DIR}/elements/submodules/
+                       git submodule deinit -f melpa
+                       git submodule update --init melpa
+                       cd ${EemacsextMake_DIR}
+                       EemacsextMake_Make_Melpa_recipes ;;
+        build_recipes) EemacsextMake_Main_Choice init
+                       EemacsextMake_Main_Choice toggle-branches
+                       EemacsextMake_BuildRecipes ;;
+        make-infos) EemacsextMake_Main_Choice init %% EemacsextMake_Extact_Info ;;
+        all) EemacsextMake_Main_All ;;
+        *) EemacsextMake_Main_Help ;;
+    esac
+}
+
 EemacsextMake_Checking_shell
-echo ""
-EemacsextMake_Extact_Info
-echo ""
-EemacsextMake_BuildRecipes
 
-EemacsextMake_Finished
-
-
-
-
-
+EemacsextMake_Main_Choice $1

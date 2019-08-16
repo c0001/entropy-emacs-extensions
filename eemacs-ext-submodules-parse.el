@@ -123,7 +123,7 @@
       (kill-buffer))
     (message "Submodules getting commands generated done!")))
 
-(defun eemacs-ext/ggsh--gen-branch-toggle-cmd ()
+(defun eemacs-ext/ggsh--gen-branch-toggle-cmd (&optional recovery)
   (interactive)
   (let ((module-list (eemacs-ext/ggsh--get-submodules-list))
         cache
@@ -133,29 +133,51 @@
     (dolist (el module-list)
       (let ((path (cdr (assoc 'path el)))
             (branch (cdr (assoc 'branch el))))
-        (when branch
-          (push "echo -e \"\\n==================================================\""
-                cache)
-          (push (format "echo \"%s: for path '%s' toggle branch to 'entropy-%s-%s'\""
-                        count path branch flag)
-                cache)
-          (push "echo -e \"==================================================\\n\""
-                cache)
-          (push
-           (format "cd %s && git checkout -b entropy-%s-%s && git branch -u origin/%s; cd %s"
-                   path branch flag branch eemacs-ext/ggsh--root-dir)
-           cache)
-          (push "" cache)
+        (when (and branch
+                   (file-exists-p
+                    (expand-file-name
+                     ".git"
+                     (expand-file-name path eemacs-ext/ggsh--root-dir))))
+          (if recovery
+              (progn
+                (push "echo -e \"\\n==================================================\""
+                      cache)
+                (push (format "echo \"%s: for path '%s' toggle branch to '%s'\""
+                              count path branch)
+                      cache)
+                (push "echo -e \"==================================================\\n\""
+                      cache)
+                (push
+                 (format "cd %s && git checkout origin/%s; cd %s"
+                         path branch eemacs-ext/ggsh--root-dir)
+                 cache)
+                (push "" cache))
+            (progn
+                (push "echo -e \"\\n==================================================\""
+                      cache)
+                (push (format "echo \"%s: for path '%s' toggle branch to 'EemacsExtTempo-%s-%s'\""
+                              count path branch flag)
+                      cache)
+                (push "echo -e \"==================================================\\n\""
+                      cache)
+                (push
+                 (format "cd %s && git checkout -b EemacsExtTempo-%s-%s && git branch -u origin/%s; cd %s"
+                         path branch flag branch eemacs-ext/ggsh--root-dir)
+                 cache)
+                (push "" cache)))
           (setq count (1+ count)))))
-    (setq cache (reverse cache))
-    (with-current-buffer (find-file-noselect eemacs-ext/ggsh--branch-toggle-file nil t)
-      (erase-buffer)
-      (goto-char (point-min))
-      (dolist (el cache)
-        (insert (concat el "\n")))
-      (save-buffer)
-      (kill-buffer))
-    (message "Toggle-branch batch file generated done!")))
+    (when cache
+      (setq cache (reverse cache))
+      (with-current-buffer (find-file-noselect eemacs-ext/ggsh--branch-toggle-file nil t)
+        (erase-buffer)
+        (goto-char (point-min))
+        (dolist (el cache)
+          (insert (concat el "\n")))
+        (save-buffer)
+        (kill-buffer)))
+    (if cache
+        (message "Toggle-branch batch file generated done!")
+      (message "Submodules not initialized!"))))
 
 
 (provide 'eemacs-ext-submodules-parse)

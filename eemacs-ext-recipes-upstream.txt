@@ -170,6 +170,7 @@ undo-tree
 use-package
 bind-key
 visual-regexp
+visual-ascii-mode
 volatile-highlights
 w3m
 web-beautify
