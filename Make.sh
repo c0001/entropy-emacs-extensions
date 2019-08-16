@@ -422,7 +422,7 @@ EemacsextMake_Main_Choice ()
         build_recipes) EemacsextMake_Main_Choice init
                        EemacsextMake_Main_Choice toggle-branches
                        EemacsextMake_BuildRecipes ;;
-        make-infos) EemacsextMake_Main_Choice init %% EemacsextMake_Extact_Info ;;
+        make-infos) EemacsextMake_Main_Choice init && EemacsextMake_Extact_Info ;;
         all) EemacsextMake_Main_All ;;
         *) EemacsextMake_Main_Help ;;
     esac
