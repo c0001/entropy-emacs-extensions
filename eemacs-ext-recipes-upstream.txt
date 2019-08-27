@@ -39,6 +39,7 @@ counsel-ffdata
 counsel
 counsel-world-clock
 darkokai-theme
+diff-hl
 diminish
 dired-quick-sort
 dired-rainbow
