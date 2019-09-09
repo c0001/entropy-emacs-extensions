@@ -1,0 +1,1 @@
+(liberime-config :fetcher eemacs :repo "liberime")

@@ -1,0 +1,1 @@
+(entropy-en-words :fetcher eemacs :repo "entropy-en-words")

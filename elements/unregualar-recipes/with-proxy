@@ -1,0 +1,1 @@
+(with-proxy :fetcher eemacs :repo "with-proxy.el")

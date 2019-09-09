@@ -89,10 +89,12 @@
 ;; *** const variables
 (defconst eemacs-ext-root (file-name-directory load-file-name))
 (defconst eemacs-ext-submodules-upstream-root (expand-file-name "elements/submodules/upstream" eemacs-ext-root))
-(defconst eemacs-ext-submodules-selfcloned-root (expand-file-name "elements/submodules/self-clone" eemacs-ext-root))
+(defconst eemacs-ext-submodules-eemacs-deps-root (expand-file-name "elements/submodules/self-clone" eemacs-ext-root))
 (defconst eemacs-ext-info-root (expand-file-name "elements/info-files" eemacs-ext-root))
 (defconst eemacs-ext-melpa-root (expand-file-name "elements/submodules/melpa" eemacs-ext-root))
 (defconst eemacs-ext-melpa-packages (expand-file-name "packages" eemacs-ext-melpa-root))
+(defconst eemacs-ext-elpa-root (expand-file-name "elements/submodules/elpa" eemacs-ext-root))
+(defconst eemacs-ext-elpa-packages (expand-file-name "archive/packages" eemacs-ext-elpa-root))
 
 
 ;; ** libraries
@@ -142,7 +144,7 @@
 
   ;; Library load-path adding
   (eemacs-ext--load-path eemacs-ext-submodules-upstream-root)
-  (eemacs-ext--load-path eemacs-ext-submodules-selfcloned-root)
+  (eemacs-ext--load-path eemacs-ext-submodules-eemacs-deps-root)
 
   ;; Theme path loading
   (eemacs-ext--load-theme-path (expand-file-name eemacs-ext-submodules-upstream-root)
@@ -166,7 +168,8 @@
 ;; *** For melpa usage
 (when (eq entropy/emacs-use-extensions-type 'submodules-melpa-local)
   (setq package-archives
-        `(("entropy-emacs" . ,eemacs-ext-melpa-packages))))
+        `(("entropy-melpa" . ,eemacs-ext-melpa-packages)
+          ("entropy-elpa"  . ,eemacs-ext-elpa-packages))))
 
 
 ;; * Provide

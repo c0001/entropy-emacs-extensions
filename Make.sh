@@ -9,9 +9,38 @@ while [ -h "$EemacsextMake_SOURCE" ]; do # resolve $EemacsextMake_SOURCE until t
 done
 EemacsextMake_DIR="$( cd -P "$( dirname "$EemacsextMake_SOURCE" )" >/dev/null && pwd )"
 
+EemacsextMake_dir_nontrail_slash ()
+# judge path string $1 trailing slash existed status, and return the
+# justice code 0 for non-trailing-slash and 1 for otherwise, if $2
+# equal to 'lame' than return the trailing slash lamed path string.
+{
+    local trail_slash_P=$([[ ! -z $(echo $1 | grep -P "/$") ]] && echo yes || echo no)
+    if [[ ${trail_slash_P} == "yes" ]]
+    then
+        if [[ $2 == "lame" ]]
+        then
+            echo $(echo $1 | sed 's/\/$//' -)
+        else
+            echo 1
+        fi
+    else
+        if [[ $2 == "lame" ]]
+        then
+            echo $1
+        else
+            echo 0
+        fi
+    fi
+}
+
+EemacsextMake_DIR="$(EemacsextMake_dir_nontrail_slash ${EemacsextMake_DIR} lame)"
+
+
 # * Code
+
 # ** variable declaration
 EemacsextMake_melpadir=${EemacsextMake_DIR}/elements/submodules/melpa
+EemacsextMake_elpadir=${EemacsextMake_DIR}/elements/submodules/elpa
 EemacsextMake_upstream_submodules_dir=$EemacsextMake_DIR/elements/submodules/upstream
 EemacsextMake_infosdir=$EemacsextMake_DIR/elements/info-files
 
@@ -103,6 +132,11 @@ EemacsextMake_wait_seconds ()
         sleep 1
     done
     echo
+}
+
+EemacsextMake_GetRepoPath ()
+{
+    echo "$1" | sed -E "s|${EemacsextMake_DIR}/||"
 }
 
 # *** common usage branch
@@ -217,7 +251,7 @@ EemacsextMake_Extact_Info ()
     [[ ${#EemacsextMake_initial_failed_mkinfo[@]} -ne 0 ]] && EemacsextMake_initial_fails_types+=(0) && exit 1
 }
 
-EemacsextMake_Prompt_InfomakeError ()
+EemacsextMake_Infomake_ErrorPrompts ()
 {
     local item
     local count=1
@@ -255,7 +289,7 @@ EemacsextMake_GetLocal_ReipeList ()
     declare -a temp_list=$(cat ${EemacsextMake_local_recipes_list_file})
     for item in ${temp_list[@]}
     do
-        EemacsextMake_local_recipes+=($item)
+        [[ ! -z $item ]] && EemacsextMake_local_recipes+=($item)
     done
 }
 
@@ -265,21 +299,28 @@ EemacsextMake_BuildRecipes ()
     echo -e "\e[33mPackage build from local melpa ...\e[0m \e[34m(melpa branch)\e[0m"
     echo -e "\e[32m============================================================\e[0m"
     echo ""
-    
+
+    local full=nil
     local which
     local choice
     EemacsextMake_Make_Melpa_recipes
     EemacsextMake_GetLocal_ReipeList
+
+    [[ -z $1 ]] && full=t
+    
     cd ${EemacsextMake_melpadir}
     for which in ${EemacsextMake_local_recipes[@]}
     do
-        echo -e "\e[32m😼: building '$which'...\e[0m\n"
-        make recipes/$which
-        if [[ $? -ne 0 ]]
+        if [[ $full == 't' ]] || [[ ! -z $(echo $which | grep -P "^entropy-") ]]
         then
-            EemacsextMake_initial_failed_mkpkg+=($which)
-            read -p $'\e[31mPackage building task\e[0m \e[31mfailed, continue next task?\e[0m ' choice;
-            [[ $choice != 'y' ]] && exit 1
+            echo -e "\e[32m😼: building '$which'...\e[0m\n"
+            make recipes/$which
+            if [[ $? -ne 0 ]]
+            then
+                EemacsextMake_initial_failed_mkpkg+=($which)
+                read -p $'\e[31mPackage building task\e[0m \e[31mfailed, continue next task?\e[0m ' choice;
+                [[ $choice != 'y' ]] && exit 1
+            fi
         fi
     done
     [[ ${#EemacsextMake_initial_failed_mkpkg[@]} -ne  0 ]] && EemacsextMake_initial_fails_types+=(1) && exit 1
@@ -304,6 +345,18 @@ EemacsextMake_RecipeBuild_ErrorPrompts ()
 }
 
 
+# *** elpa build branch
+
+EemacsextMake_BuildElpa_Recipes ()
+{
+    echo ""
+    echo -e "\e[33m==================================================\e[0m"
+    echo -e "\e[32mBuilding elpa recipes ...\e[0m"
+    echo -e "\e[33m==================================================\e[0m"
+    cd ${EemacsextMake_elpadir}
+    make archive
+}
+
 # ** touch maked indicator
 EemacsextMake_Finished ()
 {
@@ -311,7 +364,7 @@ EemacsextMake_Finished ()
     if [[ ${#EemacsextMake_initial_fails_types[@]} -ne 0 ]]
     then
         [[ $(EemacsextMake_cl_member_array 0 "${EemacsextMake_initial_fails_types[@]}") == 0 ]] \
-            && EemacsextMake_Prompt_InfomakeError
+            && EemacsextMake_Infomake_ErrorPrompts
 
         echo ""
         
@@ -330,12 +383,23 @@ EemacsextMake_Main_Remove_InitFlag ()
 
 EemacsextMake_Main_Tidyup_WorkTree ()
 {
-    echo -e "\e[32mTidy up working directory ...\e[0m"
+    local target_path=$1
+    if [[ ! -z ${target_path} ]]
+    then
+        echo -e "\e[32mTidy up working directory \e[33m'${target_path}'\e[0m ...\e[0m"
+    else
+        echo -e "\e[32mTidy up working directory ...\e[0m"
+    fi
     EemacsextMake_wait_seconds 10 "\e[33m[you can cancel this procedure in 10s]\e[0m ..."
     cd ${EemacsextMake_DIR}
-    git submodule deinit --all -f
+    if [[ -z ${target_path} ]]
+    then
+        git submodule deinit --all -f
+    else
+        git submodule deinit -f ${target_path}
+    fi
     [[ $? -ne 0 ]] && exit
-    git submodule update --init
+    git submodule update --init ${target_path}
     [[ $? -ne 0 ]] && exit
     echo ""
 }
@@ -392,6 +456,7 @@ EemacsextMake_Main_All ()
     EemacsextMake_Extact_Info
     echo ""
     EemacsextMake_BuildRecipes
+    EemacsextMake_BuildElpa_Recipes
     EemacsextMake_Finished
 }
 
@@ -399,13 +464,15 @@ EemacsextMake_Main_Help ()
 {
     echo -e "Valid argument are:"
     echo -e ""
-    echo -e "- 'init':            tidy up working directory and initialize submodules"
-    echo -e "- 'tidy-branches':   remove all temporal banches making by 'toggle-branches'"
-    echo -e "- 'toggle-branches': toggle working branchs to temporal one which named with prefix '[entropy-emacs]-'"
-    echo -e "- 'patch-recipes':   patch recipes adapting for entropy-emacs"
-    echo -e "- 'build_recipes':   build all recipes (it will doing 'patch-recipes' firstly)"
-    echo -e "- 'make-infos':      make up all submodules texinfo doc"
-    echo -e "- 'all':             build project"
+    echo -e "- 'init':                tidy up working directory and initialize submodules"
+    echo -e "- 'tidy-branches':       remove all temporal banches making by 'toggle-branches'"
+    echo -e "- 'toggle-branches':     toggle working branchs to temporal one which named with prefix '[entropy-emacs]-'"
+    echo -e "- 'patch-recipes':       patch recipes adapting for entropy-emacs"
+    echo -e "- 'build_recipes':       build all recipes (it will doing 'patch-recipes' firstly)"
+    echo -e "- 'build_elpa_recipes':  build elpa recips (which tracking with https://git.savannah.gnu.org/cgit/emacs/elpa.git)"
+    echo -e "- 'build_eemacs_recipes: build eemacs-packages'"
+    echo -e "- 'make-infos':          make up all submodules texinfo doc"
+    echo -e "- 'all':                 build project"
 }
 
 EemacsextMake_Main_Choice ()
@@ -414,14 +481,15 @@ EemacsextMake_Main_Choice ()
         init) EemacsextMake_Main_Tidyup_WorkTree ;;
         tidy-branches) EemacsextMake_Main_Tidyup_TempBranches ;;
         toggle-branches) EemacsextMake_Main_Toggle_SubBranch ;;
-        patch-recipes) cd ${EemacsextMake_DIR}/elements/submodules/
-                       git submodule deinit -f melpa
-                       git submodule update --init melpa
-                       cd ${EemacsextMake_DIR}
+        patch-recipes) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_melpadir})"
                        EemacsextMake_Make_Melpa_recipes ;;
         build_recipes) EemacsextMake_Main_Choice init
                        EemacsextMake_Main_Choice toggle-branches
                        EemacsextMake_BuildRecipes ;;
+        build_elpa_recipes) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_elpadir})"
+                            EemacsextMake_BuildElpa_Recipes ;;
+        build_eemacs_recipes) EemacsextMake_Main_Tidyup_WorkTree elements/submodules/eemacs-packages
+                              EemacsextMake_BuildRecipes eemacs ;;
         make-infos) EemacsextMake_Main_Choice init && EemacsextMake_Extact_Info ;;
         all) EemacsextMake_Main_All ;;
         *) EemacsextMake_Main_Help ;;
