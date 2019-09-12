@@ -89,7 +89,7 @@
 ;; *** const variables
 (defconst eemacs-ext-root (file-name-directory load-file-name))
 (defconst eemacs-ext-submodules-upstream-root (expand-file-name "elements/submodules/upstream" eemacs-ext-root))
-(defconst eemacs-ext-submodules-eemacs-deps-root (expand-file-name "elements/submodules/self-clone" eemacs-ext-root))
+(defconst eemacs-ext-submodules-eemacs-deps-root (expand-file-name "elements/submodules/eemacs-packages" eemacs-ext-root))
 (defconst eemacs-ext-info-root (expand-file-name "elements/info-files" eemacs-ext-root))
 (defconst eemacs-ext-melpa-root (expand-file-name "elements/submodules/melpa" eemacs-ext-root))
 (defconst eemacs-ext-melpa-packages (expand-file-name "packages" eemacs-ext-melpa-root))
@@ -136,6 +136,13 @@
 
 ;; ** Intialize procedure
 
+(defun eemacs-ext-set-eemacs-doc-path ()
+  (setq entropy/emacs-doc-path
+        (list :org (expand-file-name "entropy-emacs-doc/org/entropy-emacs_introduction.org"
+                                     eemacs-ext-submodules-eemacs-deps-root)
+              :html (expand-file-name "entropy-emacs-doc/org/entropy-emacs_introduction.html"
+                                      eemacs-ext-submodules-eemacs-deps-root))))
+
 ;; *** For common usage
 (when (eq entropy/emacs-use-extensions-type 'submodules)
   ;; Info path adding
@@ -146,6 +153,9 @@
   (eemacs-ext--load-path eemacs-ext-submodules-upstream-root)
   (eemacs-ext--load-path eemacs-ext-submodules-eemacs-deps-root)
 
+  ;; set eemacs doc path
+  (eemacs-ext-set-eemacs-doc-path)
+  
   ;; Theme path loading
   (eemacs-ext--load-theme-path (expand-file-name eemacs-ext-submodules-upstream-root)
                                '("color-theme-sanityinc-tomorrow"
@@ -169,7 +179,9 @@
 (when (eq entropy/emacs-use-extensions-type 'submodules-melpa-local)
   (setq package-archives
         `(("entropy-melpa" . ,eemacs-ext-melpa-packages)
-          ("entropy-elpa"  . ,eemacs-ext-elpa-packages))))
+          ("entropy-elpa"  . ,eemacs-ext-elpa-packages)))
+  ;; set eemacs doc path
+  (eemacs-ext-set-eemacs-doc-path))
 
 
 ;; * Provide
