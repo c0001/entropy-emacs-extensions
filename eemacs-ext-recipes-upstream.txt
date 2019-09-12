@@ -167,7 +167,6 @@ toc-org
 transient
 dash
 ujelly-theme
-undo-tree
 use-package
 bind-key
 visual-regexp
@@ -181,7 +180,6 @@ web-server
 websocket
 which-key
 window-number
-windresize
 with-editor
 async
 xcscope
