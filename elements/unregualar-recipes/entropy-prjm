@@ -1,4 +1,4 @@
-(entropy-project-manager
+(entropy-prjm
  :fetcher eemacs
  :repo "entropy-project-manager"
  :files (:defaults
