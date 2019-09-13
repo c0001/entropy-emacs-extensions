@@ -210,7 +210,7 @@ entropy-org-export-theme-toggle
 entropy-org-widget
 entropy-portableapps
 entropy-project-manager
-entropy-proxy-mode
+entropy-prjm
 entropy-proxy-url
 entropy-s2t
 entropy-sdcv
