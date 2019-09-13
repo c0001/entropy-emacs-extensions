@@ -152,56 +152,84 @@ EemacsextMake_MakeInfo_For_ghub ()
 {
     cd ${EemacsextMake_ghubdir}
     make info
-    [[ $? -ne 0 ]] && EemacsextMake_initial_failed_mkinfo+=("ghub") && exit 1
-    cp -v ghub.info ${EemacsextMake_infosdir}/
+    if [[ $? -ne 0 ]]
+    then
+        EemacsextMake_initial_failed_mkinfo+=("ghub")
+    else
+        cp -v ghub.info ${EemacsextMake_infosdir}/
+    fi
 }
 
 EemacsextMake_MakeInfo_For_magit ()
 {
     cd ${EemacsextMake_magitdir}
     make info
-    [[ $? -ne 0 ]] && EemacsextMake_initial_failed_mkinfo+=("magit") && exit 1
-    cp -v ./Documentation/magit.info ${EemacsextMake_infosdir}/
+    if [[ $? -ne 0 ]]
+    then
+        EemacsextMake_initial_failed_mkinfo+=("magit")
+    else
+        cp -v ./Documentation/magit.info ${EemacsextMake_infosdir}/
+    fi
 }
 
 EemacsextMake_MakeInfo_For_magit_popup ()
 {
     cd ${EemacsextMake_magitpopupdir}
     make info
-    [[ $? -ne 0 ]] && EemacsextMake_initial_failed_mkinfo+=("magit_popup") && exit 1
-    cp -v magit-popup.info ${EemacsextMake_infosdir}/
+    if [[ $? -ne 0 ]]
+    then
+        EemacsextMake_initial_failed_mkinfo+=("magit_popup")
+    else
+        cp -v magit-popup.info ${EemacsextMake_infosdir}/
+    fi
 }
 
 EemacsextMake_MakeInfo_For_webserver ()
 {
     cd ${EemacsextMake_webserverdir}/doc
     make all
-    [[ $? -ne 0 ]] && EemacsextMake_initial_failed_mkinfo+=("emacs-web-server") && exit 1
-    cp -v web-server.info ${EemacsextMake_infosdir}/
+    if [[ $? -ne 0 ]]
+    then
+        EemacsextMake_initial_failed_mkinfo+=("emacs-web-server")
+    else
+        cp -v web-server.info ${EemacsextMake_infosdir}/
+    fi
 }
 
 EemacsextMake_MakeInfo_For_witheditor ()
 {
     cd ${EemacsextMake_witheditordir}
     make info
-    [[ $? -ne 0 ]] && EemacsextMake_initial_failed_mkinfo+=("with-editor") && exit 1
-    cp -v with-editor.info ${EemacsextMake_infosdir}/
+    if [[ $? -ne 0 ]]
+    then
+        EemacsextMake_initial_failed_mkinfo+=("with-editor")
+    else
+        cp -v with-editor.info ${EemacsextMake_infosdir}/
+    fi
 }
 
 EemacsextMake_MakeInfo_For_ivy ()
 {
     cd ${EemacsextMake_ivydir}/doc
     makeinfo ivy.texi
-    [[ $? -ne 0 ]] && EemacsextMake_initial_failed_mkinfo+=("ivy") && exit 1
-    cp -v ivy.info ${EemacsextMake_infosdir}/
+    if [[ $? -ne 0 ]]
+    then
+        EemacsextMake_initial_failed_mkinfo+=("ivy")
+    else
+        cp -v ivy.info ${EemacsextMake_infosdir}/
+    fi
 }
 
 EemacsextMake_MakeInfo_For_nsis ()
 {
     cd ${EemacsextMake_nsisdir}
     makeinfo nsis-mode.texi
-    [[ $? -ne 0 ]] && EemacsextMake_initial_failed_mkinfo+=("nsis") && exit 1
-    cp -v nsis-mode.info ${EemacsextMake_infosdir}/
+    if [[ $? -ne 0 ]]
+    then
+        EemacsextMake_initial_failed_mkinfo+=("nsis")
+    else
+        cp -v nsis-mode.info ${EemacsextMake_infosdir}/
+    fi
 }
 
 EemacsextMake_MakeInfo_For_ew3m ()
@@ -209,24 +237,36 @@ EemacsextMake_MakeInfo_For_ew3m ()
     cd ${EemacsextMake_ew3mdir}
     [ ! -f configure ] && autoconf
     ./configure && make info
-    [[ $? -ne 0 ]] && EemacsextMake_initial_failed_mkinfo+=("emacs w3m") && exit 1
-    cp -v doc/emacs-w3m.info ${EemacsextMake_infosdir}/
+    if [[ $? -ne 0 ]]
+    then
+        EemacsextMake_initial_failed_mkinfo+=("emacs w3m")
+    else
+        cp -v doc/emacs-w3m.info ${EemacsextMake_infosdir}/
+    fi
 }
 
 EemacsextMake_MakeInfo_For_transient ()
 {
     cd ${EemacsextMake_transientdir}
     make info
-    [[ $? -ne 0 ]] && EemacsextMake_initial_failed_mkinfo+=("transient") && exit 1
-    cp -v docs/transient.info ${EemacsextMake_infosdir}/
+    if [[ $? -ne 0 ]]
+    then
+        EemacsextMake_initial_failed_mkinfo+=("transient")
+    else
+        cp -v docs/transient.info ${EemacsextMake_infosdir}/
+    fi
 }
 
 EemacsextMake_MakeInfo_For_usepackage ()
 {
     cd ${EemacsextMake_usepackgedir}
     make info
-    [[ $? -ne 0 ]] && EemacsextMake_initial_failed_mkinfo+=("use-package") && exit 1
-    cp -v use-package.info ${EemacsextMake_infosdir}/
+    if [[ $? -ne 0 ]]
+    then
+        EemacsextMake_initial_failed_mkinfo+=("use-package")
+    else
+        cp -v use-package.info ${EemacsextMake_infosdir}/
+    fi
 }
 
 # **** main
@@ -248,7 +288,8 @@ EemacsextMake_Extact_Info ()
     EemacsextMake_MakeInfo_For_usepackage
     EemacsextMake_MakeInfo_For_webserver
     EemacsextMake_MakeInfo_For_witheditor
-    [[ ${#EemacsextMake_initial_failed_mkinfo[@]} -ne 0 ]] && EemacsextMake_initial_fails_types+=(0) && exit 1
+    [[ ${#EemacsextMake_initial_failed_mkinfo[@]} -ne 0 ]] && EemacsextMake_initial_fails_types+=(0)
+    EemacsextMake_Infomake_ErrorPrompts
 }
 
 EemacsextMake_Infomake_ErrorPrompts ()
@@ -323,9 +364,14 @@ EemacsextMake_BuildRecipes ()
             fi
         fi
     done
-    [[ ${#EemacsextMake_initial_failed_mkpkg[@]} -ne  0 ]] && EemacsextMake_initial_fails_types+=(1) && exit 1
-    # initialize packages archives contents used for package.el builtin with emacs
-    make index
+    if [[ ${#EemacsextMake_initial_failed_mkpkg[@]} -ne  0 ]]
+    then
+        EemacsextMake_initial_fails_types+=(1)
+        EemacsextMake_RecipeBuild_ErrorPrompts
+    else
+        # initialize packages archives contents used for package.el builtin with emacs
+        make index
+    fi
     # recovery the recipes patch
     cd ${EemacsextMake_melpadir} && git checkout recipes
 }
@@ -490,7 +536,8 @@ EemacsextMake_Main_Choice ()
                             EemacsextMake_BuildElpa_Recipes ;;
         build_eemacs_recipes) EemacsextMake_Main_Tidyup_WorkTree elements/submodules/eemacs-packages
                               EemacsextMake_BuildRecipes eemacs ;;
-        make-infos) EemacsextMake_Main_Choice init && EemacsextMake_Extact_Info ;;
+        make-infos) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_upstream_submodules_dir})"
+                    EemacsextMake_Extact_Info ;;
         all) EemacsextMake_Main_All ;;
         *) EemacsextMake_Main_Help ;;
     esac
