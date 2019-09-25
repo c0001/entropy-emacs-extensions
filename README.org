@@ -14,7 +14,7 @@ package repo of melpa or elpa extensions, version respected by
 will update in term of the updates of =entropy-emacs=.
 
 Project can be used individually in your own wish but without any
-warrantry for the reasoon mentioned above. Load the loader
+warrantry for the reason mentioned above. Load the loader
 =entropy-emacs-extensions-load.el= in case for that.
 
 For each =entropy-emacs= user, before using this repo whenever after
