@@ -80,6 +80,7 @@ highlight-indent-guides
 highlight-parentheses
 hl-todo
 ialign
+projectile
 ibuffer-projectile
 impatient-mode
 htmlize
@@ -107,6 +108,7 @@ git-commit
 makey
 markdown-preview-mode
 markdown-mode
+maple-preview
 material-theme
 multi-term
 multiple-cursors

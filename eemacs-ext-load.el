@@ -166,9 +166,7 @@
 (when (eq entropy/emacs-use-extensions-type 'submodules-melpa-local)
   (setq package-archives
         `(("entropy-melpa" . ,eemacs-ext-melpa-packages)
-          ("entropy-elpa"  . ,eemacs-ext-elpa-packages)))
-  ;; set eemacs doc path
-  (eemacs-ext-set-eemacs-doc-path))
+          ("entropy-elpa"  . ,eemacs-ext-elpa-packages))))
 
 
 ;; * Provide
