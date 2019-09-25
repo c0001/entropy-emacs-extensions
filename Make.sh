@@ -289,7 +289,6 @@ EemacsextMake_Extact_Info ()
     EemacsextMake_MakeInfo_For_webserver
     EemacsextMake_MakeInfo_For_witheditor
     [[ ${#EemacsextMake_initial_failed_mkinfo[@]} -ne 0 ]] && EemacsextMake_initial_fails_types+=(0)
-    EemacsextMake_Infomake_ErrorPrompts
 }
 
 EemacsextMake_Infomake_ErrorPrompts ()
