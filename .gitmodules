@@ -758,10 +758,6 @@
 	path = elements/submodules/upstream/epl
 	url = https://github.com/cask/epl.git
 	branch = master
-[submodule "elements/submodules/upstream/pkg-info.el"]
-	path = elements/submodules/upstream/pkg-info.el
-	url = https://github.com/lunaryorn/pkg-info.el.git
-	branch = master
 [submodule "elements/submodules/upstream/visual-ascii-mode"]
 	path = elements/submodules/upstream/visual-ascii-mode
 	url = https://github.com/Dewdrops/visual-ascii-mode.git
@@ -869,4 +865,8 @@
 [submodule "elements/submodules/eemacs-packages/with-proxy.el"]
 	path = elements/submodules/eemacs-packages/with-proxy.el
 	url = https://github.com/twlz0ne/with-proxy.el.git
+	branch = master
+[submodule "elements/submodules/upstream/pkg-info"]
+	path = elements/submodules/upstream/pkg-info
+	url = https://github.com/emacsorphanage/pkg-info.git
 	branch = master
