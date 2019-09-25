@@ -1,6 +1,0 @@
-(entropy-prjm
- :fetcher eemacs
- :repo "entropy-project-manager"
- :files (:defaults
-         "entropy-prjm-sqlite-initialize.sql"
-         "prj-template"))

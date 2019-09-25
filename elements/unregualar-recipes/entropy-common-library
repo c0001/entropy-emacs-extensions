@@ -1,1 +1,0 @@
-(entropy-common-library :fetcher eemacs :repo "entropy-common-library")
