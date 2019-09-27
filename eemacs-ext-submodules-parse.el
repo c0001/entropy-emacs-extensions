@@ -17,6 +17,15 @@
     `(with-current-buffer ,buffer
        ,@body)))
 
+(defun eemacs-ext/ggsh--get-submodule-head (submodule-dir)
+  (let ((default-directory (expand-file-name submodule-dir)))
+    (car (process-lines
+          "git"
+          "show-ref"
+          "--head"
+          "-s" "1"
+          "--abbrev=8"))))
+
 (defun eemacs-ext/ggsh--goto-entry-head ()
   (re-search-forward eemacs-ext/ggsh--entry-head-regexp nil t))
 
@@ -131,13 +140,14 @@
         (flag (format-time-string "%Y%m%d%H%M%S"))
         (count 1))
     (dolist (el module-list)
-      (let ((path (cdr (assoc 'path el)))
-            (branch (cdr (assoc 'branch el))))
+      (let* ((path (cdr (assoc 'path el)))
+             (branch (cdr (assoc 'branch el)))
+             (submodule-dir (expand-file-name path eemacs-ext/ggsh--root-dir)))
         (when (and branch
                    (file-exists-p
                     (expand-file-name
                      ".git"
-                     (expand-file-name path eemacs-ext/ggsh--root-dir))))
+                     submodule-dir)))
           (if recovery
               (progn
                 (push "echo -e \"\\n==================================================\""
@@ -148,8 +158,10 @@
                 (push "echo -e \"==================================================\\n\""
                       cache)
                 (push
-                 (format "cd %s && git checkout origin/%s; cd %s"
-                         path branch eemacs-ext/ggsh--root-dir)
+                 (format "cd %s && git checkout %s; cd %s"
+                         path
+                         (eemacs-ext/ggsh--get-submodule-head submodule-dir)
+                         eemacs-ext/ggsh--root-dir)
                  cache)
                 (push "" cache))
             (progn
