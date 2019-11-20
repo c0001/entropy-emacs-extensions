@@ -1,11 +1,11 @@
-## eemacs-ext Make.sh --- The core make procedure for eemacs-ext 
+## eemacs-ext Make.sh --- The core make procedure for eemacs-ext
 
 # * Copyright (C) 2019  Entropy
 # #+BEGIN_EXAMPLE
 # Author:        Entropy <bmsac0001@gmail.com>
 # Maintainer:    Entropy <bmsac001@gmail.com>
 # URL:           https://github.com/c0001/entropy-emacs-extensions/blob/master/Make.sh
-# 
+#
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -21,7 +21,7 @@
 # #+END_EXAMPLE
 # * Commentary:
 #
-# The main procedure of making eemacs-ext project, type 
+# The main procedure of making eemacs-ext project, type
 # 'bash Make.sh' to see the usage prompts.
 #
 # * Code
@@ -33,7 +33,7 @@ while [ -h "$EemacsextMake_SOURCE" ]; do # resolve $EemacsextMake_SOURCE until t
 
   # if $EemacsextMake_SOURCE was a relative symlink, we need to resolve it relative
   # to the path where the symlink file was located
-  [[ $EemacsextMake_SOURCE != /* ]] && EemacsextMake_SOURCE="$EemacsextMake_DIR/$EemacsextMake_SOURCE" 
+  [[ $EemacsextMake_SOURCE != /* ]] && EemacsextMake_SOURCE="$EemacsextMake_DIR/$EemacsextMake_SOURCE"
 done
 EemacsextMake_DIR="$( cd -P "$( dirname "$EemacsextMake_SOURCE" )" >/dev/null && pwd )"
 
@@ -92,10 +92,17 @@ EemacsextMake_ew3mdir=${EemacsextMake_upstream_submodules_dir}/emacs-w3m
 EemacsextMake_transientdir=${EemacsextMake_upstream_submodules_dir}/transient
 EemacsextMake_usepackgedir=${EemacsextMake_upstream_submodules_dir}/use-package
 
+EemacsextMake_error_log_host=$EemacsextMake_DIR/build_log
+mkdir -p $EemacsextMake_error_log_host
+
 declare -A EemacsextMake_initial_failed_index=([0]="common initial with error" [1]="melpa package build with error")
 declare -a EemacsextMake_initial_fails_types
+
 declare -a EemacsextMake_initial_failed_mkinfo
+EemacsextMake_initial_failed_mkinfo_output_file=$EemacsextMake_error_log_host/mkinfo.log
+
 declare -a EemacsextMake_initial_failed_mkpkg
+EemacsextMake_initial_failed_mkpkg_output_file=$EemacsextMake_error_log_host/mkpkg.log
 
 # ** commands requested check
 EemacsextMake_Checking_shell ()
@@ -331,12 +338,17 @@ EemacsextMake_Infomake_ErrorPrompts ()
 {
     local item
     local count=1
+    local error_str
+    local error_str_nonpropertize
     echo -e "========================================="
     echo -e "Failed prompts for \e[34mMake info\e[0m"
     echo -e "-----------------------------------------\n"
     for item in ${EemacsextMake_initial_failed_mkinfo[@]}
     do
-        echo -e "\e[33m$count:\e[0m '$item' \e[31mmake info failed\e[0m"
+        error_str="\e[33m$count:\e[0m '$item' \e[31mmake info failed\e[0m"
+        error_str_nonpropertize="$count: '$item' mmake info failed"
+        echo -e "$error_str"
+        echo "$error_str_nonpropertize" >> $EemacsextMake_initial_failed_mkinfo_output_file
         (( count++ ))
     done
 }
@@ -376,13 +388,10 @@ EemacsextMake_BuildRecipes ()
     echo -e "\e[32m============================================================\e[0m"
     echo ""
 
-    local full=nil
     local which
     local choice
     local count=1
     local recipeslen
-
-    [[ -z $1 ]] && full=t
 
     EemacsextMake_Make_Melpa_recipes
     EemacsextMake_GetLocal_ReipeList
@@ -390,20 +399,18 @@ EemacsextMake_BuildRecipes ()
     recipeslen=${#EemacsextMake_local_recipes[@]}
 
     cd ${EemacsextMake_melpadir}
-    
+
     for which in ${EemacsextMake_local_recipes[@]}
     do
-        if [[ $full == 't' ]] || [[ ! -z $(echo $which | grep -P "^entropy-") ]]
+        echo -e "\e[32m😼: building '$which'...\e[0m\n\e[34m--->[remains:\e[0m \e[33m$(( $recipeslen - $count ))\e[0m \e[34m]\e[0m\n"
+        make recipes/$which
+        if [[ $? -ne 0 ]]
         then
-            echo -e "\e[32m😼: building '$which'...\e[0m\n\e[34m--->[remains:\e[0m \e[33m$(( $recipeslen - $count ))\e[0m \e[34m]\e[0m\n"
-            make recipes/$which
-            if [[ $? -ne 0 ]]
-            then
-                EemacsextMake_initial_failed_mkpkg+=($which)
-                read -p $'\e[31mPackage building task\e[0m \e[31mfailed, continue next task?\e[0m ' choice;
-                [[ $choice != 'y' ]] && exit 1
-            fi
+            EemacsextMake_initial_failed_mkpkg+=($which)
+            read -p $'\e[31mPackage building task\e[0m \e[31mfailed, continue next task?\e[0m ' choice;
+            [[ $choice != 'y' ]] && exit 1
         fi
+
         count=$(($count + 1 ))
     done
     if [[ ${#EemacsextMake_initial_failed_mkpkg[@]} -ne  0 ]]
@@ -422,12 +429,18 @@ EemacsextMake_RecipeBuild_ErrorPrompts ()
 {
     local item
     local count=1
+    local error_str
+    local error_str_nonpropertize
     echo -e "========================================="
     echo -e "Failed prompts for \e[34mPackage building\e[0m"
     echo -e "-----------------------------------------\n"
     for item in ${EemacsextMake_initial_failed_mkpkg[@]}
     do
-        echo -e "\e[33m$count:\e[0m '$item' \e[31mpackage build failed\e[0m"
+        error_str="\e[33m$count:\e[0m '$item' \e[31mpackage build failed\e[0m"
+        error_str_nonpropertize="$count: '$item' package build failed"
+        echo -e "$error_str"
+        echo "$error_str_nonpropertize" >> $EemacsextMake_initial_failed_mkpkg_output_file
+
         (( count++ ))
     done
 }
@@ -455,7 +468,7 @@ EemacsextMake_Finished ()
             && EemacsextMake_Infomake_ErrorPrompts
 
         echo ""
-        
+
         [[ $(EemacsextMake_cl_member_array 1 "${EemacsextMake_initial_fails_types[@]}") == 0 ]] \
             && EemacsextMake_RecipeBuild_ErrorPrompts
     else
@@ -500,9 +513,9 @@ EemacsextMake_Main_Toggle_SubBranch ()
     if [[ -z $recovery ]]
     then
         echo -e "\e[32mToggle submodule branch ...\e[0m"
-        emacs -Q --batch -l ${EemacsextMake_elbatch_modulesparse} --eval "(eemacs-ext/ggsh--gen-branch-toggle-cmd)"
+        emacs -Q --batch -l ${EemacsextMake_elbatch_modulesparse} --eval "(eemacs-ext/ggsh-gen-submodules-branch-toggle-bash-script)"
     else
-        emacs -Q --batch -l ${EemacsextMake_elbatch_modulesparse} --eval "(eemacs-ext/ggsh--gen-branch-toggle-cmd t)"
+        emacs -Q --batch -l ${EemacsextMake_elbatch_modulesparse} --eval "(eemacs-ext/ggsh-gen-submodules-branch-toggle-bash-script t)"
     fi
     [[ $? -ne 0 ]] && exit
     cd ${EemacsextMake_DIR}
@@ -556,9 +569,9 @@ EemacsextMake_Main_Help ()
     echo -e "- 'tidy-branches':       remove all temporal banches making by 'toggle-branches'"
     echo -e "- 'toggle-branches':     toggle working branchs to temporal one which named with prefix '[entropy-emacs]-'"
     echo -e "- 'patch-recipes':       patch recipes adapting for entropy-emacs"
-    echo -e "- 'build_recipes':       build all recipes (it will doing 'patch-recipes' firstly)"
-    echo -e "- 'build_elpa_recipes':  build elpa recips (which tracking with https://git.savannah.gnu.org/cgit/emacs/elpa.git)"
-    echo -e "- 'build_eemacs_recipes: build eemacs-packages'"
+    echo -e "- 'build-recipes':       build all recipes (it will doing 'patch-recipes' firstly)"
+    echo -e "- 'build-elpa_recipes':  build elpa recips (which tracking with https://git.savannah.gnu.org/cgit/emacs/elpa.git)"
+    echo -e "- 'build-eemacs_recipes: build eemacs-packages'"
     echo -e "- 'make-infos':          make up all submodules texinfo doc"
     echo -e "- 'all':                 build project"
 }
@@ -567,23 +580,37 @@ EemacsextMake_Main_Choice ()
 {
     case $1 in
         init) EemacsextMake_Main_Tidyup_WorkTree ;;
+
         tidy-branches) EemacsextMake_Main_Tidyup_TempBranches ;;
+
         toggle-branches) EemacsextMake_Main_Toggle_SubBranch ;;
+
         patch-recipes) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_melpadir})"
                        EemacsextMake_Make_Melpa_recipes ;;
-        build_recipes) EemacsextMake_Main_Choice init
+
+        build-recipes) EemacsextMake_Main_Choice init
                        EemacsextMake_Main_Choice toggle-branches
                        EemacsextMake_BuildRecipes ;;
-        build_elpa_recipes) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_elpadir})"
+
+        build-elpa_recipes) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_elpadir})"
                             EemacsextMake_BuildElpa_Recipes ;;
-        build_eemacs_recipes) EemacsextMake_Main_Tidyup_WorkTree elements/submodules/eemacs-packages
-                              EemacsextMake_BuildRecipes eemacs ;;
+
+        build-eemacs_recipes)
+            echo -e "\e[31mOff-line, all of eemacs packages have been migrated into eemacs self.\e[0m"
+            # EemacsextMake_Main_Tidyup_WorkTree elements/submodules/eemacs-packages
+            # EemacsextMake_BuildRecipes eemacs
+            ;;
+
         make-infos) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_upstream_submodules_dir})"
                     EemacsextMake_Extact_Info ;;
+
         all) EemacsextMake_Main_All ;;
+
         *) EemacsextMake_Main_Help ;;
     esac
 }
+
+# * provide
 
 EemacsextMake_Checking_shell
 

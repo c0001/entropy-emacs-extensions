@@ -1,3 +1,43 @@
+;;; eemacs-ext-submodules-parse.el --- gitmodules parse library for eemacs-ext
+;;
+;; * Copyright (C) 2019  Entropy
+;; #+BEGIN_EXAMPLE
+;; Author:        Entropy <bmsac0001@gmail.com>
+;; Maintainer:    Entropy <bmsac001@gmail.com>
+;; Package-Version: 0.1.0
+;; Compatibility: GNU Emacs emacs-version;
+;; Package-Requires: ((emacs "24") (cl-lib "0.5"))
+;; 
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;; 
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;; 
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;; #+END_EXAMPLE
+;; 
+;; * Commentary:
+
+;; Parse gitmodules and generate bash script file for batch operation.
+
+;; This library get git modules into =MATCHED-LIST=, a alist to represent
+;; one git submodule with its 'name' 'branch' 'url' 'path'.
+
+;; Bash script can be generated for below aims:
+
+;; - toggle-branch to tempo one
+;; - toggle-branch to head's commit hash
+;; - create one git submodules 'add' batch bash script
+
+;; * Code:
+
+
 (defvar eemacs-ext/ggsh--root-dir (expand-file-name (file-name-directory load-file-name)))
 
 (defvar eemacs-ext/ggsh--submodule-file
@@ -60,7 +100,7 @@
             (forward-line 0)))))
     matched-list))
 
-(defun eemacs-ext/ggsh--format-sh (matched-list)
+(defun eemacs-ext/ggsh--format-submodule-add-bash (matched-list)
   (let ((format-str (if (assoc 'branch matched-list)
                         (cons 'branch "git submodule add -b %s %s %s")
                       (cons 'non-branch "git submodule add %s %s"))))
@@ -75,7 +115,9 @@
               (cdr (assoc 'url matched-list))
               (cdr (assoc 'path matched-list)))))))
 
-(defun eemacs-ext/ggsh--check-unregular (matched-list &optional fbk)
+(defun eemacs-ext/ggsh--check-unregular-submodule-path-name (matched-list &optional fbk)
+  "Check whether submodule base name are different from the url
+suffix name."
   (let ((url (cdr (assoc 'url matched-list)))
         (path (cdr (assoc 'path matched-list)))
         path-trail url-trail rtn)
@@ -102,7 +144,7 @@
                (eemacs-ext/ggsh--search-pair
                 (eemacs-ext/ggsh--get-entry-region)))
          (when check-unregular
-           (eemacs-ext/ggsh--check-unregular temp_match 'unregular))
+           (eemacs-ext/ggsh--check-unregular-submodule-path-name temp_match 'unregular))
          (unless just-check-unregular
            (push temp_match submodule-module-list))
          (end-of-line))
@@ -111,18 +153,18 @@
     (if just-check-unregular unregular
       (if check-unregular (cons submodule-module-list unregular) submodule-module-list))))
 
-(defun eemacs-ext/ggsh--get-submodules-get-cmd-list ()
+(defun eemacs-ext/ggsh--get-batch-submodules-add-bash-script-list ()
   (let ((module-list (eemacs-ext/ggsh--get-submodules-list))
         rtn)
     (dolist (el module-list)
       (push
-       (eemacs-ext/ggsh--format-sh el)
+       (eemacs-ext/ggsh--format-submodule-add-bash el)
        rtn))
     rtn))
 
-(defun eemacs-ext/ggsh--gen-sh-file ()
+(defun eemacs-ext/ggsh-gen-submodules-add-bash-script ()
   (interactive)
-  (let ((fmtstr-list (eemacs-ext/ggsh--get-submodules-get-cmd-list))
+  (let ((fmtstr-list (eemacs-ext/ggsh--get-batch-submodules-add-bash-script-list))
         (inhibit-read-only t))
     (with-current-buffer (find-file-noselect eemacs-ext/ggsh--batch-file nil t)
       (goto-char (point-min))
@@ -132,8 +174,8 @@
       (kill-buffer))
     (message "Submodules getting commands generated done!")))
 
-(defun eemacs-ext/ggsh--gen-branch-toggle-cmd (&optional recovery)
-  (interactive)
+(defun eemacs-ext/ggsh-gen-submodules-branch-toggle-bash-script (&optional recovery)
+  (interactive "P")
   (let ((module-list (eemacs-ext/ggsh--get-submodules-list))
         cache
         (inhibit-read-only t)
