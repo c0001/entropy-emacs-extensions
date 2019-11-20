@@ -18,6 +18,6 @@ warrantry for the reason mentioned above. Load the loader
 =entropy-emacs-extensions-load.el= in case for that.
 
 For each =entropy-emacs= user, before using this repo whenever after
-each updating or at the initialization, run the =Make.sh= for
-finishing both of the updating or initialization, this was required at
-top level.
+each updating or at the initialization, run the =make= for finishing
+both of the updating or initialization, this was required at top
+level.

@@ -489,7 +489,7 @@ EemacsextMake_Main_Tidyup_WorkTree ()
     then
         echo -e "\e[32mTidy up working directory \e[33m'${target_path}'\e[0m ...\e[0m"
     else
-        echo -e "\e[32mTidy up working directory ...\e[0m"
+        echo -e "\e[32mTidy up working directory ...\e[0m \e[31m[⚠ ALL]\e[0m"
     fi
     EemacsextMake_wait_seconds 10 "\e[33m[you can cancel this procedure in 10s]\e[0m ..."
     cd ${EemacsextMake_DIR}
