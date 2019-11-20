@@ -210,10 +210,6 @@
 	path = elements/submodules/upstream/pyim
 	url = https://github.com/tumashu/pyim.git
 	branch = master
-[submodule "elements/submodules/upstream/py-autopep8.el"]
-	path = elements/submodules/upstream/py-autopep8.el
-	url = https://github.com/paetzke/py-autopep8.el.git
-	branch = master
 [submodule "elements/submodules/upstream/powerline"]
 	path = elements/submodules/upstream/powerline
 	url = https://github.com/milkypostman/powerline.git

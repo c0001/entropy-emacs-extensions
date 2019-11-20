@@ -134,7 +134,6 @@ gntp
 poporg
 popwin
 posframe
-py-autopep8
 pyim
 pyim-basedict
 pythonic
