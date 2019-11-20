@@ -171,6 +171,7 @@ EemacsextMake_MakeInfo_For_dash ()
 {
     cd ${EemacsextMake_dashdir}
     cp -v dash.info ${EemacsextMake_infosdir}/
+    git clean -xfd .
 }
 
 EemacsextMake_MakeInfo_For_ghub ()
@@ -182,6 +183,7 @@ EemacsextMake_MakeInfo_For_ghub ()
         EemacsextMake_initial_failed_mkinfo+=("ghub")
     else
         cp -v ghub.info ${EemacsextMake_infosdir}/
+        git clean -xfd .
     fi
 }
 
@@ -194,6 +196,7 @@ EemacsextMake_MakeInfo_For_magit ()
         EemacsextMake_initial_failed_mkinfo+=("magit")
     else
         cp -v ./Documentation/magit.info ${EemacsextMake_infosdir}/
+        git clean -xfd .
     fi
 }
 
@@ -206,6 +209,7 @@ EemacsextMake_MakeInfo_For_magit_popup ()
         EemacsextMake_initial_failed_mkinfo+=("magit_popup")
     else
         cp -v magit-popup.info ${EemacsextMake_infosdir}/
+        git clean -xfd .
     fi
 }
 
@@ -218,6 +222,7 @@ EemacsextMake_MakeInfo_For_webserver ()
         EemacsextMake_initial_failed_mkinfo+=("emacs-web-server")
     else
         cp -v web-server.info ${EemacsextMake_infosdir}/
+        git clean -xfd .
     fi
 }
 
@@ -230,6 +235,7 @@ EemacsextMake_MakeInfo_For_witheditor ()
         EemacsextMake_initial_failed_mkinfo+=("with-editor")
     else
         cp -v with-editor.info ${EemacsextMake_infosdir}/
+        git clean -xfd .
     fi
 }
 
@@ -242,6 +248,7 @@ EemacsextMake_MakeInfo_For_ivy ()
         EemacsextMake_initial_failed_mkinfo+=("ivy")
     else
         cp -v ivy.info ${EemacsextMake_infosdir}/
+        git clean -xfd .
     fi
 }
 
@@ -254,6 +261,7 @@ EemacsextMake_MakeInfo_For_nsis ()
         EemacsextMake_initial_failed_mkinfo+=("nsis")
     else
         cp -v nsis-mode.info ${EemacsextMake_infosdir}/
+        git clean -xfd .
     fi
 }
 
@@ -267,6 +275,7 @@ EemacsextMake_MakeInfo_For_ew3m ()
         EemacsextMake_initial_failed_mkinfo+=("emacs w3m")
     else
         cp -v doc/emacs-w3m.info ${EemacsextMake_infosdir}/
+        git clean -xfd .
     fi
 }
 
@@ -279,6 +288,7 @@ EemacsextMake_MakeInfo_For_transient ()
         EemacsextMake_initial_failed_mkinfo+=("transient")
     else
         cp -v docs/transient.info ${EemacsextMake_infosdir}/
+        git clean -xfd .
     fi
 }
 
@@ -291,6 +301,7 @@ EemacsextMake_MakeInfo_For_usepackage ()
         EemacsextMake_initial_failed_mkinfo+=("use-package")
     else
         cp -v use-package.info ${EemacsextMake_infosdir}/
+        git clean -xfd .
     fi
 }
 
@@ -368,17 +379,23 @@ EemacsextMake_BuildRecipes ()
     local full=nil
     local which
     local choice
+    local count=1
+    local recipeslen
+
+    [[ -z $1 ]] && full=t
+
     EemacsextMake_Make_Melpa_recipes
     EemacsextMake_GetLocal_ReipeList
 
-    [[ -z $1 ]] && full=t
-    
+    recipeslen=${#EemacsextMake_local_recipes[@]}
+
     cd ${EemacsextMake_melpadir}
+    
     for which in ${EemacsextMake_local_recipes[@]}
     do
         if [[ $full == 't' ]] || [[ ! -z $(echo $which | grep -P "^entropy-") ]]
         then
-            echo -e "\e[32m😼: building '$which'...\e[0m\n"
+            echo -e "\e[32m😼: building '$which'...\e[0m\n\e[34m--->[remains:\e[0m \e[33m$(( $recipeslen - $count ))\e[0m \e[34m]\e[0m\n"
             make recipes/$which
             if [[ $? -ne 0 ]]
             then
@@ -387,6 +404,7 @@ EemacsextMake_BuildRecipes ()
                 [[ $choice != 'y' ]] && exit 1
             fi
         fi
+        count=$(($count + 1 ))
     done
     if [[ ${#EemacsextMake_initial_failed_mkpkg[@]} -ne  0 ]]
     then
@@ -397,7 +415,7 @@ EemacsextMake_BuildRecipes ()
         make index
     fi
     # recovery the recipes patch
-    cd ${EemacsextMake_melpadir} && git checkout recipes
+    cd ${EemacsextMake_melpadir} && git checkout recipes && git clean -xfd recipes
 }
 
 EemacsextMake_RecipeBuild_ErrorPrompts ()
