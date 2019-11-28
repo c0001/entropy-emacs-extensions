@@ -770,3 +770,11 @@
 	path = elements/submodules/upstream/xr
 	url = https://github.com/mattiase/xr.git
 	branch = master
+[submodule "elements/submodules/upstream/slime"]
+	path = elements/submodules/upstream/slime
+	url = https://github.com/slime/slime.git
+	branch = master
+[submodule "elements/submodules/upstream/slime-company"]
+	path = elements/submodules/upstream/slime-company
+	url = https://github.com/anwyn/slime-company.git
+	branch = master

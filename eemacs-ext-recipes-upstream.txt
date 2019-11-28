@@ -195,3 +195,5 @@ chinese-word-at-point
 pos-tip
 popup
 zeal-at-point
+slime
+slime-company
