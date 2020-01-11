@@ -778,3 +778,7 @@
 	path = elements/submodules/upstream/slime-company
 	url = https://github.com/anwyn/slime-company.git
 	branch = master
+[submodule "elements/submodules/upstream/emacs-libvterm"]
+	path = elements/submodules/upstream/emacs-libvterm
+	url = https://github.com/akermu/emacs-libvterm.git
+	branch = master
