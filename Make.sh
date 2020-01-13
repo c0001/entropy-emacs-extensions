@@ -69,8 +69,8 @@ EemacsextMake_elpadir=${EemacsextMake_DIR}/elements/submodules/elpa
 EemacsextMake_upstream_submodules_dir=$EemacsextMake_DIR/elements/submodules/upstream
 EemacsextMake_infosdir=$EemacsextMake_DIR/elements/info-files
 
-EemacsextMake_elbatch_modulesparse=${EemacsextMake_DIR}/eemacs-ext-submodules-parse.el
-EemacsextMake_elbatch_branchtoggle_batch_file=${EemacsextMake_DIR}/toggle-branch.sh
+EemacsextMake_elbatch_modulesparse_elisp_file=${EemacsextMake_DIR}/eemacs-ext-submodules-parse.el
+EemacsextMake_elbatch_branchtoggle_bashscript_file=${EemacsextMake_DIR}/annex/bin/submodules-common-toggle-branch.sh
 
 declare -a EemacsextMake_local_recipes
 
@@ -507,21 +507,21 @@ EemacsextMake_Main_Tidyup_WorkTree ()
 
 EemacsextMake_Main_Toggle_SubBranch ()
 {
-    [[ -f ${EemacsextMake_elbatch_branchtoggle_batch_file} ]] && rm -f ${EemacsextMake_elbatch_branchtoggle_batch_file}
+    [[ -f ${EemacsextMake_elbatch_branchtoggle_bashscript_file} ]] && rm -f ${EemacsextMake_elbatch_branchtoggle_bashscript_file}
     local recovery=$1
     cd ${EemacsextMake_DIR}
     if [[ -z $recovery ]]
     then
         echo -e "\e[32mToggle submodule branch ...\e[0m"
-        emacs -Q --batch -l ${EemacsextMake_elbatch_modulesparse} --eval "(eemacs-ext/ggsh-gen-submodules-branch-toggle-bash-script)"
+        emacs -Q --batch -l ${EemacsextMake_elbatch_modulesparse_elisp_file} --eval "(eemacs-ext/ggsh-gen-submodules-common-branch-toggle-bash-script)"
     else
-        emacs -Q --batch -l ${EemacsextMake_elbatch_modulesparse} --eval "(eemacs-ext/ggsh-gen-submodules-branch-toggle-bash-script t)"
+        emacs -Q --batch -l ${EemacsextMake_elbatch_modulesparse_elisp_file} --eval "(eemacs-ext/ggsh-gen-submodules-common-branch-toggle-bash-script t)"
     fi
     [[ $? -ne 0 ]] && exit
     cd ${EemacsextMake_DIR}
-    if [[ -f ${EemacsextMake_elbatch_branchtoggle_batch_file} ]]
+    if [[ -f ${EemacsextMake_elbatch_branchtoggle_bashscript_file} ]]
     then
-        bash ${EemacsextMake_elbatch_branchtoggle_batch_file}
+        bash ${EemacsextMake_elbatch_branchtoggle_bashscript_file}
         [[ $? -ne 0 ]] && exit
     else
         echo -e "\e[31mPlease initialize submodules first!\e[0m"

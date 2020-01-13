@@ -173,6 +173,7 @@ bind-key
 visual-regexp
 visual-ascii-mode
 volatile-highlights
+vterm
 w3m
 web-beautify
 web-completion-data

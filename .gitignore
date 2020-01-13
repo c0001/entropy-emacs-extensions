@@ -1,6 +1,6 @@
 /elements/git-temp
 /init
 /elements/info-files/*.info
-/get-modules.sh
-/toggle-branch.sh
+/annex/bin/*
+!/annex/bin/README.org
 *~
