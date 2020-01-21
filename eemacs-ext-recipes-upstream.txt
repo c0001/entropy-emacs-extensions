@@ -99,6 +99,7 @@ impatient-mode
 irony
 irony-eldoc
 ivy
+ivy-hydra
 ivy-rich
 ivy-xref
 js2-mode
