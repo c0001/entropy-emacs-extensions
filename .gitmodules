@@ -782,3 +782,15 @@
 	path = elements/submodules/upstream/emacs-libvterm
 	url = https://github.com/akermu/emacs-libvterm.git
 	branch = master
+[submodule "elements/submodules/upstream/treemacs"]
+	path = elements/submodules/upstream/treemacs
+	url = https://github.com/Alexander-Miller/treemacs.git
+	branch = master
+[submodule "elements/submodules/upstream/ace-window"]
+	path = elements/submodules/upstream/ace-window
+	url = https://github.com/abo-abo/ace-window.git
+	branch = master
+[submodule "elements/submodules/upstream/pfuture"]
+	path = elements/submodules/upstream/pfuture
+	url = https://github.com/Alexander-Miller/pfuture.git
+	branch = master
