@@ -1,6 +1,7 @@
+ace-window
 ac-php
 ac-php-core
-ace-window
+ag
 alert
 all-the-icons
 all-the-icons-dired
@@ -8,12 +9,12 @@ all-the-icons-ivy
 anaconda-mode
 async
 atom-dark-theme
-atom-one-dark-theme
 atomic-chrome
+atom-one-dark-theme
 auto-complete
 auto-sudoedit
-auto-yasnippet
 autothemer
+auto-yasnippet
 avy
 beacon
 benchmark-init
@@ -43,6 +44,7 @@ copyit
 counsel
 counsel-css
 counsel-ffdata
+counsel-projectile
 counsel-world-clock
 darkokai-theme
 dash
@@ -72,13 +74,13 @@ eyebrowse
 f
 find-file-in-project
 ghub
-git-commit
-git-messenger
-git-timemachine
 gitattributes-mode
+git-commit
 gitconfig-mode
 github-theme
 gitignore-mode
+git-messenger
+git-timemachine
 gntp
 go-mode
 google-translate
@@ -112,6 +114,7 @@ klere-theme
 log4e
 loop
 lsp-mode
+lsp-treemacs
 lsp-ui
 lua-mode
 lv
@@ -126,8 +129,8 @@ markdown-mode
 markdown-preview-mode
 material-theme
 memoize
-multi-term
 multiple-cursors
+multi-term
 names
 neotree
 openwith
@@ -147,8 +150,8 @@ pomidor
 poporg
 popup
 popwin
-pos-tip
 posframe
+pos-tip
 powerline
 projectile
 pyim
@@ -156,6 +159,7 @@ pyim-basedict
 pythonic
 rainbow-delimiters
 rainbow-mode
+ripgrep
 s
 search-web
 shackle
@@ -180,6 +184,7 @@ tern
 toc-org
 transient
 treemacs
+treemacs-projectile
 treepy
 ujelly-theme
 use-package

@@ -794,3 +794,19 @@
 	path = elements/submodules/upstream/pfuture
 	url = https://github.com/Alexander-Miller/pfuture.git
 	branch = master
+[submodule "elements/submodules/upstream/ag.el"]
+	path = elements/submodules/upstream/ag.el
+	url = https://github.com/Wilfred/ag.el.git
+	branch = master
+[submodule "elements/submodules/upstream/ripgrep.el"]
+	path = elements/submodules/upstream/ripgrep.el
+	url = https://github.com/nlamirault/ripgrep.el.git
+	branch = master
+[submodule "elements/submodules/upstream/counsel-projectile"]
+	path = elements/submodules/upstream/counsel-projectile
+	url = https://github.com/ericdanan/counsel-projectile.git
+	branch = master
+[submodule "elements/submodules/upstream/lsp-treemacs"]
+	path = elements/submodules/upstream/lsp-treemacs
+	url = https://github.com/emacs-lsp/lsp-treemacs.git
+	branch = master
