@@ -1,1 +1,4 @@
-(maple-preview :fetcher github :repo "emacs-maple-preview")
+(maple-preview :fetcher github
+               :repo "emacs-maple-preview"
+               :files ("maple-preview.el"
+                       "static/*"))
