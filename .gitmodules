@@ -810,3 +810,7 @@
 	path = elements/submodules/upstream/lsp-treemacs
 	url = https://github.com/emacs-lsp/lsp-treemacs.git
 	branch = master
+[submodule "elements/submodules/upstream/major-mode-hydra.el"]
+	path = elements/submodules/upstream/major-mode-hydra.el
+	url = https://github.com/jerrypnz/major-mode-hydra.el.git
+	branch = master
