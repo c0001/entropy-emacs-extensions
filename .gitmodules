@@ -222,10 +222,6 @@
 	path = elements/submodules/upstream/pos-tip
 	url = https://github.com/emacsmirror/pos-tip.git
 	branch = master
-[submodule "elements/submodules/upstream/popwin-el"]
-	path = elements/submodules/upstream/popwin-el
-	url = https://github.com/m2ym/popwin-el.git
-	branch = master
 [submodule "elements/submodules/upstream/popup-el"]
 	path = elements/submodules/upstream/popup-el
 	url = https://github.com/auto-complete/popup-el.git
