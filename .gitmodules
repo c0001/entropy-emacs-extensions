@@ -198,10 +198,6 @@
 	path = elements/submodules/upstream/rainbow-delimiters
 	url = https://github.com/Fanael/rainbow-delimiters.git
 	branch = master
-[submodule "elements/submodules/upstream/pythonic"]
-	path = elements/submodules/upstream/pythonic
-	url = https://github.com/proofit404/pythonic.git
-	branch = master
 [submodule "elements/submodules/upstream/pyim-basedict"]
 	path = elements/submodules/upstream/pyim-basedict
 	url = https://github.com/tumashu/pyim-basedict.git
@@ -245,10 +241,6 @@
 [submodule "elements/submodules/upstream/ox-gfm"]
 	path = elements/submodules/upstream/ox-gfm
 	url = https://github.com/larstvei/ox-gfm.git
-	branch = master
-[submodule "elements/submodules/upstream/org-pomodoro"]
-	path = elements/submodules/upstream/org-pomodoro
-	url = https://github.com/lolownia/org-pomodoro.git
 	branch = master
 [submodule "elements/submodules/upstream/org-download"]
 	path = elements/submodules/upstream/org-download
@@ -518,10 +510,6 @@
 	path = elements/submodules/upstream/company-shell
 	url = https://github.com/Alexander-Miller/company-shell.git
 	branch = master
-[submodule "elements/submodules/upstream/company-quickhelp"]
-	path = elements/submodules/upstream/company-quickhelp
-	url = https://github.com/expez/company-quickhelp.git
-	branch = master
 [submodule "elements/submodules/upstream/company-posframe"]
 	path = elements/submodules/upstream/company-posframe
 	url = https://github.com/tumashu/company-posframe.git
@@ -537,10 +525,6 @@
 [submodule "elements/submodules/upstream/company-c-headers"]
 	path = elements/submodules/upstream/company-c-headers
 	url = https://github.com/randomphrase/company-c-headers.git
-	branch = master
-[submodule "elements/submodules/upstream/company-anaconda"]
-	path = elements/submodules/upstream/company-anaconda
-	url = https://github.com/proofit404/company-anaconda.git
 	branch = master
 [submodule "elements/submodules/upstream/command-log-mode"]
 	path = elements/submodules/upstream/command-log-mode
@@ -613,10 +597,6 @@
 [submodule "elements/submodules/upstream/atom-dark-theme-emacs"]
 	path = elements/submodules/upstream/atom-dark-theme-emacs
 	url = https://github.com/whitlockjc/atom-dark-theme-emacs.git
-	branch = master
-[submodule "elements/submodules/upstream/anaconda-mode"]
-	path = elements/submodules/upstream/anaconda-mode
-	url = https://github.com/proofit404/anaconda-mode.git
 	branch = master
 [submodule "elements/submodules/upstream/all-the-icons.el"]
 	path = elements/submodules/upstream/all-the-icons.el
