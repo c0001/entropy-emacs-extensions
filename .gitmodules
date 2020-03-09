@@ -814,3 +814,11 @@
 	path = elements/submodules/upstream/major-mode-hydra.el
 	url = https://github.com/jerrypnz/major-mode-hydra.el.git
 	branch = master
+[submodule "elements/submodules/upstream/all-the-icons-ivy-rich"]
+	path = elements/submodules/upstream/all-the-icons-ivy-rich
+	url = https://github.com/seagle0128/all-the-icons-ivy-rich.git
+	branch = master
+[submodule "elements/submodules/upstream/all-the-icons-ibuffer"]
+	path = elements/submodules/upstream/all-the-icons-ibuffer
+	url = https://github.com/seagle0128/all-the-icons-ibuffer.git
+	branch = master
