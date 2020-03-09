@@ -818,3 +818,7 @@
 	path = elements/submodules/upstream/all-the-icons-ibuffer
 	url = https://github.com/seagle0128/all-the-icons-ibuffer.git
 	branch = master
+[submodule "elements/submodules/upstream/popwin"]
+	path = elements/submodules/upstream/popwin
+	url = https://github.com/emacsorphanage/popwin.git
+	branch = master
