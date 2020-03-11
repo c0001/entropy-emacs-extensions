@@ -822,3 +822,7 @@
 	path = elements/submodules/upstream/anaconda-mode
 	url = https://github.com/pythonic-emacs/anaconda-mode.git
 	branch = master
+[submodule "elements/submodules/upstream/vimish-fold"]
+	path = elements/submodules/upstream/vimish-fold
+	url = https://github.com/mrkkrp/vimish-fold.git
+	branch = master
