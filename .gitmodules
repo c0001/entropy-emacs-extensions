@@ -826,3 +826,31 @@
 	path = elements/submodules/upstream/vimish-fold
 	url = https://github.com/mrkkrp/vimish-fold.git
 	branch = master
+[submodule "elements/submodules/upstream/diredfl"]
+	path = elements/submodules/upstream/diredfl
+	url = https://github.com/purcell/diredfl.git
+	branch = master
+[submodule "elements/submodules/upstream/olivetti"]
+	path = elements/submodules/upstream/olivetti
+	url = https://github.com/rnkn/olivetti.git
+	branch = master
+[submodule "elements/submodules/upstream/bongo"]
+	path = elements/submodules/upstream/bongo
+	url = https://github.com/dbrock/bongo.git
+	branch = master
+[submodule "elements/submodules/upstream/Emacs-wgrep"]
+	path = elements/submodules/upstream/Emacs-wgrep
+	url = https://github.com/mhayashi1120/Emacs-wgrep.git
+	branch = master
+[submodule "elements/submodules/upstream/rg.el"]
+	path = elements/submodules/upstream/rg.el
+	url = https://github.com/dajva/rg.el.git
+	branch = master
+[submodule "elements/submodules/upstream/prescient.el"]
+	path = elements/submodules/upstream/prescient.el
+	url = https://github.com/raxod502/prescient.el.git
+	branch = master
+[submodule "elements/submodules/upstream/minions"]
+	path = elements/submodules/upstream/minions
+	url = https://github.com/tarsius/minions.git
+	branch = master

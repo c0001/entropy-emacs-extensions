@@ -23,6 +23,7 @@ benchmark-init
 bind-key
 bing-dict
 birds-of-paradise-plus-theme
+bongo
 browse-at-remote
 browse-kill-ring
 buffer-move
@@ -38,6 +39,7 @@ company-irony
 company-lsp
 company-php
 company-posframe
+company-prescient
 company-quickhelp
 company-shell
 company-tern
@@ -56,6 +58,8 @@ diminish
 dired-hacks-utils
 dired-quick-sort
 dired-rainbow
+dired-subtree
+diredfl
 disable-mouse
 discover-my-major
 doneburn-theme
@@ -132,10 +136,12 @@ markdown-mode
 markdown-preview-mode
 material-theme
 memoize
+minions
 multi-term
 multiple-cursors
 names
 neotree
+olivetti
 openwith
 org-bullets
 org-download
@@ -156,6 +162,7 @@ popwin
 pos-tip
 posframe
 powerline
+prescient
 pretty-hydra
 projectile
 pyim
@@ -163,6 +170,7 @@ pyim-basedict
 pythonic
 rainbow-delimiters
 rainbow-mode
+rg
 ripgrep
 s
 search-web
@@ -203,6 +211,7 @@ web-completion-data
 web-mode
 web-server
 websocket
+wgrep
 which-key
 window-number
 with-editor
