@@ -1,0 +1,70 @@
+#+title: libvterm archive introduction
+#+author: Entropy (bmsac0001@gmail.com)
+* Why this archive
+
+Emacs package [[file:../../upstream/emacs-libvterm/][emacs-libvterm]] using the nvim term emulator daemon
+=libvterm= to invoke mordern native term to emacs UI, =libvterm= is
+not registerred in the =emacs-libvterm= package, it using the remote
+clone method for its CMAKELIST to get it while the compiling
+time. Thus for as, for preventing from that case of that the
+non-healthy network connection situation, we host it for the manually
+patch way.
+
+* How to patch =emacs-libvterm= for using this archived =libvterm= repo?
+
+Just view the CMAKELIST of =emacs-vterm= and goto the part of:
+
+#+begin_src cmake
+  ExternalProject_add(libvterm
+    GIT_REPOSITORY https://github.com/neovim/libvterm.git
+    GIT_TAG 65dbda3ed214f036ee799d18b2e693a833a0e591 # the commit tracking example
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ${LIBVTERM_BUILD_COMMAND} "CFLAGS='-fPIC'"
+    BUILD_IN_SOURCE ON
+    INSTALL_COMMAND "")
+#+end_src
+
+Lets see the =GIT_REPOSITORY= slot, patched it with this repo location
+with some hacking way:
+
+1. The building environment for original =emacs-libvterm= mechanism is
+   follow the regular cmake projecting constrution step which was:
+   1) Add a =build= folder at the top of its project root
+   2) CD to the =build= folder and calling ~cmake ../~ command pattern
+      to generate the MAKEFILE, then ~make~ it.
+
+   Further more, the build dir folder tree view is:
+   #+begin_example
+     + CMakeFiles
+     - libvterm-prefix
+       - src
+         + libvterm
+         + libvterm-stamp
+       + tmp
+     + CMakeCache.txt
+     Makefile
+     cmake_install.cmake
+   #+end_example
+
+   Lets see the =libvterm= folder under the *src* dir, its the ~git
+   clone~ hosted path, as for that, if you want to using the relative
+   path of this project relating to the installed =emacs-libvterm=
+   package under your emacs =package-user-dir=, you should calculate at
+   least four =../= parent dir level for as. Lets see an example:
+
+   #+begin_quote
+   We assume that the installed =emacs-libvterm= package hosted in:
+   =~/.emacs.d/elpa/emacs-libvterm= and this project hosted in
+   =~/.config/entropy-emacs/entropy-emacs-extension/elements/submodules/upstream/referred/libvterm/libvterm=
+
+   We should build the relative ~git clone~ path as:
+   =../../../../../../.config/entropy-emacs/entropy-emacs-extension/elements/submodules/upstream/referred/libvterm/libvterm=
+   #+end_quote
+
+2. Or using the absolute path of the location of this project for
+   patching the git remote url.
+
+# Local Variables:
+# org-adapt-indentation: nil
+# fill-column: 70
+# End:

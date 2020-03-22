@@ -854,3 +854,7 @@
 	path = elements/submodules/upstream/minions
 	url = https://github.com/tarsius/minions.git
 	branch = master
+[submodule "elements/submodules/referred/libvterm/libvterm"]
+	path = elements/submodules/referred/libvterm/libvterm
+	url = https://github.com/neovim/libvterm.git
+	branch = nvim

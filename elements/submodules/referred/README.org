@@ -1,0 +1,5 @@
+#+title: The introduction for the "referred" folder
+#+author: Entropy (bmsac0001@gmail.com)
+
+This project archive some referrence thing not directly used in the
+make procedure, but useful for some emergency occasion.
