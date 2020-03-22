@@ -244,7 +244,7 @@
 	branch = master
 [submodule "elements/submodules/upstream/org-bullets"]
 	path = elements/submodules/upstream/org-bullets
-	url = https://github.com/emacsorphanage/org-bullets.git
+	url = https://github.com/integral-dw/org-bullets.git
 	branch = master
 [submodule "elements/submodules/upstream/openwith"]
 	path = elements/submodules/upstream/openwith
@@ -420,7 +420,7 @@
 	branch = master
 [submodule "elements/submodules/upstream/emacs-smeargle"]
 	path = elements/submodules/upstream/emacs-smeargle
-	url = https://github.com/syohex/emacs-smeargle.git
+	url = https://github.com/emacsorphanage/smeargle.git
 	branch = master
 [submodule "elements/submodules/upstream/emacs-simple-httpd"]
 	path = elements/submodules/upstream/emacs-simple-httpd
@@ -444,11 +444,11 @@
 	branch = master
 [submodule "elements/submodules/upstream/emacs-helm-ag"]
 	path = elements/submodules/upstream/emacs-helm-ag
-	url = https://github.com/syohex/emacs-helm-ag.git
+	url = https://github.com/emacsorphanage/helm-ag.git
 	branch = master
 [submodule "elements/submodules/upstream/emacs-git-messenger"]
 	path = elements/submodules/upstream/emacs-git-messenger
-	url = https://github.com/syohex/emacs-git-messenger.git
+	url = https://github.com/emacsorphanage/git-messenger.git
 	branch = master
 [submodule "elements/submodules/upstream/emacs-doom-themes"]
 	path = elements/submodules/upstream/emacs-doom-themes
@@ -500,7 +500,7 @@
 	branch = master
 [submodule "elements/submodules/upstream/company-tern"]
 	path = elements/submodules/upstream/company-tern
-	url = https://github.com/proofit404/company-tern.git
+	url = https://github.com/emacsmirror/company-tern.git
 	branch = master
 [submodule "elements/submodules/upstream/company-shell"]
 	path = elements/submodules/upstream/company-shell
