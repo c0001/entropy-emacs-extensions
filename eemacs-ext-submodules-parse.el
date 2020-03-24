@@ -7,21 +7,21 @@
 ;; Package-Version: 0.1.0
 ;; Compatibility: GNU Emacs emacs-version;
 ;; Package-Requires: ((emacs "24") (cl-lib "0.5"))
-;; 
+;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
 ;; (at your option) any later version.
-;; 
+;;
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
-;; 
+;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;; #+END_EXAMPLE
-;; 
+;;
 ;; * Commentary:
 
 ;; Parse gitmodules and generate bash script file for batch operation.
@@ -74,8 +74,9 @@
      (append module (list prop))))
 
 (defmacro eemacs-ext/ggsh--with-gitmodule-file-buffer (&rest body)
-  (let ((buffer (find-file-noselect eemacs-ext/ggsh--gitmodules-file nil t)))
-    `(with-current-buffer ,buffer
+  (let ()
+    `(with-current-buffer
+         (find-file-noselect eemacs-ext/ggsh--gitmodules-file nil t)
        ,@body)))
 
 (defmacro eemacs-ext/ggsh--with-submodule-status-check ($submodule-object &rest body)
@@ -189,10 +190,10 @@ suffix name."
                   "--abbrev=8")))
       (setq current-commit-subject
             (append
-             `(:title 
+             `(:title
                ,(eemacs-ext/ggsh--unquote-callback
                  (car (process-lines "git" "log" "--pretty=format:\"%s\"" "-1"))))
-             `(:author 
+             `(:author
                ,(eemacs-ext/ggsh--unquote-callback
                  (car (process-lines "git" "log" "--pretty=format:\"%an\"" "-1"))))
              `(:email
