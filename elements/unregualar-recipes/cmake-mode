@@ -1,0 +1,4 @@
+(cmake-mode
+ :fetcher github
+ :repo "emacs-cmake-mode"
+ :files ("*.el"))

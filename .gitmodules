@@ -878,3 +878,11 @@
 	path = elements/submodules/upstream/dap-mode
 	url = https://github.com/emacs-lsp/dap-mode.git
 	branch = master
+[submodule "elements/submodules/upstream/emacs-cmake-mode"]
+	path = elements/submodules/upstream/emacs-cmake-mode
+	url = https://github.com/c0001/emacs-cmake-mode.git
+	branch = master
+[submodule "elements/submodules/upstream/powershell.el"]
+	path = elements/submodules/upstream/powershell.el
+	url = https://github.com/jschaf/powershell.el.git
+	branch = master
