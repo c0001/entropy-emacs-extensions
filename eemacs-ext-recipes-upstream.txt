@@ -27,6 +27,7 @@ bongo
 browse-at-remote
 browse-kill-ring
 buffer-move
+bui
 cal-china-x
 chinese-word-at-point
 chocolate-theme
@@ -50,6 +51,7 @@ counsel-css
 counsel-ffdata
 counsel-projectile
 counsel-world-clock
+dap-mode
 darkokai-theme
 dash
 dash-functional
@@ -119,7 +121,9 @@ json-snatcher
 klere-theme
 log4e
 loop
+lsp-java
 lsp-mode
+lsp-python-ms
 lsp-treemacs
 lsp-ui
 lua-mode
@@ -170,6 +174,7 @@ pyim-basedict
 pythonic
 rainbow-delimiters
 rainbow-mode
+request
 rg
 ripgrep
 s

@@ -858,3 +858,23 @@
 	path = elements/submodules/referred/libvterm/libvterm
 	url = https://github.com/neovim/libvterm.git
 	branch = nvim
+[submodule "elements/submodules/upstream/lsp-java"]
+	path = elements/submodules/upstream/lsp-java
+	url = https://github.com/emacs-lsp/lsp-java.git
+	branch = master
+[submodule "elements/submodules/upstream/bui.el"]
+	path = elements/submodules/upstream/bui.el
+	url = https://github.com/alezost/bui.el.git
+	branch = master
+[submodule "elements/submodules/upstream/lsp-python-ms"]
+	path = elements/submodules/upstream/lsp-python-ms
+	url = https://github.com/andrew-christianson/lsp-python-ms.git
+	branch = master
+[submodule "elements/submodules/upstream/emacs-request"]
+	path = elements/submodules/upstream/emacs-request
+	url = https://github.com/tkf/emacs-request.git
+	branch = master
+[submodule "elements/submodules/upstream/dap-mode"]
+	path = elements/submodules/upstream/dap-mode
+	url = https://github.com/emacs-lsp/dap-mode.git
+	branch = master
