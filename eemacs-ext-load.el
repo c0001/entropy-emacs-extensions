@@ -8,28 +8,39 @@
 ;; Package-Version: 0.1.6
 ;; Compatibility: GNU Emacs emacs-version;
 ;; Package-Requires: ((emacs "25.3") (cl-lib "0.5"))
-;; 
+;;
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
 ;; (at your option) any later version.
-;; 
+;;
 ;; This program is distributed in the hope that it will be useful,
 ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
 ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ;; GNU General Public License for more details.
-;; 
+;;
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ;; #+END_EXAMPLE
-;; 
+;;
 ;; * Commentary:
-;; This package was the management for elisp loading part for
-;; [[https://github.com/c0001/entropy-emacs][entropy-emacs]].
-;;
-;; Built as the local melpa upstream for =entropy-emacs= to retrieve
-;; package which commit version is specified by =entropy-emacs=.
-;;
+;; *This project was collection of emacs extensions used for
+;; [[https://github.com/c0001/entropy-emacs][entropy-emacs]].*
+
+;; Submodules under this project are collected from the corresonding
+;; package repo of melpa or elpa extensions, version respected by
+;; [[https://github.com/c0001/entropy-emacs][entropy-emacs]] for the config tieing, not up-to-date with upstream, but
+;; will update in term of the updates of =entropy-emacs=.
+
+;; Project can be used individually in your own wish but without any
+;; warranty for the reason mentioned above. Load the loader
+;; =entropy-emacs-extensions-load.el= in case for that.
+
+;; For each =entropy-emacs= user, before using this repo whenever be
+;; after each updating or at the initialization, run the =make= for
+;; finishing both of the updating or initialization, this was
+;; required at top level.
+
 ;; There's two loading way for =entropy-emacs=, the submodule loading
 ;; directl road and the local-melpa `package-archives' post way. By
 ;; defautly, this package will scanning all the submodules of which
@@ -40,7 +51,7 @@
 ;; features are missing. The main purpose for maintain all
 ;; =entropy-emacs= extensions as the commit remained submodules to
 ;; guarantee the extensions compatibility with =entropy-emacs=.
-;;
+
 ;; So as what metioned in above paragraph, the extensions
 ;; compatibility tracking is through the package repo commit specific
 ;; way, but loading directly from the extension version charged repo
@@ -54,19 +65,22 @@
 ;; =melpa= to built the =entropy-emacs-melpa= using for [[https://melpa.org/#/getting-started][package.el]],
 ;; on this way, this package will set the ~package-archives~ to
 ;; ~("entropy-emacs" . "path-to-local-malpa")~.
-;;
+
 ;; Rely on which usage you selected, the customized variable
-;; =entropy/emacs-use-extensions-type= was what you needed to set
-;; according to your wish, there's two valid options for assigning
-;; into it (defaultly was ~'submodules~):
+;; =entropy/emacs-ext-elpkg-get-type= was what you needed to set
+;; according to your wish, there's two valid options in this project
+;; for assigning into it (defaultly was ~'submodules~):
 ;; 1) 'submodules: loading directly from the submodules of
 ;;    =entrop-emacs-extensions='s submodules.
-;;
+
 ;; 2) 'submodules-melpa-local: using =entropy-emacs-extensions= as the
 ;;    local melpa which hosted all =entropy-emacs= specified
 ;;    extensions.
-;;
-;;
+
+;; This variable is pre-defined in =entrop-emacs= (as what mentioned,
+;; this project was designed for thus) so that you can specified it
+;; in your =custom.el= directly.
+
 ;; * Configuration:
 ;;
 ;; Although this package are originally and designed for
@@ -80,11 +94,11 @@
 ;;   (add-to-list 'load-path "path-of-this")
 ;;   (require 'entropy-emacs-extensions-load)
 ;; #+END_SRC
-;; 
+;;
 ;; * Code:
 ;; ** variables
 ;; *** customized variable
-(defvar entropy/emacs-use-extensions-type 'submodules)
+(defvar entropy/emacs-ext-elpkg-get-type 'submodules)
 
 ;; *** const variables
 (defconst eemacs-ext-root (file-name-directory load-file-name))
@@ -135,7 +149,7 @@
 
 ;; ** Intialize procedure
 ;; *** For common usage
-(when (eq entropy/emacs-use-extensions-type 'submodules)
+(when (eq entropy/emacs-ext-elpkg-get-type 'submodules)
   ;; Info path adding
   (setq Info-default-directory-list
         (append (list eemacs-ext-info-root) Info-default-directory-list))
@@ -163,7 +177,7 @@
                                  "emacs-doom-themes/themes")))
 
 ;; *** For melpa usage
-(when (eq entropy/emacs-use-extensions-type 'submodules-melpa-local)
+(when (eq entropy/emacs-ext-elpkg-get-type 'submodules-melpa-local)
   (setq package-archives
         `(("entropy-melpa" . ,eemacs-ext-melpa-packages)
           ("entropy-elpa"  . ,eemacs-ext-elpa-packages))))
