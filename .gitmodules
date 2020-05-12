@@ -878,3 +878,7 @@
 	path = elements/submodules/upstream/powershell.el
 	url = https://github.com/jschaf/powershell.el.git
 	branch = master
+[submodule "elements/submodules/upstream/emacs-dashboard"]
+	path = elements/submodules/upstream/emacs-dashboard
+	url = https://github.com/emacs-dashboard/emacs-dashboard.git
+	branch = master
