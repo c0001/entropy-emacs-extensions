@@ -274,14 +274,6 @@
 	path = elements/submodules/upstream/magit-svn
 	url = https://github.com/emacsorphanage/magit-svn.git
 	branch = master
-[submodule "elements/submodules/upstream/magit-popup"]
-	path = elements/submodules/upstream/magit-popup
-	url = https://github.com/magit/magit-popup.git
-	branch = master
-[submodule "elements/submodules/upstream/magit-gitflow"]
-	path = elements/submodules/upstream/magit-gitflow
-	url = https://github.com/jtatarik/magit-gitflow.git
-	branch = master
 [submodule "elements/submodules/upstream/magit"]
 	path = elements/submodules/upstream/magit
 	url = https://github.com/magit/magit.git
