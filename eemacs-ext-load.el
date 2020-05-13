@@ -156,6 +156,10 @@
 
   ;; Library load-path adding
   (eemacs-ext--load-path eemacs-ext-submodules-upstream-root)
+  ;; reverse load path so that all the native libraries are ahead of
+  ;; all rest to prevent locating thus same named library for other
+  ;; repo test stuffs from messing up the emacs refs invocation.
+  (setq load-path (reverse load-path))
 
   ;; Theme path loading
   (eemacs-ext--load-theme-path (expand-file-name eemacs-ext-submodules-upstream-root)
