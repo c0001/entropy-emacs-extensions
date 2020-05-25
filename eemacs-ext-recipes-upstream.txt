@@ -174,7 +174,6 @@ pyim
 pyim-basedict
 pythonic
 rainbow-delimiters
-rainbow-mode
 request
 rg
 ripgrep
@@ -192,7 +191,6 @@ solaire-mode
 spaceline
 spaceline-all-the-icons
 spacemacs-theme
-spinner
 srcery-theme
 ssh-agency
 sublime-themes
