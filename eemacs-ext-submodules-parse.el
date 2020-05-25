@@ -547,7 +547,19 @@ final-release tag when possible."
         (erase-buffer)
         (goto-char (point-min))
         (dolist (cmd cmds)
-          (insert (concat cmd "\n")))
+          (unless (string-match-p       ;exclude some extensions which
+                                        ;stable version are not
+                                        ;properly to entropy-emacs
+                   (rx (seq (or "/submodules/elpa"
+                                "submodules/melpa"
+                                "/upstream/maigt-.*" "/transient"
+                                "/upstream/outshine"
+                                "/upstream/outorg"
+                                "/upstream/emacs-doom-themes"
+                                "/upstream/eterm-256color"
+                                )))
+                   cmd)
+            (insert (concat cmd "\n"))))
         (save-buffer)
         (message "Toggle final release bash script generated!")))))
 
