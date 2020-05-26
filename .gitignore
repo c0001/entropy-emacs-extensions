@@ -4,3 +4,4 @@
 /annex/bin/*
 !/annex/bin/README.org
 *~
+/annex/submodules-update-suggestion.org

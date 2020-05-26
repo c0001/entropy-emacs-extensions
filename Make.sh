@@ -108,7 +108,7 @@ EemacsextMake_initial_failed_mkpkg_output_file=$EemacsextMake_error_log_host/mkp
 EemacsextMake_Checking_shell ()
 {
     required_tools_missing=()
-    required_tools=(make emacs makeinfo tex git)
+    required_tools=(make emacs makeinfo tex git less)
     count=0
     for item in ${required_tools[@]}
     do
@@ -458,6 +458,21 @@ EemacsextMake_BuildElpa_Recipes ()
     make archive
 }
 
+# *** maintaining
+
+EemacsextMake_get_submodule_update_suggestion ()
+{
+    local logfile=${EemacsextMake_DIR}/annex/submodules-update-suggestion.org
+    echo ""
+    echo -e "\e[32mGet submodule update suggestions ...\e[0m"
+    emacs --batch -q -l $EemacsextMake_elbatch_modulesparse_elisp_file \
+          --eval "(eemacs-ext/ggsh-gen-submodule-update-suggestion)"
+    if [[ -f $logfile ]]
+    then
+        less $logfile
+    fi
+}
+
 # ** touch maked indicator
 EemacsextMake_Finished ()
 {
@@ -574,6 +589,9 @@ EemacsextMake_Main_Help ()
     echo -e "- 'build-eemacs_recipes: build eemacs-packages'"
     echo -e "- 'make-infos':          make up all submodules texinfo doc"
     echo -e "- 'all':                 build project"
+    echo -e ""
+    echo -e "--------------------------------maintainability------------------------------------"
+    echo -e "- 'sb-upsuggest':        get submodule update suggestions (for *maintainer* only)"
 }
 
 EemacsextMake_Main_Choice ()
@@ -606,6 +624,11 @@ EemacsextMake_Main_Choice ()
 
         all) EemacsextMake_Main_All ;;
 
+        # maintainability part
+        sb-upsuggest) EemacsextMake_Main_Choice init
+                      EemacsextMake_get_submodule_update_suggestion ;;
+
+        # Otherwise
         *) EemacsextMake_Main_Help ;;
     esac
 }

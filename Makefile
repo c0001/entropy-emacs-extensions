@@ -20,3 +20,6 @@ build-eemacs_recipes:
 make-infos:
 	$(CMD) make-infos
 
+# maintainability part
+sb-upsuggest:
+	$(CMD) sb-upsuggest

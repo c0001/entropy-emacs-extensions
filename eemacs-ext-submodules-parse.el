@@ -57,6 +57,7 @@
 ;; * Code:
 ;; ** require
 (require 'files)
+(require 'subr-x)
 (require 'cl-lib)
 
 ;; ** variables pre
@@ -81,6 +82,10 @@
 
 (defvar eemacs-ext/ggsh--submodules-stick-upstream-batch-file
   (eemacs-ext/expand-bin-path "submodules-stick-upstream.sh"))
+
+(defvar eemacs-ext/ggsh--submodule-upate-suggestion-file
+  (expand-file-name "annex/submodules-update-suggestion.org"
+                    eemacs-ext/ggsh--root-dir))
 
 (defvar eemacs-ext/ggsh--entry-head-regexp
   "^\\[submodule \"\\([^ ]+\\)\"\\]$")
@@ -161,6 +166,18 @@ was the value, it also can be a self-list of thus (i.e. car of
     (setq str (replace-regexp-in-string regexp "" str)))
   str)
 
+(defmacro eemacs-ext/ggsh--with-file-buffer (file &rest body)
+  (declare (indent defun))
+  `(let ((--file-- ,file)
+         (inhibit-read-only t)
+         --rtn--)
+     (with-current-buffer (find-file-noselect --file-- t t)
+       (setq --rtn--
+             (progn ,@body))
+       (save-buffer)
+       (kill-buffer))
+     --rtn--))
+
 (defun eemacs-ext/ggsh--remove-str-messy-common (str)
   (let ((regexp-str (regexp-quote "-----END PGP SIGNATURE-----"))
         (inhibit-read-only t)
@@ -186,6 +203,18 @@ was the value, it also can be a self-list of thus (i.e. car of
       (setq str
             (buffer-substring-no-properties (point-min) (point))))
     str))
+
+(defun eemacs-ext/ggsh--commit-equal (commit1 commit2)
+  (let ((len-eq (= (length commit1)
+                   (length commit2)))
+        (1>2 (> (length commit1)
+                (length commit2))))
+    (cond
+     (len-eq (string= commit1 commit2))
+     (t
+      (if 1>2
+          (string-match-p (concat "^" commit2) commit1)
+        (string-match-p (concat "^" commit1) commit2))))))
 
 (defun eemacs-ext/ggsh--check-unregular-submodule-path-name ($submodule-object &optional fbk)
   "Check whether submodule base name are different from the
@@ -363,7 +392,7 @@ equal."
            (commit-commentary (eemacs-ext/ggsh--get-commit-subject $submodule-object commit 'commentary))
            (commit-date (eemacs-ext/ggsh--get-commit-date $submodule-object commit))
            (commit-ahead-day (eemacs-ext/ggsh--calc-commits-time-relative
-                              $submodule-object commit remote-head-hash))
+                              $submodule-object commit remote-head-hash 'day))
            (commit-ahead-count (eemacs-ext/ggsh--calc-commits-ahead-compare
                                 $submodule-object commit remote-head-hash)))
       (list
@@ -519,7 +548,7 @@ current submodule repo with 'submodule-tags' key-pair."
             release-hash
             (let ((hash
                    (shell-command-to-string
-                    (format "git show-ref %s -s 1 --abbrev=8" release))))
+                    (format "git log --pretty=format:%%h %s -1 --abbrev=8" release))))
               (when (and (not (string-empty-p hash))
                          (string-match-p "^[0-9a-z]+" hash))
                 (replace-regexp-in-string "\n" "" hash))))
@@ -541,7 +570,7 @@ current submodule repo with 'submodule-tags' key-pair."
 ;; registering plugins
 (setq eemacs-ext/ggsh-gitmodule-parse-plugin-register
       (append eemacs-ext/ggsh-gitmodule-parse-plugin-register
-              '((registered . eemacs-ext/ggsh--patch-submodule-obj-with-registerred-info)
+              '((registerred . eemacs-ext/ggsh--patch-submodule-obj-with-registerred-info)
                 (current . eemacs-ext/ggsh--patch-submodule-obj-with-current-commit-info)
                 (release . eemacs-ext/ggsh--patch-submodule-obj-with-release-info))))
 
@@ -808,6 +837,164 @@ submodule-final-release-tag when possible."
             (save-buffer)
             (message "Toggle final release bash script generated!")))
       (message "No submodule has release tag annotaion!"))))
+
+;; *** gen update suggestion information
+
+(setq eemacs-ext/ggsh--update-suggestion-prompt
+      (format
+       "#+title: Eemacs-ext project submodule update suggestion
+#+author: gernerated by =eemacs-ext-submodules-parse.el=
+
+#+date: %s
+
+This is a suggestion file for tell maintainer which packages need
+to update now since =eemacs-ext= project last update. It's a [[https://orgmode.org/][org]]
+file, with each headline is a title information for a submoudle
+under this project which may need to be updated via some
+suggestions.
+
+The filter for thus is according to follow aspects:
+
+1. The head commit count ahead number compare to the upstream
+   larger than 30 commits.
+2. The final release of upstream is within 10 commits under the
+   upstream.
+3. The head commit date time is lag of 30 days compare to the
+   upstream final commit date.
+4. The final release date time is within 10 days under the
+   upstream final commit date.
+
+When 2 or 4 was satisfied, than suggested for do updating to final
+release with prompt tag *final release <VERSION>* follow by prop
+key =Update type:=, otherwise when 1 or 3 satisfied, suggested for
+updating to the last commit with prompt flag *stick-to-upstream*
+follow by prop =Update type:=.
+
+Thus the suggestion is AI map aspect, whether doing for is under
+your own choice.
+"
+       (format-time-string "%Y%m%d%H%M%S")))
+
+(defun eemacs-ext/ggsh-gen-submodule-update-suggestion
+    (&optional cache-module-objs gen-file)
+  (interactive)
+  (let ((modules (or cache-module-objs
+                     (eemacs-ext/ggsh--get-submodules-list '(registerred release))))
+        filter-func (count 1) suggestion rtn
+        (buffer (and (null noninteractive)
+                     (get-buffer-create "*eemacs-ext-update-suggestion*"))))
+    (setq filter-func
+          (lambda (module count)
+            (let* ((module-name (alist-get 'submodule-name module))
+                   (module-local-path (alist-get 'submodule-local-path module))
+                   (module-remote-head (alist-get 'submodule-remote-head module))
+                   (registerred-head-object
+                    (alist-get 'submodule-registerred-head-obj module))
+                   (registerred-head (plist-get registerred-head-object :commit))
+                   (registerred-ahead-day
+                    (plist-get registerred-head-object :commit-ahead-day))
+                   (registerred-ahead-count
+                    (plist-get registerred-head-object :commit-ahead-count))
+                   (final-release-head-object
+                    (alist-get 'submodule-final-release-tag-commit-obj module))
+                   (final-release-head (plist-get final-release-head-object :commit))
+                   (final-release-ahead-day
+                    (plist-get final-release-head-object :commit-ahead-day))
+                   (final-release-ahead-count
+                    (plist-get final-release-head-object :commit-ahead-count))
+                   (final-release-tag
+                    (alist-get 'submodule-final-release-tag module))
+                   day-update-p-for-head count-update-p-head
+                   day-update-p-for-final count-update-p-final
+                   head-update-p final-update-p
+                   (day-func (lambda (day-ahead type)
+                               (and (not (= day-ahead 0))
+                                    (if (null type) (< day-ahead -30) (> day-ahead (- (* 30 6)))))))
+                   (count-func (lambda (count-ahead type)
+                                 (and
+                                  (not (= count-ahead 0))
+                                  (if (null type) (< count-ahead -30) (> count-ahead -10)))))
+                   (is-on-final-release (ignore-errors
+                                          (eemacs-ext/ggsh--commit-equal
+                                           registerred-head final-release-head)))
+                   (suggestion-fmstr
+                    "
+* TODO (page %s) For module =%s= :%s:
+
+- _Update type_: *%s*
+- _cached-head_: %s
+- _Final-release_: %s @ _%s_
+- _Registerred-ahead-count_: %s
+- _Registerred-ahead-day_: %s
+- _Final-release-ahead-count_: %s
+- _Final-release-ahead-day_: %s
+
+Quick bash script:
+#+BEGIN_SRC bash
+%s
+#+END_SRC
+
+"))
+              (setq day-update-p-for-head (funcall day-func registerred-ahead-day nil)
+                    count-update-p-head (funcall count-func registerred-ahead-count nil)
+                    head-update-p (or day-update-p-for-head count-update-p-head))
+              (when final-release-tag
+                (setq day-update-p-for-final (funcall day-func final-release-ahead-day t)
+                      count-update-p-final (funcall count-func final-release-ahead-count t)
+                      final-update-p (or day-update-p-for-final count-update-p-final)))
+              (when (and final-release-tag
+                          (eemacs-ext/ggsh--commit-equal
+                           registerred-head final-release-head))
+                (setq final-update-p nil))
+              (if (and (or head-update-p final-update-p)
+                       (not (= registerred-ahead-count 0)))
+                  (setq suggestion
+                        (format
+                         suggestion-fmstr
+                         count
+                         (if (string= module-name (alist-get 'submodule-local-path module))
+                             (replace-regexp-in-string "^.*/\\([^/]+\\)$" "\\1" module-name)
+                           module-name)
+                         (or final-release-tag "null")
+                         (if final-update-p
+                             (format "final release <%s>" final-release-tag)
+                           "stick-to-upstream")
+                         registerred-head
+                         (or final-release-tag "null")
+                         (or final-release-head "null")
+                         registerred-ahead-count
+                         registerred-ahead-day
+                         (or final-release-ahead-count "null")
+                         (or final-release-ahead-day "null")
+                         (if final-update-p
+                             (format "cd %s && git checkout %s" module-local-path final-release-tag)
+                           (format "cd %s && git checkout %s" module-local-path module-remote-head))))
+                (setq suggestion nil)))))
+    (dolist (module modules)
+      (funcall filter-func module count)
+      (when suggestion
+        (cl-incf count)
+        (setq rtn (append rtn (list suggestion)))))
+    (if rtn
+        (if (and buffer (not gen-file))
+            (with-current-buffer buffer
+              (let ((inhibit-read-only t))
+                (erase-buffer)
+                (insert eemacs-ext/ggsh--update-suggestion-prompt)
+                (dolist (str rtn)
+                  (insert str))
+                (unless (eq major-mode 'org-mode)
+                  (org-mode))
+                (switch-to-buffer buffer)))
+          (eemacs-ext/ggsh--with-file-buffer
+            eemacs-ext/ggsh--submodule-upate-suggestion-file
+            (erase-buffer)
+            (insert eemacs-ext/ggsh--update-suggestion-prompt)
+            (dolist (str rtn)
+              (insert str))
+            (message "Suggestion org file generated successfully, stored in '%s' please check it."
+                     eemacs-ext/ggsh--submodule-upate-suggestion-file)))
+      (message "There's no upate suggestion yet. Congratulation!"))))
 
 ;; * provide
 (provide 'eemacs-ext-submodules-parse)

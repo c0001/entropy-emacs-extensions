@@ -96,6 +96,9 @@
 ;; #+END_SRC
 ;;
 ;; * Code:
+(require 'rx)
+(require 'cl-lib)
+
 ;; ** variables
 ;; *** customized variable
 (defvar entropy/emacs-ext-elpkg-get-type 'submodules)
@@ -108,6 +111,7 @@
 (defconst eemacs-ext-melpa-packages (expand-file-name "packages" eemacs-ext-melpa-root))
 (defconst eemacs-ext-elpa-root (expand-file-name "elements/submodules/elpa" eemacs-ext-root))
 (defconst eemacs-ext-elpa-packages (expand-file-name "archive/packages" eemacs-ext-elpa-root))
+(defconst eemacs-ext-elpa-packages-archive-root (expand-file-name "packages" eemacs-ext-elpa-root))
 
 
 ;; ** libraries
@@ -126,11 +130,55 @@
             nil))
       nil)))
 
+(defun eemacs-ext--normal-top-level-add-subdirs-to-load-path ()
+  "Recursively add all subdirectories of `default-directory' to `load-path'.
+More precisely, this uses only the subdirectories whose names
+start with letters or digits; it excludes any subdirectory named `RCS'
+or `CVS', and any subdirectory that contains a file named `.nosearch'."
+  (let (dirs
+        attrs
+        (pending (list default-directory)))
+    ;; This loop does a breadth-first tree walk on DIR's subtree,
+    ;; putting each subdir into DIRS as its contents are examined.
+    (while pending
+      (push (pop pending) dirs)
+      (let* ((this-dir (car dirs))
+             (contents (directory-files this-dir))
+             (default-directory this-dir)
+             (canonicalized (if (fboundp 'w32-untranslated-canonical-name)
+                                (w32-untranslated-canonical-name this-dir))))
+        ;; The Windows version doesn't report meaningful inode numbers, so
+        ;; use the canonicalized absolute file name of the directory instead.
+        (setq attrs (or canonicalized
+                        (nthcdr 10 (file-attributes this-dir))))
+        (unless (member attrs normal-top-level-add-subdirs-inode-list)
+          (push attrs normal-top-level-add-subdirs-inode-list)
+          (dolist (file contents)
+            (and (string-match "\\`[[:alnum:]]" file)
+                 ;; The lower-case variants of RCS and CVS are for DOS/Windows.
+                 (not (string-match-p
+                       (rx (or "RCS" "CVS" "rcs" "cvs"
+                               "test" "support" "features" "step-definitions"
+                               "image" "doc" "screenshot"
+                               "env" "docker"))
+                       file))
+                 ;; Avoid doing a `stat' when it isn't necessary because
+                 ;; that can cause trouble when an NFS server is down.
+                 (not (string-match "\\.elc?\\'" file))
+                 (file-directory-p file)
+                 (let ((expanded (expand-file-name file)))
+                   (or (file-exists-p (expand-file-name ".nosearch" expanded))
+                       (setq pending (nconc pending (list expanded))))))))))
+    (normal-top-level-add-to-load-path (cdr (nreverse dirs)))))
+
 (defun eemacs-ext--add-subdirs-to-load-path (dir)
   "Recursive add directories to `load-path'."
   (let ((default-directory (file-name-as-directory dir)))
-    (when (not (string-match-p "yasnippet-snippets" dir))
-      (normal-top-level-add-subdirs-to-load-path))))
+    (when (not (string-match-p
+                (rx (or "yasnippet-snippets"
+                        (seq ".+/tests?/?" line-end)))
+                dir))
+      (eemacs-ext--normal-top-level-add-subdirs-to-load-path))))
 
 (defun eemacs-ext--load-path (top-dir)
   (let ((subdirs (eemacs-ext-list-subdir top-dir)))
@@ -156,6 +204,7 @@
 
   ;; Library load-path adding
   (eemacs-ext--load-path eemacs-ext-submodules-upstream-root)
+  (eemacs-ext--load-path eemacs-ext-elpa-packages-archive-root)
   ;; reverse load path so that all the native libraries are ahead of
   ;; all rest to prevent locating thus same named library for other
   ;; repo test stuffs from messing up the emacs refs invocation.
