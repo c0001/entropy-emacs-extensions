@@ -108,7 +108,7 @@ EemacsextMake_initial_failed_mkpkg_output_file=$EemacsextMake_error_log_host/mkp
 EemacsextMake_Checking_shell ()
 {
     required_tools_missing=()
-    required_tools=(make emacs makeinfo tex)
+    required_tools=(make emacs makeinfo tex git)
     count=0
     for item in ${required_tools[@]}
     do
@@ -613,5 +613,8 @@ EemacsextMake_Main_Choice ()
 # * provide
 
 EemacsextMake_Checking_shell
+
+cd ${EemacsextMake_DIR}
+git clean -xfd .
 
 EemacsextMake_Main_Choice $1
