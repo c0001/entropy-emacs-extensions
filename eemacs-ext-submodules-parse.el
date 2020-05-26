@@ -161,6 +161,32 @@ was the value, it also can be a self-list of thus (i.e. car of
     (setq str (replace-regexp-in-string regexp "" str)))
   str)
 
+(defun eemacs-ext/ggsh--remove-str-messy-common (str)
+  (let ((regexp-str (regexp-quote "-----END PGP SIGNATURE-----"))
+        (inhibit-read-only t)
+        pend)
+    (when (string-match-p regexp-str str)
+      (setq str
+            (with-temp-buffer
+              (insert str)
+              (goto-char (point-min))
+              (re-search-forward regexp-str nil)
+              (ignore-errors (progn (next-line 2)
+                                    (forward-line 0)))
+              (buffer-substring-no-properties (point) (point-max)))))
+    (with-temp-buffer
+      (insert str)
+      (goto-char (point-min))
+      (goto-char (point-max))
+      (forward-line 0)
+      (while (and (not (bobp))
+                  (looking-at "^$"))
+        (forward-line -1))
+      (end-of-line)
+      (setq str
+            (buffer-substring-no-properties (point-min) (point))))
+    str))
+
 (defun eemacs-ext/ggsh--check-unregular-submodule-path-name ($submodule-object &optional fbk)
   "Check whether submodule base name are different from the
 =submodule-remote-url= suffix name."
@@ -178,6 +204,15 @@ was the value, it also can be a self-list of thus (i.e. car of
         (push $submodule-object (symbol-value fbk)))
       (setq rtn t))
     rtn))
+
+(defun eemacs-ext/ggsh--get-remote-head-hash
+    ($submodule-object &optional remote-name)
+  (eemacs-ext/ggsh--common-with-submodule $submodule-object
+    (let ((submodule-follow-branch (alist-get 'submodule-follow-branch $submodule-object)))
+      (car (ignore-errors
+             (process-lines "git" "show-ref"
+                            (format "%s/%s" (or remote-name "origin") submodule-follow-branch)
+                            "-s" "1" "--abbrev=8"))))))
 
 (defun eemacs-ext/ggsh--get-commit-date ($submodule-object commit)
   "Get submodule $SUBMODULE-OBJECT commit date information via
@@ -280,29 +315,67 @@ equal."
                 (compare-up (string-to-number (cadr ahead-list))))
             (- base-up compare-up)))))))
 
-(defun eemacs-ext/ggsh--get-commit-subject ($submodule-object commit)
+(defun eemacs-ext/ggsh--get-commit-subject ($submodule-object commit &optional type)
   (eemacs-ext/ggsh--common-with-submodule $submodule-object
-    (let ((cbk
-           (shell-command-to-string
-            (format "git show %s --pretty=format:%%s -q"
-                    commit))))
-      cbk)))
+    (let ()
+      (eemacs-ext/ggsh--remove-str-messy-common
+       (cl-case type
+         (subject
+          (shell-command-to-string
+           (format "git log %s --pretty=format:%%s -1"
+                   commit)))
+         (body
+          (shell-command-to-string
+           (format "git log %s --pretty=format:%%b -1"
+                   commit)))
+         (commentary
+          (shell-command-to-string
+           (format "git log %s --pretty=format:%%B -1"
+                   commit)))
+         ((t nil)
+          (shell-command-to-string
+           (format "git log %s --pretty=format:%%s -1"
+                   commit))))))))
 
 (defun eemacs-ext/ggsh--get-commit-author-name ($submodule-object commit)
   (eemacs-ext/ggsh--common-with-submodule $submodule-object
     (let ((cbk
            (shell-command-to-string
-            (format "git show %s --pretty=format:%%an -q"
+            (format "git log %s --pretty=format:%%an -1"
                     commit))))
-      cbk)))
+      (eemacs-ext/ggsh--remove-str-messy-common cbk))))
 
 (defun eemacs-ext/ggsh--get-commit-author-email ($submodule-object commit)
   (eemacs-ext/ggsh--common-with-submodule $submodule-object
     (let ((cbk
            (shell-command-to-string
-            (format "git show %s --pretty=format:%%ae -q"
+            (format "git log %s --pretty=format:%%ae -1"
                     commit))))
-      cbk)))
+      (eemacs-ext/ggsh--remove-str-messy-common cbk))))
+
+(defun eemacs-ext/ggsh--get-commit-object ($submodule-object commit)
+  (eemacs-ext/ggsh--common-with-submodule $submodule-object
+    (let* ((remote-head-hash (alist-get 'submodule-remote-head $submodule-object))
+           (commit-author-name (eemacs-ext/ggsh--get-commit-author-name $submodule-object commit))
+           (commit-author-email (eemacs-ext/ggsh--get-commit-author-email $submodule-object commit))
+           (commit-subject (eemacs-ext/ggsh--get-commit-subject $submodule-object commit 'subject))
+           (commit-body (eemacs-ext/ggsh--get-commit-subject $submodule-object commit 'body))
+           (commit-commentary (eemacs-ext/ggsh--get-commit-subject $submodule-object commit 'commentary))
+           (commit-date (eemacs-ext/ggsh--get-commit-date $submodule-object commit))
+           (commit-ahead-day (eemacs-ext/ggsh--calc-commits-time-relative
+                              $submodule-object commit remote-head-hash))
+           (commit-ahead-count (eemacs-ext/ggsh--calc-commits-ahead-compare
+                                $submodule-object commit remote-head-hash)))
+      (list
+       :commit commit
+       :commit-author-name commit-author-name
+       :commit-author-email commit-author-email
+       :commit-subject commit-subject
+       :commit-body commit-body
+       :commit-commentary commit-commentary
+       :commit-date commit-date
+       :commit-ahead-day commit-ahead-day
+       :commit-ahead-count commit-ahead-count))))
 
 ;; *** gitmodule file parse
 ;; **** subroutine for parse gitmoudle file base
@@ -322,14 +395,10 @@ equal."
 
 ;; **** subroutine for parse gitmoudle file core
 ;; ***** plugins
-(defun eemacs-ext/ggsh--get-submodule-registered-commit ($submodule-object)
-  "Append gitmodule's 'submodule-registerred-head' and
-'submodule-current-status' key pairs
+(defun eemacs-ext/ggsh--patch-submodule-obj-with-registerred-info ($submodule-object)
+  "Patch $SUBMODULE-OBJECT with registerred head info.
 
 *Key slot description:*
-
-- 'submodule-registerred-head' :: a hash string indicated the
-  submodule cached commit's hash code
 
 - 'submodule-current-status' :: string of \"[+-U ]\", \"-\" if the
   submodule is not initialized, \"+\" if the currently checked out
@@ -337,6 +406,10 @@ equal."
   the containing repository and \"U\" if the submodule has merge
   conflicts. Otherwise the SPC char indicates that its fine as
   what it should be.
+
+- 'submodule-registerred-head-obj' :: the registerred head
+  =commit-object= generated by
+  `eemacs-ext/ggsh--get-commit-object'.
 "
   (when (alist-get 'submodule-local-path $submodule-object)
     (let* ((submodule-local-path (alist-get 'submodule-local-path $submodule-object))
@@ -368,104 +441,61 @@ equal."
                       (expand-file-name submodule-local-path-indicate eemacs-ext/ggsh--root-dir)))
             (setq $submodule-object
                   (eemacs-ext/ggsh--append-submodule-object
-                    $submodule-object `(:self-list
-                                        (submodule-registerred-head . ,hash)
-                                        (submodule-current-status . ,status-char)))))))))
+                    $submodule-object
+                    `(:self-list
+                      (submodule-current-status . ,status-char)
+                      (submodule-registerred-head-obj
+                       .
+                       ,(eemacs-ext/ggsh--get-commit-object
+                         $submodule-object hash))))))))))
   $submodule-object)
 
-(defun eemacs-ext/ggsh--get-submodule-current-commit ($submodule-object)
-  "Add 'submodule-current-head' and 'submodule-current-subject' key-pairs
+(defun eemacs-ext/ggsh--patch-submodule-obj-with-current-commit-info
+    ($submodule-object)
+  "Patch $SUBMODULE-OBJECT with its current head info.
 
- *key slot description:*
+ *Added key slots description:*
 
- + 'submodule-current-head' :: a string of what git head hash code
-   for gitmodule current state
-
- + 'submodule-current-subject' :: a plist represent the current
-   general information of the gitmodule that for thus:
-
-   1) key =:title=: current commit's commentary for the head of the gitmodule
-   2) key =:author=: current commit's author for the head of the
-      gitmodule.
-   3) key =:email=: current commit's author's email for the head of
-      the gitmodule
-   4) key =:date=: current commit's date for the head of the gitmodule"
+ + 'submodule-current-head-obj' :: a =commit-object= of current
+   head of this submodule generated by
+   `eemacs-ext/ggsh--get-commit-object'.
+ "
   (eemacs-ext/ggsh--common-with-submodule $submodule-object
     (let* ((submodule-local-path (alist-get 'submodule-local-path $submodule-object))
            (submodule-follow-branch (alist-get 'submodule-follow-branch $submodule-object))
            (default-directory (expand-file-name submodule-local-path eemacs-ext/ggsh--root-dir))
-           submodule-current-commit-hash submodule-current-commit-subject
-           remote-head-hash
-           submodule-current-commit-date-obj
-           submodule-current-commit-date-raw
-           date-relative-day
-           ahead-relative-count)
+           submodule-current-commit-hash)
       (setq submodule-current-commit-hash
             (car (process-lines
                   "git"
                   "show-ref"
                   "--head"
                   "-s" "1"
-                  "--abbrev=8"))
-            submodule-current-commit-date-obj
-            (eemacs-ext/ggsh--get-commit-date $submodule-object submodule-current-commit-hash)
-            submodule-current-commit-date-raw
-            (plist-get submodule-current-commit-date-obj :raw)
-            remote-head-hash
-            (car (ignore-errors
-                   (process-lines "git" "show-ref" (format "origin/%s" submodule-follow-branch)
-                                  "-s" "1" "--abbrev=8")))
-            date-relative-day
-            (when remote-head-hash
-              (eemacs-ext/ggsh--calc-commits-time-relative
-               $submodule-object submodule-current-commit-hash remote-head-hash
-               'day))
-            ahead-relative-count
-            (when remote-head-hash
-              (eemacs-ext/ggsh--calc-commits-ahead-compare
-               $submodule-object submodule-current-commit-hash remote-head-hash)))
-      (setq submodule-current-commit-subject
-            (append
-             `(:title
-               ,(eemacs-ext/ggsh--unquote-callback
-                 (car (process-lines "git" "log" "--pretty=format:\"%s\"" "-1"))))
-             `(:author
-               ,(eemacs-ext/ggsh--unquote-callback
-                 (car (process-lines "git" "log" "--pretty=format:\"%an\"" "-1"))))
-             `(:email
-               ,(eemacs-ext/ggsh--unquote-callback
-                 (car (process-lines "git" "log" "--pretty=format:\"%ae\"" "-1"))))
-             `(:date
-               ,submodule-current-commit-date-obj)))
+                  "--abbrev=8")))
       (when submodule-current-commit-hash
         (setq $submodule-object
               (eemacs-ext/ggsh--append-submodule-object
                 $submodule-object
-                `(:self-list
-                  (submodule-current-head . ,submodule-current-commit-hash)
-                  (submodule-current-subject . ,submodule-current-commit-subject))))
-        (when date-relative-day
-          (setq $submodule-object
-                (eemacs-ext/ggsh--append-submodule-object
-                  $submodule-object
-                  `(submodule-current-ahead-day . ,date-relative-day))))
-        (when ahead-relative-count
-          (setq $submodule-object
-                (eemacs-ext/ggsh--append-submodule-object
-                  $submodule-object
-                  `(submodule-current-ahead-count . ,ahead-relative-count)))))
+                `(submodule-current-head-obj
+                  .
+                  ,(eemacs-ext/ggsh--get-commit-object
+                    $submodule-object
+                    submodule-current-commit-hash)))))
       $submodule-object)))
 
-(defun eemacs-ext/ggsh--get-submodule-final-release-tag ($submodule-object)
-  "Add 'submodule-final-release-tag' key-pairs for $SUBMODULE-OBJECT.
+(defun eemacs-ext/ggsh--patch-submodule-obj-with-release-info
+    ($submodule-object)
+  "Patch $SUBMODULE-OBJECT with release info.
 
 The value of the key 'submodule-final-release-tag' was a string
 which indicate the last tag release for the gitmodule relying on
 the fetched log.
 
 Further more, this function also add
-'submodule-final-release-tag-commit' key-pairs (value hash string
-abbrev with 8 length) to thus if available."
+'submodule-final-release-tag-commit-obj' key-pairs (value of that
+tag =commit-object= generated by
+`eemacs-ext/ggsh--get-commit-object') and all of listed tags from
+current submodule repo with 'submodule-tags' key-pair."
   (let* ((submodule-dir (alist-get 'submodule-local-path $submodule-object))
          (default-directory (expand-file-name submodule-dir eemacs-ext/ggsh--root-dir))
          (tag-regexp "^[vV]?\\(\\([0-9]+\\.\\)+\\([0-9]+\\)\\).*$")
@@ -478,14 +508,14 @@ abbrev with 8 length) to thus if available."
           (push (cons version tag) vtags-pre))))
 
     (when vtags-pre
-      (setq release
+      (setq vtags-pre
             (sort
              (copy-tree vtags-pre)
              (lambda (x y)
                (if (version< (car y) (car x))
                    t
                  nil))))
-      (setq release (cdar release)
+      (setq release (cdar vtags-pre)
             release-hash
             (let ((hash
                    (shell-command-to-string
@@ -498,7 +528,10 @@ abbrev with 8 length) to thus if available."
               $submodule-object
               `(:self-list
                 (submodule-final-release-tag . ,release)
-                (submodule-final-release-tag-commit . ,release-hash)))))
+                (submodule-final-release-tag-commit-obj
+                 .
+                 ,(eemacs-ext/ggsh--get-commit-object $submodule-object release-hash))
+                (submodule-tags . ,(mapcar (lambda (tag-pair) (cdr tag-pair)) vtags-pre))))))
     $submodule-object))
 
 
@@ -508,9 +541,9 @@ abbrev with 8 length) to thus if available."
 ;; registering plugins
 (setq eemacs-ext/ggsh-gitmodule-parse-plugin-register
       (append eemacs-ext/ggsh-gitmodule-parse-plugin-register
-              '((registered-commit . eemacs-ext/ggsh--get-submodule-registered-commit)
-                (current-commit . eemacs-ext/ggsh--get-submodule-current-commit)
-                (final-release . eemacs-ext/ggsh--get-submodule-final-release-tag))))
+              '((registered . eemacs-ext/ggsh--patch-submodule-obj-with-registerred-info)
+                (current . eemacs-ext/ggsh--patch-submodule-obj-with-current-commit-info)
+                (release . eemacs-ext/ggsh--patch-submodule-obj-with-release-info))))
 
 ;; ***** main
 (defun eemacs-ext/ggsh--search-pair (region &optional use-plugin)
@@ -532,7 +565,13 @@ abbrev with 8 length) to thus if available."
               (throw :matched nil))
             (next-line 1)
             (forward-line 0)))))
-    (setq $submodule-object (reverse $submodule-object))
+    (setq $submodule-object (reverse $submodule-object)
+          $submodule-object
+          (eemacs-ext/ggsh--append-submodule-object
+            $submodule-object
+            `(submodule-remote-head
+              .
+              ,(eemacs-ext/ggsh--get-remote-head-hash $submodule-object))))
     (when use-plugin
       (dolist (plugin use-plugin)
         (let ((plugin-func (alist-get plugin eemacs-ext/ggsh-gitmodule-parse-plugin-register)))
@@ -655,10 +694,12 @@ manipulation."
               (push
                (format "cd %s && git checkout %s; cd %s"
                        submodule-local-path
-                       (let ((head (alist-get
-                                    'submodule-current-head
-                                    (eemacs-ext/ggsh--get-submodule-current-commit
-                                     el))))
+                       (let ((head (plist-get
+                                    (alist-get
+                                     'submodule-current-head-obj
+                                     (eemacs-ext/ggsh--patch-submodule-obj-with-current-commit-info
+                                      el))
+                                    :commit)))
                          (if head head
                            (error "can not get head for '$s'" (file-name-base submodule-local-path))))
                        eemacs-ext/ggsh--root-dir)
@@ -730,7 +771,7 @@ upstream without fetchting."
 submodule-final-release-tag when possible."
   (interactive)
   (let ((file eemacs-ext/ggsh--submodules-toggle-final-release-batch-file)
-        (modules (eemacs-ext/ggsh--get-submodules-list '(final-release)))
+        (modules (eemacs-ext/ggsh--get-submodules-list '(release)))
         cmds)
     (dolist (module modules)
       (let* ((submodule-local-path (expand-file-name
