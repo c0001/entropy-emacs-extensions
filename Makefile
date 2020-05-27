@@ -19,6 +19,8 @@ build-eemacs_recipes:
 	$(CMD) build-eemacs_recipes
 make-infos:
 	$(CMD) make-infos
+clean:
+	$(CMD) clean
 
 # maintainability part
 sb-upsuggest:

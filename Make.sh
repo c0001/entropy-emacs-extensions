@@ -588,6 +588,7 @@ EemacsextMake_Main_Help ()
     echo -e "- 'build-elpa_recipes':  build elpa recips (which tracking with https://git.savannah.gnu.org/cgit/emacs/elpa.git)"
     echo -e "- 'build-eemacs_recipes: build eemacs-packages'"
     echo -e "- 'make-infos':          make up all submodules texinfo doc"
+    echo -e "- 'clean':               clean all stuffs generated (git clean and deinit)"
     echo -e "- 'all':                 build project"
     echo -e ""
     echo -e "--------------------------------maintainability------------------------------------"
@@ -621,6 +622,8 @@ EemacsextMake_Main_Choice ()
 
         make-infos) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_upstream_submodules_dir})"
                     EemacsextMake_Extact_Info ;;
+
+        clean) cd $EemacsextMake_DIR && git clean -xfd . && git submodule deinit --all -f ;;
 
         all) EemacsextMake_Main_All ;;
 
