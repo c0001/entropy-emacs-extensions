@@ -598,11 +598,14 @@ EemacsextMake_Main_Help ()
 EemacsextMake_Main_Choice ()
 {
     case $1 in
-        init) EemacsextMake_Main_Tidyup_WorkTree ;;
+        init) cd $EemacsextMake_DIR && git clean -xfd .
+              EemacsextMake_Main_Tidyup_WorkTree ;;
 
-        tidy-branches) EemacsextMake_Main_Tidyup_TempBranches ;;
+        tidy-branches) cd $EemacsextMake_DIR && git clean -xfd .
+                       EemacsextMake_Main_Tidyup_TempBranches ;;
 
-        toggle-branches) EemacsextMake_Main_Toggle_SubBranch ;;
+        toggle-branches) cd $EemacsextMake_DIR && git clean -xfd .
+                         EemacsextMake_Main_Toggle_SubBranch ;;
 
         patch-recipes) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_melpadir})"
                        EemacsextMake_Make_Melpa_recipes ;;
@@ -620,7 +623,8 @@ EemacsextMake_Main_Choice ()
             # EemacsextMake_BuildRecipes eemacs
             ;;
 
-        make-infos) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_upstream_submodules_dir})"
+        make-infos) cd $EemacsextMake_DIR && git clean -xfd .
+                    EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_upstream_submodules_dir})"
                     EemacsextMake_Extact_Info ;;
 
         clean) cd $EemacsextMake_DIR && git clean -xfd . && git submodule deinit --all -f ;;
@@ -641,6 +645,5 @@ EemacsextMake_Main_Choice ()
 EemacsextMake_Checking_shell
 
 cd ${EemacsextMake_DIR}
-git clean -xfd .
 
 EemacsextMake_Main_Choice $1

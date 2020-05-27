@@ -967,8 +967,12 @@ Quick bash script:
                          (or final-release-ahead-count "null")
                          (or final-release-ahead-day "null")
                          (if final-update-p
-                             (format "cd %s && git checkout %s" module-local-path final-release-tag)
-                           (format "cd %s && git checkout %s" module-local-path module-remote-head))))
+                             (format "cd %s && git checkout %s"
+                                     (expand-file-name module-local-path eemacs-ext/ggsh--root-dir)
+                                     final-release-tag)
+                           (format "cd %s && git checkout %s"
+                                   (expand-file-name module-local-path eemacs-ext/ggsh--root-dir)
+                                   module-remote-head))))
                 (setq suggestion nil)))))
     (dolist (module modules)
       (funcall filter-func module count)
