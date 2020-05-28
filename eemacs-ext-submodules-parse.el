@@ -106,7 +106,7 @@ and returning the appended new one.
   "Do sth with the current .gitmodule file buffer."
   (let ()
     `(with-current-buffer
-         (find-file-noselect eemacs-ext/ggsh--gitmodules-file nil t)
+         (find-file-noselect eemacs-ext/ggsh--gitmodules-file t t)
        ,@body)))
 
 (defmacro eemacs-ext/ggsh--common-with-submodule ($submodule-object &rest body)
@@ -243,7 +243,7 @@ was the value, it also can be a self-list of thus (i.e. car of
                             (format "%s/%s" (or remote-name "origin") submodule-follow-branch)
                             "-s" "1" "--abbrev=8"))))))
 
-(defun eemacs-ext/ggsh--get-commit-date ($submodule-object commit)
+(defun eemacs-ext/ggsh--get-commit-date ($submodule-object commit &optional readable)
   "Get submodule $SUBMODULE-OBJECT commit date information via
 COMMIT specifiied.
 
@@ -254,7 +254,12 @@ Return a plist has two slot:
 
 - ':raw': return a raw time spec string (i.e. the secs integer
   count from 1970.01.01) used to investigate by
-  `format-time-string' or other elisp time function."
+  `format-time-string' or other elisp time function.
+
+
+When optional argument READABLE is non-nil, then return a human
+readable formatted time string by `format-time-string' with
+time-format '%Y/%m/%d - %H:%M:%S'."
   (eemacs-ext/ggsh--common-with-submodule $submodule-object
     (let* ((cbk
             (split-string
@@ -264,15 +269,17 @@ Return a plist has two slot:
              " " t))
            (time-str (car cbk))
            (zone-str (cadr cbk)))
-      (list :list
-            (mapcar (lambda (x)
-                      (string-to-number (replace-regexp-in-string "^0+" "" x)))
-                    (split-string (format-time-string "%Y-%m-%d-%H-%M-%S"
-                                                      (string-to-number time-str)
-                                                      zone-str)
-                                  "-" t))
-            :raw
-            (string-to-number time-str)))))
+      (if readable
+          (format-time-string "%Y/%m/%d - %H:%M:%S" (string-to-number time-str))
+        (list :list
+              (mapcar (lambda (x)
+                        (string-to-number (replace-regexp-in-string "^0+" "" x)))
+                      (split-string (format-time-string "%Y-%m-%d-%H-%M-%S"
+                                                        (string-to-number time-str)
+                                                        zone-str)
+                                    "-" t))
+              :raw
+              (string-to-number time-str))))))
 
 (defun eemacs-ext/ggsh--calc-commits-time-relative
     ($submodule-object commit-base commit-compare &optional rel-spec)
@@ -405,6 +412,36 @@ equal."
        :commit-date commit-date
        :commit-ahead-day commit-ahead-day
        :commit-ahead-count commit-ahead-count))))
+
+(defun eemacs-ext/ggsh--format-commit-object ($submodule-commit-object)
+  (let* ((fmstr
+          "
+[ commit-date: %s ] [ ahead-day: %s/day ] [ ahead-count: %s/commit ]
+
+- Author Name: %s
+- Author Email: %s
+
+
+*Subject:* %s
+-------------
+%s
+-------------
+"
+          )
+         (commit-author-name (plist-get $submodule-commit-object :commit-author-name))
+         (commit-author-email (plist-get $submodule-commit-object :commit-author-email))
+         (commit-date (format-time-string
+                       "%Y/%m/%d - %H:%M:%S"
+                       (plist-get (plist-get $submodule-commit-object :commit-date) :raw)))
+         (commit-ahead-day (plist-get $submodule-commit-object :commit-ahead-day))
+         (commit-ahead-count (plist-get $submodule-commit-object :commit-ahead-count))
+         (commit-subject (plist-get $submodule-commit-object :commit-subject))
+         (commit-body (plist-get $submodule-commit-object :commit-body))
+         (str (format fmstr
+                      commit-date commit-ahead-day commit-ahead-count
+                      commit-author-name commit-author-email
+                      commit-subject commit-body)))
+    (replace-regexp-in-string "^\\* " ",* " str)))
 
 ;; *** gitmodule file parse
 ;; **** subroutine for parse gitmoudle file base
@@ -580,7 +617,7 @@ current submodule repo with 'submodule-tags' key-pair."
                 (submodule-local-path . "path = \\([^ ]+\\)$")
                 (submodule-remote-url . "url = \\([^ ]+\\)$")
                 (submodule-follow-branch . "branch = \\([^ ]+\\)$")))
-        $submodule-object
+        $submodule-object submodule-remote-head
         matched-values
         format-str)
     (dolist (key keys)
@@ -595,12 +632,17 @@ current submodule repo with 'submodule-tags' key-pair."
             (next-line 1)
             (forward-line 0)))))
     (setq $submodule-object (reverse $submodule-object)
+          submodule-remote-head (eemacs-ext/ggsh--get-remote-head-hash $submodule-object)
           $submodule-object
           (eemacs-ext/ggsh--append-submodule-object
             $submodule-object
-            `(submodule-remote-head
+            `(submodule-remote-head . ,submodule-remote-head))
+          $submodule-object
+          (eemacs-ext/ggsh--append-submodule-object
+            $submodule-object
+            `(submodule-remote-head-obj
               .
-              ,(eemacs-ext/ggsh--get-remote-head-hash $submodule-object))))
+              ,(eemacs-ext/ggsh--get-commit-object $submodule-object submodule-remote-head))))
     (when use-plugin
       (dolist (plugin use-plugin)
         (let ((plugin-func (alist-get plugin eemacs-ext/ggsh-gitmodule-parse-plugin-register)))
@@ -888,6 +930,9 @@ your own choice.
             (let* ((module-name (alist-get 'submodule-name module))
                    (module-local-path (alist-get 'submodule-local-path module))
                    (module-remote-head (alist-get 'submodule-remote-head module))
+                   (module-remote-obj (alist-get 'submodule-remote-head-obj module))
+                   (module-remote-date (plist-get (plist-get module-remote-obj :commit-date) :list))
+                   (module-remote-obj-info (eemacs-ext/ggsh--format-commit-object module-remote-obj))
                    (registerred-head-object
                     (alist-get 'submodule-registerred-head-obj module))
                    (registerred-head (plist-get registerred-head-object :commit))
@@ -895,6 +940,7 @@ your own choice.
                     (plist-get registerred-head-object :commit-ahead-day))
                    (registerred-ahead-count
                     (plist-get registerred-head-object :commit-ahead-count))
+                   (registerred-head-object-info (eemacs-ext/ggsh--format-commit-object registerred-head-object))
                    (final-release-head-object
                     (alist-get 'submodule-final-release-tag-commit-obj module))
                    (final-release-head (plist-get final-release-head-object :commit))
@@ -904,6 +950,10 @@ your own choice.
                     (plist-get final-release-head-object :commit-ahead-count))
                    (final-release-tag
                     (alist-get 'submodule-final-release-tag module))
+                   (final-release-head-object-info
+                    (if final-release-tag
+                        (eemacs-ext/ggsh--format-commit-object final-release-head-object)
+                      "NULL"))
                    day-update-p-for-head count-update-p-head
                    day-update-p-for-final count-update-p-final
                    head-update-p final-update-p
@@ -921,20 +971,53 @@ your own choice.
                     "
 * TODO (page %s) For module =%s= :%s:
 
-- _Update type_: *%s*
-- _cached-head_: %s
-- _Final-release_: %s @ _%s_
-- _Registerred-ahead-count_: %s
-- _Registerred-ahead-day_: %s
-- _Final-release-ahead-count_: %s
-- _Final-release-ahead-day_: %s
+[remote-status: *head:* _%s_,  *date:* _%s_]
 
-Quick bash script:
+- _Update type_: *%s*
+
+- _registerred-head_: %s
+
+- _Final-release_: %s @ _%s_
+
+- _Registerred-ahead-count_: %s (commit)
+
+- _Registerred-ahead-day_: %s (day)
+
+- _Final-release-ahead-count_: %s (commit)
+
+- _Final-release-ahead-day_: %s (day)
+
+** Quick bash script:
+
+Below code block is for quick action of this suggestion within
+org-mode babel integrated system, you can hint =C-c C-c= to
+active it when you view this file in emacs within org-mode as
+major-mode, otherwise you could copy the code snippet into your
+bash shell and run it manually.
+
 #+BEGIN_SRC bash
 %s
 #+END_SRC
 
-"))
+** informations of current submodule
+
+Below sections gives each head commit details include subject
+author etc. for registerred, remote, and final-release head.
+
+*** remote head info
+
+%s
+
+*** registerred head info
+
+%s
+
+*** final-release head info
+
+%s
+
+"
+                    ))
               (setq day-update-p-for-head (funcall day-func registerred-ahead-day nil)
                     count-update-p-head (funcall count-func registerred-ahead-count nil)
                     head-update-p (or day-update-p-for-head count-update-p-head))
@@ -956,6 +1039,7 @@ Quick bash script:
                              (replace-regexp-in-string "^.*/\\([^/]+\\)$" "\\1" module-name)
                            module-name)
                          (or final-release-tag "null")
+                         module-remote-head module-remote-date
                          (if final-update-p
                              (format "final release <%s>" final-release-tag)
                            "stick-to-upstream")
@@ -972,7 +1056,10 @@ Quick bash script:
                                      final-release-tag)
                            (format "cd %s && git checkout %s"
                                    (expand-file-name module-local-path eemacs-ext/ggsh--root-dir)
-                                   module-remote-head))))
+                                   module-remote-head))
+                         module-remote-obj-info
+                         registerred-head-object-info
+                         final-release-head-object-info))
                 (setq suggestion nil)))))
     (dolist (module modules)
       (funcall filter-func module count)
