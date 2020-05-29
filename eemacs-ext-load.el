@@ -1,11 +1,11 @@
 ;;; entropy-emacs-extensions-load.el --- enntropy emacs git charged extensions management
 ;;
-;; * Copyright (C) date  author
+;; * Copyright (C) 2018 Entropy
 ;; #+BEGIN_EXAMPLE
 ;; Author:        Entropy <bmsac0001@gmail.com>
 ;; Maintainer:    Entropy <bmsac001@gmail.com>
 ;; URL:           https://github.com/c0001/entropy-emacs-extensions/blob/master/entropy-emacs-extensions-load.el
-;; Package-Version: 0.1.6
+;; Package-Version: 0.2.2
 ;; Compatibility: GNU Emacs emacs-version;
 ;; Package-Requires: ((emacs "25.3") (cl-lib "0.5"))
 ;;
