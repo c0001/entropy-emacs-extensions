@@ -69,6 +69,7 @@ discover-my-major
 doneburn-theme
 doom-modeline
 doom-themes
+edit-indirect
 el2org
 eldoc-eval
 elfeed

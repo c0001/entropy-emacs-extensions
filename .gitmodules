@@ -874,3 +874,7 @@
 	path = elements/submodules/upstream/company-tern
 	url = https://github.com/c0001/company-tern.git
 	branch = master
+[submodule "elements/submodules/upstream/edit-indirect"]
+	path = elements/submodules/upstream/edit-indirect
+	url = https://github.com/Fanael/edit-indirect.git
+	branch = master
