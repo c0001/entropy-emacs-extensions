@@ -878,3 +878,7 @@
 	path = elements/submodules/upstream/edit-indirect
 	url = https://github.com/Fanael/edit-indirect.git
 	branch = master
+[submodule "elements/submodules/upstream/company-box"]
+	path = elements/submodules/upstream/company-box
+	url = https://github.com/sebastiencs/company-box.git
+	branch = master
