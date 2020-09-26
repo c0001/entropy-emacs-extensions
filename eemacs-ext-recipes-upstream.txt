@@ -85,6 +85,7 @@ eterm-256color
 eyebrowse
 f
 find-file-in-project
+frame-local
 ghub
 git-commit
 git-messenger

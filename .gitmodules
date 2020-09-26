@@ -882,3 +882,7 @@
 	path = elements/submodules/upstream/company-box
 	url = https://github.com/sebastiencs/company-box.git
 	branch = master
+[submodule "elements/submodules/upstream/frame-local"]
+	path = elements/submodules/upstream/frame-local
+	url = https://github.com/sebastiencs/frame-local.git
+	branch = master
