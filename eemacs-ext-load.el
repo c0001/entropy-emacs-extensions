@@ -117,9 +117,28 @@
 
 ;; ** libraries
 ;; *** common library
+(defun eemacs-ext-list-dir-lite (dir-root)
+  "Return directory list with type of whichever file or
+directory."
+  (let (rtn-full rtn-lite rtn-attr)
+    (when (and (file-exists-p dir-root)
+               (file-directory-p dir-root))
+      (setq rtn-full (directory-files dir-root t))
+      (dolist (el rtn-full)
+        (if (not (string-match-p "\\(\\\\\\|/\\)\\(\\.\\|\\.\\.\\)$" el))
+            (push el rtn-lite)))
+      (if rtn-lite
+          (progn
+            (dolist (el rtn-lite)
+              (if (file-directory-p el)
+                  (push `("D" . ,el) rtn-attr)
+                (push `("F" . ,el) rtn-attr)))
+            rtn-attr)
+        nil))))
+
 (defun eemacs-ext-list-subdir (dir-root)
   "List subdir of root dir DIR-ROOT"
-  (let ((dirlist (entropy/emacs-list-dir-lite dir-root))
+  (let ((dirlist (eemacs-ext-list-dir-lite dir-root))
         (rtn nil))
     (if dirlist
         (progn
