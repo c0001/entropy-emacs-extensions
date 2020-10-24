@@ -662,10 +662,6 @@
 	path = elements/submodules/upstream/emms
 	url = https://git.savannah.gnu.org/git/emms.git
 	branch = master
-[submodule "elements/submodules/upstream/company-lsp"]
-	path = elements/submodules/upstream/company-lsp
-	url = https://github.com/tigersoldier/company-lsp.git
-	branch = master
 [submodule "elements/submodules/upstream/emacsql"]
 	path = elements/submodules/upstream/emacsql
 	url = https://github.com/skeeto/emacsql.git

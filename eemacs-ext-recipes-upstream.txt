@@ -39,7 +39,6 @@ company-anaconda
 company-box
 company-c-headers
 company-irony
-company-lsp
 company-php
 company-posframe
 company-prescient
