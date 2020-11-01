@@ -52,7 +52,7 @@
 	branch = master
 [submodule "elements/submodules/upstream/shackle"]
 	path = elements/submodules/upstream/shackle
-	url = https://github.com/wasamasa/shackle.git
+	url = https://depp.brause.cc/shackle.git
 	branch = master
 [submodule "elements/submodules/upstream/xterm-color"]
 	path = elements/submodules/upstream/xterm-color
@@ -352,7 +352,7 @@
 	branch = master
 [submodule "elements/submodules/upstream/gotham-theme"]
 	path = elements/submodules/upstream/gotham-theme
-	url = https://github.com/wasamasa/gotham-theme.git
+	url = https://depp.brause.cc/gotham-theme.git
 	branch = master
 [submodule "elements/submodules/upstream/google-translate"]
 	path = elements/submodules/upstream/google-translate
@@ -384,7 +384,7 @@
 	branch = master
 [submodule "elements/submodules/upstream/eyebrowse"]
 	path = elements/submodules/upstream/eyebrowse
-	url = https://github.com/wasamasa/eyebrowse.git
+	url = https://depp.brause.cc/eyebrowse.git
 	branch = master
 [submodule "elements/submodules/upstream/esup"]
 	path = elements/submodules/upstream/esup
@@ -406,8 +406,8 @@
 	path = elements/submodules/upstream/emacs-web-server
 	url = https://github.com/eschulte/emacs-web-server.git
 	branch = master
-[submodule "elements/submodules/upstream/emacs-smeargle"]
-	path = elements/submodules/upstream/emacs-smeargle
+[submodule "elements/submodules/upstream/smeargle"]
+	path = elements/submodules/upstream/smeargle
 	url = https://github.com/emacsorphanage/smeargle.git
 	branch = master
 [submodule "elements/submodules/upstream/emacs-simple-httpd"]
@@ -430,12 +430,12 @@
 	path = elements/submodules/upstream/emacs-htmlize
 	url = https://github.com/hniksic/emacs-htmlize.git
 	branch = master
-[submodule "elements/submodules/upstream/emacs-helm-ag"]
-	path = elements/submodules/upstream/emacs-helm-ag
+[submodule "elements/submodules/upstream/helm-ag"]
+	path = elements/submodules/upstream/helm-ag
 	url = https://github.com/emacsorphanage/helm-ag.git
 	branch = master
-[submodule "elements/submodules/upstream/emacs-git-messenger"]
-	path = elements/submodules/upstream/emacs-git-messenger
+[submodule "elements/submodules/upstream/git-messenger"]
+	path = elements/submodules/upstream/git-messenger
 	url = https://github.com/emacsorphanage/git-messenger.git
 	branch = master
 [submodule "elements/submodules/upstream/emacs-doom-themes"]
@@ -678,10 +678,6 @@
 	path = elements/submodules/upstream/paradox
 	url = https://github.com/Malabarba/paradox.git
 	branch = master
-[submodule "elements/submodules/melpa"]
-	path = elements/submodules/melpa
-	url = https://github.com/c0001/melpa.git
-	branch = entropy-emacs
 [submodule "elements/submodules/upstream/elisp-slime-nav"]
 	path = elements/submodules/upstream/elisp-slime-nav
 	url = https://github.com/purcell/elisp-slime-nav.git
@@ -864,7 +860,7 @@
 	branch = master
 [submodule "elements/submodules/upstream/vimish-fold"]
 	path = elements/submodules/upstream/vimish-fold
-	url = https://github.com/seregaxvm/vimish-fold.git
+	url = https://github.com/matsievskiysv/vimish-fold
 	branch = master
 [submodule "elements/submodules/upstream/company-tern"]
 	path = elements/submodules/upstream/company-tern
@@ -882,3 +878,11 @@
 	path = elements/submodules/upstream/frame-local
 	url = https://github.com/sebastiencs/frame-local.git
 	branch = master
+[submodule "elements/submodules/upstream/lsp-pyright"]
+	path = elements/submodules/upstream/lsp-pyright
+	url = https://github.com/emacs-lsp/lsp-pyright.git
+	branch = master
+[submodule "elements/submodules/melpa"]
+	path = elements/submodules/melpa
+	url = https://github.com/c0001/melpa.git
+	branch = entropy-emacs

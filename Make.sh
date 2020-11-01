@@ -64,45 +64,46 @@ EemacsextMake_dir_nontrail_slash ()
 EemacsextMake_DIR="$(EemacsextMake_dir_nontrail_slash ${EemacsextMake_DIR} lame)"
 
 # ** variable declaration
-EemacsextMake_melpadir=${EemacsextMake_DIR}/elements/submodules/melpa
-EemacsextMake_elpadir=${EemacsextMake_DIR}/elements/submodules/elpa
-EemacsextMake_upstream_submodules_dir=$EemacsextMake_DIR/elements/submodules/upstream
-EemacsextMake_infosdir=$EemacsextMake_DIR/elements/info-files
+EemacsextMake_melpadir="${EemacsextMake_DIR}"/elements/submodules/melpa
+EemacsextMake_elpadir="${EemacsextMake_DIR}"/elements/submodules/elpa
+EemacsextMake_upstream_submodules_dir="$EemacsextMake_DIR"/elements/submodules/upstream
+EemacsextMake_infosdir="$EemacsextMake_DIR"/elements/info-files
 
-EemacsextMake_elbatch_modulesparse_elisp_file=${EemacsextMake_DIR}/eemacs-ext-submodules-parse.el
-EemacsextMake_elbatch_branchtoggle_bashscript_file=${EemacsextMake_DIR}/annex/bin/submodules-common-toggle-branch.sh
+EemacsextMake_elbatch_modulesparse_elisp_file="${EemacsextMake_DIR}"/eemacs-ext-submodules-parse.el
+EemacsextMake_elbatch_branchtoggle_bashscript_file="${EemacsextMake_DIR}"/annex/bin/submodules-common-toggle-branch.sh
 
 declare -a EemacsextMake_local_recipes
 
-EemacsextMake_local_recipes_list_file=${EemacsextMake_DIR}/eemacs-ext-recipes-upstream.txt
+EemacsextMake_local_recipes_list_file="${EemacsextMake_DIR}"/eemacs-ext-recipes-upstream.txt
 
-EemacsextMake_unregular_recipes_dir=${EemacsextMake_DIR}/elements/unregualar-recipes
+EemacsextMake_unregular_recipes_dir="${EemacsextMake_DIR}"/elements/unregualar-recipes
 
-[ ! -d "${EemacsextMake_infosdir}" ] && mkdir ${EemacsextMake_infosdir}
+[ ! -d "${EemacsextMake_infosdir}" ] && mkdir -p "${EemacsextMake_infosdir}"
 
-EemacsextMake_dashdir=${EemacsextMake_upstream_submodules_dir}/dash.el
-EemacsextMake_ghubdir=${EemacsextMake_upstream_submodules_dir}/ghub
-EemacsextMake_magitdir=${EemacsextMake_upstream_submodules_dir}/magit
-EemacsextMake_magitpopupdir=${EemacsextMake_upstream_submodules_dir}/magit-popup
-EemacsextMake_webserverdir=${EemacsextMake_upstream_submodules_dir}/emacs-web-server
-EemacsextMake_witheditordir=${EemacsextMake_upstream_submodules_dir}/with-editor
-EemacsextMake_ivydir=${EemacsextMake_upstream_submodules_dir}/swiper
-EemacsextMake_nsisdir=${EemacsextMake_upstream_submodules_dir}/nsis-mode
-EemacsextMake_ew3mdir=${EemacsextMake_upstream_submodules_dir}/emacs-w3m
-EemacsextMake_transientdir=${EemacsextMake_upstream_submodules_dir}/transient
-EemacsextMake_usepackgedir=${EemacsextMake_upstream_submodules_dir}/use-package
+EemacsextMake_dashdir="${EemacsextMake_upstream_submodules_dir}"/dash.el
+EemacsextMake_ghubdir="${EemacsextMake_upstream_submodules_dir}"/ghub
+EemacsextMake_magitdir="${EemacsextMake_upstream_submodules_dir}"/magit
+EemacsextMake_magitpopupdir="${EemacsextMake_upstream_submodules_dir}"/magit-popup
+EemacsextMake_webserverdir="${EemacsextMake_upstream_submodules_dir}"/emacs-web-server
+EemacsextMake_witheditordir="${EemacsextMake_upstream_submodules_dir}"/with-editor
+EemacsextMake_ivydir="${EemacsextMake_upstream_submodules_dir}"/swiper
+EemacsextMake_nsisdir="${EemacsextMake_upstream_submodules_dir}"/nsis-mode
+EemacsextMake_ew3mdir="${EemacsextMake_upstream_submodules_dir}"/emacs-w3m
+EemacsextMake_transientdir="${EemacsextMake_upstream_submodules_dir}"/transient
+EemacsextMake_usepackgedir="${EemacsextMake_upstream_submodules_dir}"/use-package
 
-EemacsextMake_error_log_host=$EemacsextMake_DIR/build_log
-mkdir -p $EemacsextMake_error_log_host
+EemacsextMake_error_log_host="$EemacsextMake_DIR"/build_log
+[[ -d "$EemacsextMake_error_log_host" ]] && rm -rf "$EemacsextMake_error_log_host"
+mkdir -p "$EemacsextMake_error_log_host"
 
 declare -A EemacsextMake_initial_failed_index=([0]="common initial with error" [1]="melpa package build with error")
 declare -a EemacsextMake_initial_fails_types
 
 declare -a EemacsextMake_initial_failed_mkinfo
-EemacsextMake_initial_failed_mkinfo_output_file=$EemacsextMake_error_log_host/mkinfo.log
+EemacsextMake_initial_failed_mkinfo_output_file="$EemacsextMake_error_log_host"/mkinfo.log
 
 declare -a EemacsextMake_initial_failed_mkpkg
-EemacsextMake_initial_failed_mkpkg_output_file=$EemacsextMake_error_log_host/mkpkg.log
+EemacsextMake_initial_failed_mkpkg_output_file="$EemacsextMake_error_log_host"/mkpkg.log
 
 # ** commands requested check
 EemacsextMake_Checking_shell ()
@@ -140,7 +141,7 @@ EemacsextMake_cl_member_array ()
     local item
     declare _array=("${@:2}")
     local _member
-    for item in ${_array[@]}
+    for item in "${_array[@]}"
     do
         [[ $item == "$1" ]] && _member='t'
     done
@@ -176,138 +177,138 @@ EemacsextMake_GetRepoPath ()
 # ***** utilites
 EemacsextMake_MakeInfo_For_dash ()
 {
-    cd ${EemacsextMake_dashdir}
-    cp -v dash.info ${EemacsextMake_infosdir}/
+    cd "${EemacsextMake_dashdir}"
+    cp -v dash.info "${EemacsextMake_infosdir}"/
     git clean -xfd .
 }
 
 EemacsextMake_MakeInfo_For_ghub ()
 {
-    cd ${EemacsextMake_ghubdir}
+    cd "${EemacsextMake_ghubdir}"
     make info
     if [[ $? -ne 0 ]]
     then
         EemacsextMake_initial_failed_mkinfo+=("ghub")
     else
-        cp -v ghub.info ${EemacsextMake_infosdir}/
+        cp -v ghub.info "${EemacsextMake_infosdir}"/
         git clean -xfd .
     fi
 }
 
 EemacsextMake_MakeInfo_For_magit ()
 {
-    cd ${EemacsextMake_magitdir}
+    cd "${EemacsextMake_magitdir}"
     make info
     if [[ $? -ne 0 ]]
     then
         EemacsextMake_initial_failed_mkinfo+=("magit")
     else
-        cp -v ./Documentation/magit.info ${EemacsextMake_infosdir}/
+        cp -v ./Documentation/magit.info "${EemacsextMake_infosdir}"/
         git clean -xfd .
     fi
 }
 
 EemacsextMake_MakeInfo_For_magit_popup ()
 {
-    cd ${EemacsextMake_magitpopupdir}
+    cd "${EemacsextMake_magitpopupdir}"
     make info
     if [[ $? -ne 0 ]]
     then
         EemacsextMake_initial_failed_mkinfo+=("magit_popup")
     else
-        cp -v magit-popup.info ${EemacsextMake_infosdir}/
+        cp -v magit-popup.info "${EemacsextMake_infosdir}"/
         git clean -xfd .
     fi
 }
 
 EemacsextMake_MakeInfo_For_webserver ()
 {
-    cd ${EemacsextMake_webserverdir}/doc
+    cd "${EemacsextMake_webserverdir}"/doc
     make all
     if [[ $? -ne 0 ]]
     then
         EemacsextMake_initial_failed_mkinfo+=("emacs-web-server")
     else
-        cp -v web-server.info ${EemacsextMake_infosdir}/
+        cp -v web-server.info "${EemacsextMake_infosdir}"/
         git clean -xfd .
     fi
 }
 
 EemacsextMake_MakeInfo_For_witheditor ()
 {
-    cd ${EemacsextMake_witheditordir}
+    cd "${EemacsextMake_witheditordir}"
     make info
     if [[ $? -ne 0 ]]
     then
         EemacsextMake_initial_failed_mkinfo+=("with-editor")
     else
-        cp -v with-editor.info ${EemacsextMake_infosdir}/
+        cp -v with-editor.info "${EemacsextMake_infosdir}"/
         git clean -xfd .
     fi
 }
 
 EemacsextMake_MakeInfo_For_ivy ()
 {
-    cd ${EemacsextMake_ivydir}/doc
+    cd "${EemacsextMake_ivydir}"/doc
     makeinfo ivy.texi
     if [[ $? -ne 0 ]]
     then
         EemacsextMake_initial_failed_mkinfo+=("ivy")
     else
-        cp -v ivy.info ${EemacsextMake_infosdir}/
+        cp -v ivy.info "${EemacsextMake_infosdir}"/
         git clean -xfd .
     fi
 }
 
 EemacsextMake_MakeInfo_For_nsis ()
 {
-    cd ${EemacsextMake_nsisdir}
+    cd "${EemacsextMake_nsisdir}"
     makeinfo nsis-mode.texi
     if [[ $? -ne 0 ]]
     then
         EemacsextMake_initial_failed_mkinfo+=("nsis")
     else
-        cp -v nsis-mode.info ${EemacsextMake_infosdir}/
+        cp -v nsis-mode.info "${EemacsextMake_infosdir}"/
         git clean -xfd .
     fi
 }
 
 EemacsextMake_MakeInfo_For_ew3m ()
 {
-    cd ${EemacsextMake_ew3mdir}
+    cd "${EemacsextMake_ew3mdir}"
     [ ! -f configure ] && autoconf
     ./configure && make info
     if [[ $? -ne 0 ]]
     then
         EemacsextMake_initial_failed_mkinfo+=("emacs w3m")
     else
-        cp -v doc/emacs-w3m.info ${EemacsextMake_infosdir}/
+        cp -v doc/emacs-w3m.info "${EemacsextMake_infosdir}"/
         git clean -xfd .
     fi
 }
 
 EemacsextMake_MakeInfo_For_transient ()
 {
-    cd ${EemacsextMake_transientdir}
+    cd "${EemacsextMake_transientdir}"
     make info
     if [[ $? -ne 0 ]]
     then
         EemacsextMake_initial_failed_mkinfo+=("transient")
     else
-        cp -v docs/transient.info ${EemacsextMake_infosdir}/
+        cp -v docs/transient.info "${EemacsextMake_infosdir}"/
         git clean -xfd .
     fi
 }
 
 EemacsextMake_MakeInfo_For_usepackage ()
 {
-    cd ${EemacsextMake_usepackgedir}
+    cd "${EemacsextMake_usepackgedir}"
     make info
     if [[ $? -ne 0 ]]
     then
         EemacsextMake_initial_failed_mkinfo+=("use-package")
     else
-        cp -v use-package.info ${EemacsextMake_infosdir}/
+        cp -v use-package.info "${EemacsextMake_infosdir}"/
         git clean -xfd .
     fi
 }
@@ -331,7 +332,7 @@ EemacsextMake_Extact_Info ()
     EemacsextMake_MakeInfo_For_usepackage
     EemacsextMake_MakeInfo_For_webserver
     EemacsextMake_MakeInfo_For_witheditor
-    [[ ${#EemacsextMake_initial_failed_mkinfo[@]} -ne 0 ]] && EemacsextMake_initial_fails_types+=(0)
+    [[ "${#EemacsextMake_initial_failed_mkinfo[@]}" -ne 0 ]] && EemacsextMake_initial_fails_types+=(0)
 }
 
 EemacsextMake_Infomake_ErrorPrompts ()
@@ -343,12 +344,12 @@ EemacsextMake_Infomake_ErrorPrompts ()
     echo -e "========================================="
     echo -e "Failed prompts for \e[34mMake info\e[0m"
     echo -e "-----------------------------------------\n"
-    for item in ${EemacsextMake_initial_failed_mkinfo[@]}
+    for item in "${EemacsextMake_initial_failed_mkinfo[@]}"
     do
         error_str="\e[33m$count:\e[0m '$item' \e[31mmake info failed\e[0m"
         error_str_nonpropertize="$count: '$item' mmake info failed"
         echo -e "$error_str"
-        echo "$error_str_nonpropertize" >> $EemacsextMake_initial_failed_mkinfo_output_file
+        echo "$error_str_nonpropertize" >> "$EemacsextMake_initial_failed_mkinfo_output_file"
         (( count++ ))
     done
 }
@@ -357,7 +358,7 @@ EemacsextMake_Infomake_ErrorPrompts ()
 EemacsextMake_Make_Melpa_recipes ()
 {
     echo -e "\n\e[32mPatching recipes ...\e[0m"
-    cd ${EemacsextMake_melpadir}
+    cd "${EemacsextMake_melpadir}"
     make local-recipe
     if [[ $? -ne 0  ]]
     then
@@ -365,20 +366,18 @@ EemacsextMake_Make_Melpa_recipes ()
        exit
     else
         echo -e "\n\e[32mAdding unregular recipes ...\e[0m"
-        cp -r ${EemacsextMake_unregular_recipes_dir}/* ${EemacsextMake_melpadir}/recipes/
+        cp -rf "${EemacsextMake_unregular_recipes_dir}"/* "${EemacsextMake_melpadir}"/recipes/
     fi
 }
 
 EemacsextMake_GetLocal_ReipeList ()
 {
     echo -e "\n\e[32mGenerate entropy emacs upstream recipes ...\e[0m"
-    local IFS=$'\n'
     local item
-    declare -a temp_list=$(cat ${EemacsextMake_local_recipes_list_file})
-    for item in ${temp_list[@]}
+    while read item
     do
-        [[ ! -z $item ]] && EemacsextMake_local_recipes+=($item)
-    done
+        [[ ! -z "$item" ]] && EemacsextMake_local_recipes+=("$item")
+    done < "${EemacsextMake_local_recipes_list_file}"
 }
 
 EemacsextMake_BuildRecipes ()
@@ -396,33 +395,32 @@ EemacsextMake_BuildRecipes ()
     EemacsextMake_Make_Melpa_recipes
     EemacsextMake_GetLocal_ReipeList
 
-    recipeslen=${#EemacsextMake_local_recipes[@]}
+    recipeslen="${#EemacsextMake_local_recipes[@]}"
 
-    cd ${EemacsextMake_melpadir}
+    cd "${EemacsextMake_melpadir}"
 
-    for which in ${EemacsextMake_local_recipes[@]}
+    for which in "${EemacsextMake_local_recipes[@]}"
     do
         echo -e "\e[32m😼: building '$which'...\e[0m\n\e[34m--->[remains:\e[0m \e[33m$(( $recipeslen - $count ))\e[0m \e[34m]\e[0m\n"
-        make recipes/$which
+        make recipes/"$which"
         if [[ $? -ne 0 ]]
         then
-            EemacsextMake_initial_failed_mkpkg+=($which)
+            EemacsextMake_initial_failed_mkpkg+=("$which")
             read -p $'\e[31mPackage building task\e[0m \e[31mfailed, continue next task?\e[0m ' choice;
-            [[ $choice != 'y' ]] && exit 1
+            [[ $choice = 'y' ]] || [[ $choice = 'yes' ]] || [[ $choice = 'YES' ]] || exit 1
         fi
 
         count=$(($count + 1 ))
     done
-    if [[ ${#EemacsextMake_initial_failed_mkpkg[@]} -ne  0 ]]
+    if [[ "${#EemacsextMake_initial_failed_mkpkg[@]}" -ne  0 ]]
     then
         EemacsextMake_initial_fails_types+=(1)
-        EemacsextMake_RecipeBuild_ErrorPrompts
     else
         # initialize packages archives contents used for package.el builtin with emacs
         make index
     fi
     # recovery the recipes patch
-    cd ${EemacsextMake_melpadir} && git checkout recipes && git clean -xfd recipes
+    cd "${EemacsextMake_melpadir}" && git checkout recipes && git clean -xfd recipes
 }
 
 EemacsextMake_RecipeBuild_ErrorPrompts ()
@@ -434,12 +432,12 @@ EemacsextMake_RecipeBuild_ErrorPrompts ()
     echo -e "========================================="
     echo -e "Failed prompts for \e[34mPackage building\e[0m"
     echo -e "-----------------------------------------\n"
-    for item in ${EemacsextMake_initial_failed_mkpkg[@]}
+    for item in "${EemacsextMake_initial_failed_mkpkg[@]}"
     do
         error_str="\e[33m$count:\e[0m '$item' \e[31mpackage build failed\e[0m"
         error_str_nonpropertize="$count: '$item' package build failed"
         echo -e "$error_str"
-        echo "$error_str_nonpropertize" >> $EemacsextMake_initial_failed_mkpkg_output_file
+        echo "$error_str_nonpropertize" >> "$EemacsextMake_initial_failed_mkpkg_output_file"
 
         (( count++ ))
     done
@@ -454,7 +452,7 @@ EemacsextMake_BuildElpa_Recipes ()
     echo -e "\e[33m==================================================\e[0m"
     echo -e "\e[32mBuilding elpa recipes ...\e[0m"
     echo -e "\e[33m==================================================\e[0m"
-    cd ${EemacsextMake_elpadir}
+    cd "${EemacsextMake_elpadir}"
     make archive
 }
 
@@ -462,14 +460,14 @@ EemacsextMake_BuildElpa_Recipes ()
 
 EemacsextMake_get_submodule_update_suggestion ()
 {
-    local logfile=${EemacsextMake_DIR}/annex/submodules-update-suggestion.org
+    local logfile="${EemacsextMake_DIR}"/annex/submodules-update-suggestion.org
     echo ""
     echo -e "\e[32mGet submodule update suggestions ...\e[0m"
-    emacs --batch -q -l $EemacsextMake_elbatch_modulesparse_elisp_file \
+    emacs --batch -q -l "$EemacsextMake_elbatch_modulesparse_elisp_file" \
           --eval "(eemacs-ext/ggsh-gen-submodule-update-suggestion)"
-    if [[ -f $logfile ]]
+    if [[ -f "$logfile" ]]
     then
-        less $logfile
+        less "$logfile"
     fi
 }
 
@@ -477,7 +475,7 @@ EemacsextMake_get_submodule_update_suggestion ()
 EemacsextMake_Finished ()
 {
 
-    if [[ ${#EemacsextMake_initial_fails_types[@]} -ne 0 ]]
+    if [[ "${#EemacsextMake_initial_fails_types[@]}" -ne 0 ]]
     then
         [[ $(EemacsextMake_cl_member_array 0 "${EemacsextMake_initial_fails_types[@]}") == 0 ]] \
             && EemacsextMake_Infomake_ErrorPrompts
@@ -487,56 +485,61 @@ EemacsextMake_Finished ()
         [[ $(EemacsextMake_cl_member_array 1 "${EemacsextMake_initial_fails_types[@]}") == 0 ]] \
             && EemacsextMake_RecipeBuild_ErrorPrompts
     else
-    touch $EemacsextMake_DIR/init
+    touch "$EemacsextMake_DIR"/init
     fi
 }
 
 # ** main
 EemacsextMake_Main_Remove_InitFlag ()
 {
-    [[ -f $EemacsextMake_DIR/init ]] && rm ${EemacsextMake_DIR}/init
+    [[ -f "$EemacsextMake_DIR"/init ]] && rm "${EemacsextMake_DIR}"/init
 }
 
 EemacsextMake_Main_Tidyup_WorkTree ()
 {
     local target_path=$1
-    if [[ ! -z ${target_path} ]]
+    if [[ ! -z "${target_path}" ]]
     then
         echo -e "\e[32mTidy up working directory \e[33m'${target_path}'\e[0m ...\e[0m"
     else
         echo -e "\e[32mTidy up working directory ...\e[0m \e[31m[⚠ ALL]\e[0m"
     fi
     EemacsextMake_wait_seconds 10 "\e[33m[you can cancel this procedure in 10s]\e[0m ..."
-    cd ${EemacsextMake_DIR}
-    if [[ -z ${target_path} ]]
+    cd "${EemacsextMake_DIR}"
+    if [[ -z "${target_path}" ]]
     then
         git submodule deinit --all -f
     else
-        git submodule deinit -f ${target_path}
+        git submodule deinit -f "${target_path}"
     fi
     [[ $? -ne 0 ]] && exit
-    git submodule update --init ${target_path}
+    if [[ -z "${target_path}" ]]
+    then
+        git submodule update --init
+    else
+        git submodule update --init "${target_path}"
+    fi
     [[ $? -ne 0 ]] && exit
     echo ""
 }
 
 EemacsextMake_Main_Toggle_SubBranch ()
 {
-    [[ -f ${EemacsextMake_elbatch_branchtoggle_bashscript_file} ]] && rm -f ${EemacsextMake_elbatch_branchtoggle_bashscript_file}
+    [[ -f "${EemacsextMake_elbatch_branchtoggle_bashscript_file}" ]] && rm -f "${EemacsextMake_elbatch_branchtoggle_bashscript_file}"
     local recovery=$1
-    cd ${EemacsextMake_DIR}
+    cd "${EemacsextMake_DIR}"
     if [[ -z $recovery ]]
     then
         echo -e "\e[32mToggle submodule branch ...\e[0m"
-        emacs -Q --batch -l ${EemacsextMake_elbatch_modulesparse_elisp_file} --eval "(eemacs-ext/ggsh-gen-submodules-common-branch-toggle-bash-script)"
+        emacs -Q --batch -l "${EemacsextMake_elbatch_modulesparse_elisp_file}" --eval "(eemacs-ext/ggsh-gen-submodules-common-branch-toggle-bash-script)"
     else
-        emacs -Q --batch -l ${EemacsextMake_elbatch_modulesparse_elisp_file} --eval "(eemacs-ext/ggsh-gen-submodules-common-branch-toggle-bash-script t)"
+        emacs -Q --batch -l "${EemacsextMake_elbatch_modulesparse_elisp_file}" --eval "(eemacs-ext/ggsh-gen-submodules-common-branch-toggle-bash-script t)"
     fi
     [[ $? -ne 0 ]] && exit
-    cd ${EemacsextMake_DIR}
-    if [[ -f ${EemacsextMake_elbatch_branchtoggle_bashscript_file} ]]
+    cd "${EemacsextMake_DIR}"
+    if [[ -f "${EemacsextMake_elbatch_branchtoggle_bashscript_file}" ]]
     then
-        bash ${EemacsextMake_elbatch_branchtoggle_bashscript_file}
+        bash "${EemacsextMake_elbatch_branchtoggle_bashscript_file}"
         [[ $? -ne 0 ]] && exit
     else
         echo -e "\e[31mPlease initialize submodules first!\e[0m"
@@ -549,7 +552,7 @@ EemacsextMake_Main_Tidyup_TempBranches ()
 {
     echo -e "\e[32mDelete temporal branches ...\e[0m"
     EemacsextMake_Main_Toggle_SubBranch t
-    cd ${EemacsextMake_DIR}
+    cd "${EemacsextMake_DIR}"
     git submodule foreach \
         "if [[ ! -z \$(git for-each-ref --format=\"%(refname:short)\" refs/heads/EemacsExtTempo-*) ]];then
             git for-each-ref --format=\"%(refname:short)\" refs/heads/EemacsExtTempo-* | xargs git branch -D -f;
@@ -567,7 +570,7 @@ EemacsextMake_Main_All ()
     EemacsextMake_Main_Toggle_SubBranch
     echo -e "\e[32mMain process starting ....\e[0m"
     echo -e "=====================================\n"
-    cd ${EemacsextMake_DIR}
+    cd "${EemacsextMake_DIR}"
     echo ""
     EemacsextMake_Extact_Info
     echo ""
@@ -598,13 +601,13 @@ EemacsextMake_Main_Help ()
 EemacsextMake_Main_Choice ()
 {
     case $1 in
-        init) cd $EemacsextMake_DIR && git clean -xfd .
+        init) cd "$EemacsextMake_DIR" && git clean -xfd .
               EemacsextMake_Main_Tidyup_WorkTree ;;
 
-        tidy-branches) cd $EemacsextMake_DIR && git clean -xfd .
+        tidy-branches) cd "$EemacsextMake_DIR" && git clean -xfd .
                        EemacsextMake_Main_Tidyup_TempBranches ;;
 
-        toggle-branches) cd $EemacsextMake_DIR && git clean -xfd .
+        toggle-branches) cd "$EemacsextMake_DIR" && git clean -xfd .
                          EemacsextMake_Main_Toggle_SubBranch ;;
 
         patch-recipes) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_melpadir})"
@@ -623,11 +626,11 @@ EemacsextMake_Main_Choice ()
             # EemacsextMake_BuildRecipes eemacs
             ;;
 
-        make-infos) cd $EemacsextMake_DIR && git clean -xfd .
+        make-infos) cd "$EemacsextMake_DIR" && git clean -xfd .
                     EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_upstream_submodules_dir})"
                     EemacsextMake_Extact_Info ;;
 
-        clean) cd $EemacsextMake_DIR && git clean -xfd . && git submodule deinit --all -f ;;
+        clean) cd "$EemacsextMake_DIR" && git clean -xfd . && git submodule deinit --all -f ;;
 
         all) EemacsextMake_Main_All ;;
 
@@ -644,6 +647,6 @@ EemacsextMake_Main_Choice ()
 
 EemacsextMake_Checking_shell
 
-cd ${EemacsextMake_DIR}
+cd "${EemacsextMake_DIR}"
 
-EemacsextMake_Main_Choice $1
+EemacsextMake_Main_Choice "$1"
