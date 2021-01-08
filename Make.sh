@@ -374,7 +374,7 @@ EemacsextMake_GetLocal_ReipeList ()
 {
     echo -e "\n\e[32mGenerate entropy emacs upstream recipes ...\e[0m"
     local item
-    while read item
+    while IFS= read -r item
     do
         [[ ! -z "$item" ]] && EemacsextMake_local_recipes+=("$item")
     done < "${EemacsextMake_local_recipes_list_file}"
