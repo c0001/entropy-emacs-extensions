@@ -29,6 +29,7 @@ browse-kill-ring
 buffer-move
 bui
 cal-china-x
+cfrs
 chinese-word-at-point
 chocolate-theme
 cmake-mode

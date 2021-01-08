@@ -886,3 +886,7 @@
 	path = elements/submodules/melpa
 	url = https://github.com/c0001/melpa.git
 	branch = entropy-emacs
+[submodule "elements/submodules/upstream/cfrs"]
+	path = elements/submodules/upstream/cfrs
+	url = https://github.com/Alexander-Miller/cfrs.git
+	branch = master
