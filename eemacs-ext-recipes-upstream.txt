@@ -10,8 +10,6 @@ all-the-icons-ivy
 all-the-icons-ivy-rich
 anaconda-mode
 async
-atom-dark-theme
-atom-one-dark-theme
 atomic-chrome
 auto-complete
 auto-sudoedit
@@ -22,7 +20,6 @@ beacon
 benchmark-init
 bind-key
 bing-dict
-birds-of-paradise-plus-theme
 bongo
 browse-at-remote
 browse-kill-ring
@@ -30,7 +27,6 @@ buffer-move
 bui
 cal-china-x
 chinese-word-at-point
-chocolate-theme
 cmake-mode
 color-theme-sanityinc-tomorrow
 command-log-mode
@@ -51,7 +47,6 @@ counsel-css
 counsel-ffdata
 counsel-projectile
 counsel-world-clock
-darkokai-theme
 dash
 dash-functional
 dashboard
@@ -64,7 +59,6 @@ dired-subtree
 diredfl
 disable-mouse
 discover-my-major
-doneburn-theme
 doom-modeline
 doom-themes
 edit-indirect
@@ -89,7 +83,6 @@ git-messenger
 git-timemachine
 gitattributes-mode
 gitconfig-mode
-github-theme
 gitignore-mode
 gntp
 go-mode
@@ -120,7 +113,6 @@ js2-refactor
 json-mode
 json-reformat
 json-snatcher
-klere-theme
 log4e
 loop
 lsp-mode
@@ -137,7 +129,6 @@ makey
 maple-preview
 markdown-mode
 markdown-preview-mode
-material-theme
 memoize
 minions
 multi-term
@@ -192,7 +183,6 @@ spaceline-all-the-icons
 spacemacs-theme
 srcery-theme
 ssh-agency
-sublime-themes
 swiper
 symbol-overlay
 tern

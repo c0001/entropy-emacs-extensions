@@ -22,10 +22,6 @@
 	path = elements/submodules/upstream/autothemer
 	url = https://github.com/jasonm23/autothemer.git
 	branch = master
-[submodule "elements/submodules/upstream/emacs-chocolate-theme"]
-	path = elements/submodules/upstream/emacs-chocolate-theme
-	url = https://github.com/SavchenkoValeriy/emacs-chocolate-theme.git
-	branch = master
 [submodule "elements/submodules/upstream/find-file-in-project"]
 	path = elements/submodules/upstream/find-file-in-project
 	url = https://github.com/technomancy/find-file-in-project.git
@@ -414,14 +410,6 @@
 	path = elements/submodules/upstream/emacs-memoize
 	url = https://github.com/skeeto/emacs-memoize.git
 	branch = master
-[submodule "elements/submodules/upstream/emacs-material-theme"]
-	path = elements/submodules/upstream/emacs-material-theme
-	url = https://github.com/cpaulik/emacs-material-theme.git
-	branch = master
-[submodule "elements/submodules/upstream/emacs-klere-theme"]
-	path = elements/submodules/upstream/emacs-klere-theme
-	url = https://github.com/WammKD/emacs-klere-theme.git
-	branch = master
 [submodule "elements/submodules/upstream/emacs-htmlize"]
 	path = elements/submodules/upstream/emacs-htmlize
 	url = https://github.com/hniksic/emacs-htmlize.git
@@ -474,10 +462,6 @@
 	path = elements/submodules/upstream/dash.el
 	url = https://github.com/magnars/dash.el.git
 	branch = master
-[submodule "elements/submodules/upstream/darkokai"]
-	path = elements/submodules/upstream/darkokai
-	url = https://github.com/sjrmanning/darkokai.git
-	branch = master
 [submodule "elements/submodules/upstream/company-web"]
 	path = elements/submodules/upstream/company-web
 	url = https://github.com/osv/company-web.git
@@ -485,10 +469,6 @@
 [submodule "elements/submodules/upstream/company-shell"]
 	path = elements/submodules/upstream/company-shell
 	url = https://github.com/Alexander-Miller/company-shell.git
-	branch = master
-[submodule "elements/submodules/upstream/company-posframe"]
-	path = elements/submodules/upstream/company-posframe
-	url = https://github.com/tumashu/company-posframe.git
 	branch = master
 [submodule "elements/submodules/upstream/company-mode"]
 	path = elements/submodules/upstream/company-mode
@@ -534,10 +514,6 @@
 	path = elements/submodules/upstream/browse-at-remote
 	url = https://github.com/rmuslimov/browse-at-remote.git
 	branch = master
-[submodule "elements/submodules/upstream/birds-of-paradise-plus-theme.el"]
-	path = elements/submodules/upstream/birds-of-paradise-plus-theme.el
-	url = https://github.com/jimeh/birds-of-paradise-plus-theme.el.git
-	branch = master
 [submodule "elements/submodules/upstream/bing-dict.el"]
 	path = elements/submodules/upstream/bing-dict.el
 	url = https://github.com/cute-jumper/bing-dict.el.git
@@ -566,14 +542,6 @@
 	path = elements/submodules/upstream/atomic-chrome
 	url = https://github.com/alpha22jp/atomic-chrome.git
 	branch = master
-[submodule "elements/submodules/upstream/atom-one-dark-theme"]
-	path = elements/submodules/upstream/atom-one-dark-theme
-	url = https://github.com/jonathanchu/atom-one-dark-theme.git
-	branch = master
-[submodule "elements/submodules/upstream/atom-dark-theme-emacs"]
-	path = elements/submodules/upstream/atom-dark-theme-emacs
-	url = https://github.com/whitlockjc/atom-dark-theme-emacs.git
-	branch = master
 [submodule "elements/submodules/upstream/all-the-icons.el"]
 	path = elements/submodules/upstream/all-the-icons.el
 	url = https://github.com/domtronn/all-the-icons.el.git
@@ -589,14 +557,6 @@
 [submodule "elements/submodules/upstream/ac-php"]
 	path = elements/submodules/upstream/ac-php
 	url = https://github.com/xcwen/ac-php.git
-	branch = master
-[submodule "elements/submodules/upstream/GitHub-Theme-for-Emacs"]
-	path = elements/submodules/upstream/GitHub-Theme-for-Emacs
-	url = https://github.com/philiparvidsson/GitHub-Theme-for-Emacs.git
-	branch = master
-[submodule "elements/submodules/upstream/doneburn-theme"]
-	path = elements/submodules/upstream/doneburn-theme
-	url = https://github.com/manuel-uberti/doneburn-theme.git
 	branch = master
 [submodule "elements/submodules/upstream/el2org"]
 	path = elements/submodules/upstream/el2org
@@ -617,10 +577,6 @@
 [submodule "elements/submodules/upstream/emacs-async"]
 	path = elements/submodules/upstream/emacs-async
 	url = https://github.com/jwiegley/emacs-async.git
-	branch = master
-[submodule "elements/submodules/upstream/emacs-color-themes"]
-	path = elements/submodules/upstream/emacs-color-themes
-	url = https://github.com/owainlewis/emacs-color-themes.git
 	branch = master
 [submodule "elements/submodules/upstream/nsis-mode"]
 	path = elements/submodules/upstream/nsis-mode
