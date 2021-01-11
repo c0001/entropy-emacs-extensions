@@ -152,7 +152,6 @@ pkg-info
 pomidor
 poporg
 popup
-popwin
 pos-tip
 posframe
 powerline
