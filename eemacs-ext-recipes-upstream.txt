@@ -40,7 +40,6 @@ company-box
 company-c-headers
 company-irony
 company-php
-company-posframe
 company-prescient
 company-quickhelp
 company-shell
