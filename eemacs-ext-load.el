@@ -111,8 +111,10 @@
 (defconst eemacs-ext-melpa-root (expand-file-name "elements/submodules/melpa" eemacs-ext-root))
 (defconst eemacs-ext-melpa-packages (expand-file-name "packages" eemacs-ext-melpa-root))
 (defconst eemacs-ext-elpa-root (expand-file-name "elements/submodules/elpa" eemacs-ext-root))
-(defconst eemacs-ext-elpa-packages (expand-file-name "archive/packages" eemacs-ext-elpa-root))
+(defconst eemacs-ext-elpa-packages (expand-file-name "archive" eemacs-ext-elpa-root))
+(defconst eemacs-ext-elpa-packages-devel (expand-file-name "archive-devel" eemacs-ext-elpa-root))
 (defconst eemacs-ext-elpa-packages-archive-root (expand-file-name "packages" eemacs-ext-elpa-root))
+(defconst eemacs-ext-elpa-packages-archive-devel-root (expand-file-name "emacs/lisp" eemacs-ext-elpa-root))
 
 
 ;; ** libraries
@@ -223,13 +225,17 @@ any subdirectory that contains a file named `.nosearch'."
   (setq Info-default-directory-list
         (append (list eemacs-ext-info-root) Info-default-directory-list))
 
-  ;; Library load-path adding
+  ;; melpa load-path adding
   (eemacs-ext--load-path eemacs-ext-submodules-upstream-root)
-  (eemacs-ext--load-path eemacs-ext-elpa-packages-archive-root)
+
   ;; reverse load path so that all the native libraries are ahead of
   ;; all rest to prevent locating thus same named library for other
   ;; repo test stuffs from messing up the emacs refs invocation.
   (setq load-path (reverse load-path))
+
+  ;; Finally load elpa devel upstream
+  (eemacs-ext--load-path eemacs-ext-elpa-packages-archive-root)
+  (eemacs-ext--load-path eemacs-ext-elpa-packages-archive-devel-root)
 
   ;; Theme path loading
   (eemacs-ext--load-theme-path
@@ -254,8 +260,10 @@ any subdirectory that contains a file named `.nosearch'."
 ;; *** For local melpa usage
 (when (eq entropy/emacs-ext-elpkg-get-type 'submodules-melpa-local)
   (setq package-archives
-        `(("entropy-melpa" . ,eemacs-ext-melpa-packages)
-          ("entropy-elpa"  . ,eemacs-ext-elpa-packages))))
+        `(("entropy-melpa"      . ,eemacs-ext-melpa-packages)
+          ("entropy-elpa"       . ,eemacs-ext-elpa-packages)
+          ("entropy-elpa-devel" . ,eemacs-ext-elpa-packages-devel)))
+  )
 
 
 ;; * Provide

@@ -62,6 +62,7 @@ discover-my-major
 doom-modeline
 doom-themes
 edit-indirect
+eglot
 el2org
 eldoc-eval
 elfeed

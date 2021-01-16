@@ -453,7 +453,11 @@ EemacsextMake_BuildElpa_Recipes ()
     echo -e "\e[32mBuilding elpa recipes ...\e[0m"
     echo -e "\e[33m==================================================\e[0m"
     cd "${EemacsextMake_elpadir}"
-    make archive
+    git worktree prune
+    git branch -D elpa-admin
+    make setup
+    make worktrees
+    make build-all
 }
 
 # *** maintaining
