@@ -67,7 +67,6 @@ EemacsextMake_DIR="$(EemacsextMake_dir_nontrail_slash ${EemacsextMake_DIR} lame)
 EemacsextMake_melpadir="${EemacsextMake_DIR}"/elements/submodules/melpa
 EemacsextMake_elpadir="${EemacsextMake_DIR}"/elements/submodules/elpa
 EemacsextMake_upstream_submodules_dir="$EemacsextMake_DIR"/elements/submodules/upstream
-EemacsextMake_infosdir="$EemacsextMake_DIR"/elements/info-files
 
 EemacsextMake_elbatch_modulesparse_elisp_file="${EemacsextMake_DIR}"/eemacs-ext-submodules-parse.el
 EemacsextMake_elbatch_branchtoggle_bashscript_file="${EemacsextMake_DIR}"/annex/bin/submodules-common-toggle-branch.sh
@@ -78,29 +77,14 @@ EemacsextMake_local_recipes_list_file="${EemacsextMake_DIR}"/eemacs-ext-recipes-
 
 EemacsextMake_unregular_recipes_dir="${EemacsextMake_DIR}"/elements/unregualar-recipes
 
-[ ! -d "${EemacsextMake_infosdir}" ] && mkdir -p "${EemacsextMake_infosdir}"
-
-EemacsextMake_dashdir="${EemacsextMake_upstream_submodules_dir}"/dash.el
-EemacsextMake_ghubdir="${EemacsextMake_upstream_submodules_dir}"/ghub
-EemacsextMake_magitdir="${EemacsextMake_upstream_submodules_dir}"/magit
-EemacsextMake_magitpopupdir="${EemacsextMake_upstream_submodules_dir}"/magit-popup
-EemacsextMake_webserverdir="${EemacsextMake_upstream_submodules_dir}"/emacs-web-server
-EemacsextMake_witheditordir="${EemacsextMake_upstream_submodules_dir}"/with-editor
-EemacsextMake_ivydir="${EemacsextMake_upstream_submodules_dir}"/swiper
-EemacsextMake_nsisdir="${EemacsextMake_upstream_submodules_dir}"/nsis-mode
-EemacsextMake_ew3mdir="${EemacsextMake_upstream_submodules_dir}"/emacs-w3m
-EemacsextMake_transientdir="${EemacsextMake_upstream_submodules_dir}"/transient
-EemacsextMake_usepackgedir="${EemacsextMake_upstream_submodules_dir}"/use-package
-
 EemacsextMake_error_log_host="$EemacsextMake_DIR"/build_log
 [[ -d "$EemacsextMake_error_log_host" ]] && rm -rf "$EemacsextMake_error_log_host"
 mkdir -p "$EemacsextMake_error_log_host"
 
-declare -A EemacsextMake_initial_failed_index=([0]="common initial with error" [1]="melpa package build with error")
+# The faild prompt function host list, if empty after the make
+# procedure indicates there's non error during make. Any item in this
+# list is an function to prompt specified error log
 declare -a EemacsextMake_initial_fails_types
-
-declare -a EemacsextMake_initial_failed_mkinfo
-EemacsextMake_initial_failed_mkinfo_output_file="$EemacsextMake_error_log_host"/mkinfo.log
 
 declare -a EemacsextMake_initial_failed_mkpkg
 EemacsextMake_initial_failed_mkpkg_output_file="$EemacsextMake_error_log_host"/mkpkg.log
@@ -172,188 +156,6 @@ EemacsextMake_GetRepoPath ()
     echo "$1" | sed -E "s|${EemacsextMake_DIR}/||"
 }
 
-# *** common usage branch
-# **** extract all texi file
-# ***** utilites
-EemacsextMake_MakeInfo_For_dash ()
-{
-    cd "${EemacsextMake_dashdir}"
-    cp -v dash.info "${EemacsextMake_infosdir}"/
-    git clean -xfd .
-}
-
-EemacsextMake_MakeInfo_For_ghub ()
-{
-    cd "${EemacsextMake_ghubdir}"
-    make info
-    if [[ $? -ne 0 ]]
-    then
-        EemacsextMake_initial_failed_mkinfo+=("ghub")
-    else
-        cp -v ghub.info "${EemacsextMake_infosdir}"/
-        git clean -xfd .
-    fi
-}
-
-EemacsextMake_MakeInfo_For_magit ()
-{
-    cd "${EemacsextMake_magitdir}"
-    make info
-    if [[ $? -ne 0 ]]
-    then
-        EemacsextMake_initial_failed_mkinfo+=("magit")
-    else
-        cp -v ./Documentation/magit.info "${EemacsextMake_infosdir}"/
-        git clean -xfd .
-    fi
-}
-
-EemacsextMake_MakeInfo_For_magit_popup ()
-{
-    cd "${EemacsextMake_magitpopupdir}"
-    make info
-    if [[ $? -ne 0 ]]
-    then
-        EemacsextMake_initial_failed_mkinfo+=("magit_popup")
-    else
-        cp -v magit-popup.info "${EemacsextMake_infosdir}"/
-        git clean -xfd .
-    fi
-}
-
-EemacsextMake_MakeInfo_For_webserver ()
-{
-    cd "${EemacsextMake_webserverdir}"/doc
-    make all
-    if [[ $? -ne 0 ]]
-    then
-        EemacsextMake_initial_failed_mkinfo+=("emacs-web-server")
-    else
-        cp -v web-server.info "${EemacsextMake_infosdir}"/
-        git clean -xfd .
-    fi
-}
-
-EemacsextMake_MakeInfo_For_witheditor ()
-{
-    cd "${EemacsextMake_witheditordir}"
-    make info
-    if [[ $? -ne 0 ]]
-    then
-        EemacsextMake_initial_failed_mkinfo+=("with-editor")
-    else
-        cp -v with-editor.info "${EemacsextMake_infosdir}"/
-        git clean -xfd .
-    fi
-}
-
-EemacsextMake_MakeInfo_For_ivy ()
-{
-    cd "${EemacsextMake_ivydir}"/doc
-    makeinfo ivy.texi
-    if [[ $? -ne 0 ]]
-    then
-        EemacsextMake_initial_failed_mkinfo+=("ivy")
-    else
-        cp -v ivy.info "${EemacsextMake_infosdir}"/
-        git clean -xfd .
-    fi
-}
-
-EemacsextMake_MakeInfo_For_nsis ()
-{
-    cd "${EemacsextMake_nsisdir}"
-    makeinfo nsis-mode.texi
-    if [[ $? -ne 0 ]]
-    then
-        EemacsextMake_initial_failed_mkinfo+=("nsis")
-    else
-        cp -v nsis-mode.info "${EemacsextMake_infosdir}"/
-        git clean -xfd .
-    fi
-}
-
-EemacsextMake_MakeInfo_For_ew3m ()
-{
-    cd "${EemacsextMake_ew3mdir}"
-    [ ! -f configure ] && autoconf
-    ./configure && make info
-    if [[ $? -ne 0 ]]
-    then
-        EemacsextMake_initial_failed_mkinfo+=("emacs w3m")
-    else
-        cp -v doc/emacs-w3m.info "${EemacsextMake_infosdir}"/
-        git clean -xfd .
-    fi
-}
-
-EemacsextMake_MakeInfo_For_transient ()
-{
-    cd "${EemacsextMake_transientdir}"
-    make info
-    if [[ $? -ne 0 ]]
-    then
-        EemacsextMake_initial_failed_mkinfo+=("transient")
-    else
-        cp -v docs/transient.info "${EemacsextMake_infosdir}"/
-        git clean -xfd .
-    fi
-}
-
-EemacsextMake_MakeInfo_For_usepackage ()
-{
-    cd "${EemacsextMake_usepackgedir}"
-    make info
-    if [[ $? -ne 0 ]]
-    then
-        EemacsextMake_initial_failed_mkinfo+=("use-package")
-    else
-        cp -v use-package.info "${EemacsextMake_infosdir}"/
-        git clean -xfd .
-    fi
-}
-
-# **** main
-EemacsextMake_Extact_Info ()
-{
-    echo -e "\e[32m==================================================\e[0m"
-    echo -e "\e[33mMake packages infos ...\e[0m \e[34m(common-branch)\e[0m"
-    echo -e "\e[32m==================================================\e[0m"
-    echo ""
-
-    EemacsextMake_MakeInfo_For_dash
-    EemacsextMake_MakeInfo_For_ew3m
-    EemacsextMake_MakeInfo_For_ghub
-    EemacsextMake_MakeInfo_For_ivy
-    EemacsextMake_MakeInfo_For_magit
-    EemacsextMake_MakeInfo_For_magit_popup
-    EemacsextMake_MakeInfo_For_nsis
-    EemacsextMake_MakeInfo_For_transient
-    EemacsextMake_MakeInfo_For_usepackage
-    EemacsextMake_MakeInfo_For_webserver
-    EemacsextMake_MakeInfo_For_witheditor
-    [[ "${#EemacsextMake_initial_failed_mkinfo[@]}" -ne 0 ]] && EemacsextMake_initial_fails_types+=(0)
-}
-
-EemacsextMake_Infomake_ErrorPrompts ()
-{
-    local item
-    local count=1
-    local error_str
-    local error_str_nonpropertize
-    echo -e "========================================="
-    echo -e "Failed prompts for \e[34mMake info\e[0m"
-    echo -e "-----------------------------------------\n"
-    for item in "${EemacsextMake_initial_failed_mkinfo[@]}"
-    do
-        error_str="\e[33m$count:\e[0m '$item' \e[31mmake info failed\e[0m"
-        error_str_nonpropertize="$count: '$item' mmake info failed"
-        echo -e "$error_str"
-        echo "$error_str_nonpropertize" >> "$EemacsextMake_initial_failed_mkinfo_output_file"
-        (( count++ ))
-    done
-}
-
 # *** melpa build branch
 EemacsextMake_Make_Melpa_recipes ()
 {
@@ -414,7 +216,7 @@ EemacsextMake_BuildRecipes ()
     done
     if [[ "${#EemacsextMake_initial_failed_mkpkg[@]}" -ne  0 ]]
     then
-        EemacsextMake_initial_fails_types+=(1)
+        EemacsextMake_initial_fails_types+=('EemacsextMake_RecipeBuild_ErrorPrompts')
     else
         # initialize packages archives contents used for package.el builtin with emacs
         make index
@@ -478,16 +280,16 @@ EemacsextMake_get_submodule_update_suggestion ()
 # ** touch maked indicator
 EemacsextMake_Finished ()
 {
-
+    local func
     if [[ "${#EemacsextMake_initial_fails_types[@]}" -ne 0 ]]
     then
-        [[ $(EemacsextMake_cl_member_array 0 "${EemacsextMake_initial_fails_types[@]}") == 0 ]] \
-            && EemacsextMake_Infomake_ErrorPrompts
-
-        echo ""
-
-        [[ $(EemacsextMake_cl_member_array 1 "${EemacsextMake_initial_fails_types[@]}") == 0 ]] \
-            && EemacsextMake_RecipeBuild_ErrorPrompts
+        for func in "${EemacsextMake_initial_fails_types[@]}"
+        do
+            if [[ ! -z $func ]]
+            then
+                $func
+            fi
+        done
     else
     touch "$EemacsextMake_DIR"/init
     fi
@@ -558,11 +360,12 @@ EemacsextMake_Main_Tidyup_TempBranches ()
     EemacsextMake_Main_Toggle_SubBranch t
     cd "${EemacsextMake_DIR}"
     git submodule foreach \
-        "if [[ ! -z \$(git for-each-ref --format=\"%(refname:short)\" refs/heads/EemacsExtTempo-*) ]];then
-            git for-each-ref --format=\"%(refname:short)\" refs/heads/EemacsExtTempo-* | xargs git branch -D -f;
-         else
-            echo -e \"\e[32mNone tempo branches\e[0m\"
+        "if test ! -z \"\$(git for-each-ref --format=\"%(refname:short)\" refs/heads/EemacsExtTempo-*)\" ;then \
+            git for-each-ref --format=\"%(refname:short)\" refs/heads/EemacsExtTempo-* | xargs git branch -D -f; \
+         else \
+            echo \"\\e[32mNone tempo branches\\e[0m\"; \
          fi;"
+
     echo ""
 }
 
@@ -575,9 +378,6 @@ EemacsextMake_Main_All ()
     echo -e "\e[32mMain process starting ....\e[0m"
     echo -e "=====================================\n"
     cd "${EemacsextMake_DIR}"
-    echo ""
-    EemacsextMake_Extact_Info
-    echo ""
     EemacsextMake_BuildRecipes
     EemacsextMake_BuildElpa_Recipes
     EemacsextMake_Finished
@@ -594,7 +394,6 @@ EemacsextMake_Main_Help ()
     echo -e "- 'build-recipes':       build all recipes (it will doing 'patch-recipes' firstly)"
     echo -e "- 'build-elpa_recipes':  build elpa recips (which tracking with https://git.savannah.gnu.org/cgit/emacs/elpa.git)"
     echo -e "- 'build-eemacs_recipes: build eemacs-packages'"
-    echo -e "- 'make-infos':          make up all submodules texinfo doc"
     echo -e "- 'clean':               clean all stuffs generated (git clean and deinit)"
     echo -e "- 'all':                 build project"
     echo -e ""
@@ -629,10 +428,6 @@ EemacsextMake_Main_Choice ()
             # EemacsextMake_Main_Tidyup_WorkTree elements/submodules/eemacs-packages
             # EemacsextMake_BuildRecipes eemacs
             ;;
-
-        make-infos) cd "$EemacsextMake_DIR" && git clean -xfd .
-                    EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_upstream_submodules_dir})"
-                    EemacsextMake_Extact_Info ;;
 
         clean) cd "$EemacsextMake_DIR" && git clean -xfd . && git submodule deinit --all -f ;;
 
