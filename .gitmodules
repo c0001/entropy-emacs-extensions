@@ -822,3 +822,7 @@
 	path = elements/submodules/elpa
 	url = https://github.com/c0001/elpa.git
 	branch = entropy-master
+[submodule "elements/submodules/upstream/yaml-mode"]
+	path = elements/submodules/upstream/yaml-mode
+	url = https://github.com/yoshiki/yaml-mode.git
+	branch = master
