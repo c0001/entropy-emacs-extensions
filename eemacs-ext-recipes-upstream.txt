@@ -41,6 +41,7 @@ company-quickhelp
 company-shell
 company-tern
 company-web
+conda
 copyit
 counsel
 counsel-css

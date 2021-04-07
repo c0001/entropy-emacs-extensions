@@ -830,3 +830,7 @@
 	path = elements/submodules/upstream/exec-path-from-shell
 	url = https://github.com/purcell/exec-path-from-shell.git
 	branch = master
+[submodule "elements/submodules/upstream/conda.el"]
+	path = elements/submodules/upstream/conda.el
+	url = https://github.com/necaris/conda.el.git
+	branch = master
