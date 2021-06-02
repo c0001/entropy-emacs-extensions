@@ -171,6 +171,7 @@ rg
 ripgrep
 s
 search-web
+separedit
 shackle
 shell-pop
 shrink-path
