@@ -79,6 +79,7 @@ exec-path-from-shell
 eyebrowse
 f
 find-file-in-project
+flycheck
 frame-local
 ghub
 git-commit

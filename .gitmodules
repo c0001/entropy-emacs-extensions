@@ -834,3 +834,7 @@
 	path = elements/submodules/upstream/separedit.el
 	url = https://github.com/twlz0ne/separedit.el.git
 	branch = master
+[submodule "elements/submodules/upstream/flycheck"]
+	path = elements/submodules/upstream/flycheck
+	url = https://github.com/flycheck/flycheck.git
+	branch = master
