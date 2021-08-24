@@ -838,3 +838,7 @@
 	path = elements/submodules/upstream/flycheck
 	url = https://github.com/flycheck/flycheck.git
 	branch = master
+[submodule "elements/submodules/upstream/rust-mode"]
+	path = elements/submodules/upstream/rust-mode
+	url = https://github.com/rust-lang/rust-mode.git
+	branch = master
