@@ -1,4 +1,5 @@
 (maple-preview :fetcher github
                :repo "emacs-maple-preview"
                :files ("maple-preview.el"
+                       "index.html"
                        "static/*"))
