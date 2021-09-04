@@ -20,7 +20,7 @@
 	branch = master
 [submodule "elements/submodules/upstream/find-file-in-project"]
 	path = elements/submodules/upstream/find-file-in-project
-	url = https://github.com/technomancy/find-file-in-project.git
+	url = https://github.com/redguardtoo/find-file-in-project.git
 	branch = master
 [submodule "elements/submodules/upstream/counsel-world-clock"]
 	path = elements/submodules/upstream/counsel-world-clock
@@ -292,7 +292,7 @@
 	branch = master
 [submodule "elements/submodules/upstream/js2-refactor.el"]
 	path = elements/submodules/upstream/js2-refactor.el
-	url = https://github.com/magnars/js2-refactor.el.git
+	url = https://github.com/js-emacs/js2-refactor.el.git
 	branch = master
 [submodule "elements/submodules/upstream/js2-mode"]
 	path = elements/submodules/upstream/js2-mode
