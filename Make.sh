@@ -290,8 +290,9 @@ EemacsextMake_Finished ()
                 $func
             fi
         done
+        exit 1
     else
-    touch "$EemacsextMake_DIR"/init
+        touch "$EemacsextMake_DIR"/init
     fi
 }
 
