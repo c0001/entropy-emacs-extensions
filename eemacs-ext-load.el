@@ -92,7 +92,7 @@
 
 ;; ** variables
 ;; *** customized variable
-(defvar entropy/emacs-ext-elpkg-get-type 'submodules)
+(setq entropy/emacs-ext-elpkg-get-type 'submodules-melpa-local)
 
 ;; *** const variables
 (defconst eemacs-ext-root (file-name-directory load-file-name))
