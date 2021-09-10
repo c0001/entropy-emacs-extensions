@@ -127,6 +127,7 @@ lua-mode
 lv
 macrostep
 magit
+magit-section
 magit-svn
 major-mode-hydra
 makey
