@@ -1,17 +1,17 @@
 # Table of Contents
 
-1.  [Copyright (C) 2018 Entropy](#orgd596fe9)
-2.  [Commentary:](#orgdd65d18)
-3.  [Configuration:](#orgf614cbb)
+1.  [Copyright (C) 2018 Entropy](#org17a7a02)
+2.  [Commentary:](#org376ddf7)
+3.  [Configuration:](#org8de3668)
 
-<a id="orgd596fe9"></a>
+<a id="org17a7a02"></a>
 
 # Copyright (C) 2018 Entropy
 
     Author:        Entropy <bmsac0001@gmail.com>
     Maintainer:    Entropy <bmsac001@gmail.com>
     URL:           https://github.com/c0001/entropy-emacs-extensions/blob/master/entropy-emacs-extensions-load.el
-    Package-Version: 1.0.0
+    Package-Version: 1.0.2
     Compatibility: GNU Emacs emacs-version;
     Package-Requires: ((emacs "25.3") (cl-lib "0.5"))
 
@@ -29,7 +29,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-<a id="orgdd65d18"></a>
+<a id="org376ddf7"></a>
 
 # Commentary:
 
@@ -66,11 +66,7 @@ using for [package.el](https://melpa.org/#/getting-started), on this way, this p
 Rely on this usage you selected, the customized variable
 `entropy/emacs-ext-elpkg-get-type` of `entropy-emacs` was what you
 needed to set to enable this project efficiently, the valid value
-of thus is:
-
--   'submodules-melpa-local: using `entropy-emacs-extensions` as the
-    local melpa which hosted all `entropy-emacs` specified
-    extensions.
+of thus is a symbol: `entropy-emacs-extenisons-project`
 
 This variable is pre-defined as 'origin' in `entropy-emacs` so
 that you should specified it in your `custom.el` before start
@@ -83,7 +79,7 @@ locates this project correctly, of cource write it in your
 `custom.el` also.
 
 
-<a id="orgf614cbb"></a>
+<a id="org8de3668"></a>
 
 # Configuration:
 
@@ -97,4 +93,4 @@ configuration too.
     (require 'entropy-emacs-extensions-load)
 
 
-<a id="orge74461d"></a>
+<a id="orge9efe3a"></a>

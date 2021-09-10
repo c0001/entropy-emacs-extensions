@@ -5,7 +5,7 @@
 ;; Author:        Entropy <bmsac0001@gmail.com>
 ;; Maintainer:    Entropy <bmsac001@gmail.com>
 ;; URL:           https://github.com/c0001/entropy-emacs-extensions/blob/master/entropy-emacs-extensions-load.el
-;; Package-Version: 1.0.0
+;; Package-Version: 1.0.2
 ;; Compatibility: GNU Emacs emacs-version;
 ;; Package-Requires: ((emacs "25.3") (cl-lib "0.5"))
 ;;
@@ -57,11 +57,7 @@
 ;; Rely on this usage you selected, the customized variable
 ;; =entropy/emacs-ext-elpkg-get-type= of =entropy-emacs= was what you
 ;; needed to set to enable this project efficiently, the valid value
-;; of thus is:
-
-;; - 'submodules-melpa-local: using =entropy-emacs-extensions= as the
-;;   local melpa which hosted all =entropy-emacs= specified
-;;   extensions.
+;; of thus is a symbol: =entropy-emacs-extenisons-project=
 
 ;; This variable is pre-defined as 'origin' in =entropy-emacs= so
 ;; that you should specified it in your =custom.el= before start
@@ -92,7 +88,6 @@
 
 ;; ** variables
 ;; *** customized variable
-(setq entropy/emacs-ext-elpkg-get-type 'submodules-melpa-local)
 
 ;; *** const variables
 (defconst eemacs-ext-root (file-name-directory load-file-name))
