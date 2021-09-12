@@ -64,6 +64,9 @@ EemacsextMake_dir_nontrail_slash ()
 EemacsextMake_DIR="$(EemacsextMake_dir_nontrail_slash ${EemacsextMake_DIR} lame)"
 
 # ** variable declaration
+
+EemacsextMake_MainCommand=''
+
 EemacsextMake_melpadir="${EemacsextMake_DIR}"/elements/submodules/melpa
 EemacsextMake_elpadir="${EemacsextMake_DIR}"/elements/submodules/elpa
 EemacsextMake_upstream_submodules_dir="$EemacsextMake_DIR"/elements/submodules/upstream
@@ -155,6 +158,26 @@ EemacsextMake_GetRepoPath ()
 {
     echo "$1" | sed -E "s|${EemacsextMake_DIR}/||"
 }
+
+error_msg ()
+{
+    if [ ! $? -eq 0 ]
+    then
+        echo -e "\e[31m$1\e[0m"
+        exit 1
+    fi
+}
+
+warn_msg ()
+{
+    echo -e "\e[33m$1\e[0m"
+}
+
+do_msg ()
+{
+    echo -e "\e[34mDoing $1 ...\e[0m"
+}
+
 
 # *** melpa build branch
 EemacsextMake_Make_Melpa_recipes ()
@@ -248,18 +271,236 @@ EemacsextMake_RecipeBuild_ErrorPrompts ()
 
 # *** elpa build branch
 
-EemacsextMake_BuildElpa_Recipes ()
+# just used in main or entropy-master branch
+__elpa_worktrees_init ()
 {
+    cd "${EemacsextMake_elpadir}"
+    make setup
+    error_msg "Setup admin worktree fatal"
+    make worktrees
+    error_msg "Setup external worktrees fatal"
+    echo -e "\e[32melpa worktrees init done!\e[0m"
+}
+
+# NOTE: just used in main or entropy-master branch which must followed
+# gnu-elpa/main or origin/entropy-master branch.
+# ......
+# remove all local branches unless the current branch and remove all
+# checkouted worktrees and admin makefile
+__elpa_worktrees_prune ()
+{
+    cd "${EemacsextMake_elpadir}"
+    local ext_brs_logf=./ext_brs_log.txt
+    git branch -l --format='%(refname:short)' | grep -v "(HEAD" > "$ext_brs_logf"
+    error_msg "List externals pkgs branch fatal"
+
+    do_msg "prune worktree registries"
+    git worktree prune
+
+    local _wname=''
+    while IFS= read branch ;
+    do
+        if [ "$branch" != elpa-admin ] \
+               && [ "$branch" != entropy-elpa-admin ] \
+               && [ "$(git rev-parse --abbrev-ref HEAD)" != "$branch" ]
+        then
+            _wname=$(echo $branch | sed 's/.*\///g')
+            error_msg "retrive <$branch> dir name fatal as <$_wname>"
+            if [ -d packages/"$_wname" ]
+            then
+                do_msg "remove '$_wname' worktree"
+                git worktree remove packages/"$_wname" --force
+                error_msg "Remove worktree '%s' with fatal"
+            fi
+            git branch -D "$branch" --force
+            error_msg "Delete Branch '%s' with fatal"
+        fi
+    done < "$ext_brs_logf"
+
+    if [ ! -z "$(git branch -v | grep 'entropy-elpa-admin')" ] && \
+           [ -d admin ]
+    then
+        do_msg "remove admin worktree"
+        git worktree remove admin --force
+        error_msg "Delete elpa-admin branch fatal"
+    fi
+    git branch -D elpa-admin --force
+    git branch -D entropy-elpa-admin --force
+
+    do_msg "remove tmp log file"
+    rm "$ext_brs_logf"
+    error_msg "remove tmp log file <$ext_brs_logf> fatal"
+
+    if [ -h ./GNUmakefile ]
+    then
+        rm ./GNUmakefile
+        error_msg "Remove admin makefile <GNUmakefile> fatal"
+    fi
+
+    echo -e "\e[32melpa worktrees prune done\e[0m"
+}
+
+__elpa_worktrees_update ()
+{
+    cd "${EemacsextMake_elpadir}"
+    if [ -z "$(git remote -v | grep 'gnu-elpa')" ]
+    then
+        do_msg "add gnu-elpa remote"
+        git remote add gnu-elpa 'https://git.savannah.gnu.org/git/emacs/elpa.git'
+        error_msg "Add gnu-elpa mirror fatal"
+    fi
+    git fetch --all
+    error_msg "Sync with gnu-elpa mirror fatal"
+
+    local brname=''
+    local oldbrname=''
+    for brname in  `git branch -al gnu-elpa/* --format='%(refname:short)'`
+    do
+        oldbrname=$brname
+        brname=`echo $brname | sed 's/gnu-elpa\///g'`
+        error_msg "sed fatal for brname '$oldbrname'"
+        # create pkg branch
+        if [ ! -z "$(git branch -l --format='%(refname:short)' | grep "^$brname")" ]
+        then
+            git branch -D "$brname" --force
+        fi
+        git checkout -b "$brname" "$oldbrname"
+        error_msg "git checkout $brname with upstream $oldbrname fatal"
+    done
+
+    # return to default branch
+    git checkout entropy-master
+    error_msg "fatal checkout to entropy-master branch"
+    echo -e "\e[32mYou can now 'git push --all origin' \
+to push all gnu-elpa branches to origin but not forget to \
+merge main, master, elpa-admin branch to entropy fork later.\e[0m"
+}
+
+# must used before elpa repo inited and after elpa repo just init by
+# `git submodule`
+EemacsextMake_BuildElpa_Recipes_Or_Init ()
+{
+    local initp=$1
     echo ""
     echo -e "\e[33m==================================================\e[0m"
     echo -e "\e[32mBuilding elpa recipes ...\e[0m"
     echo -e "\e[33m==================================================\e[0m"
     cd "${EemacsextMake_elpadir}"
-    git worktree prune
-    git branch -D elpa-admin
-    make setup
-    make worktrees
-    make build-all
+
+    if [ ! "$(git rev-parse --abbrev-ref HEAD)" = main ]
+    then
+        git branch -D main -f
+        git checkout -b main origin/entropy-master
+        error_msg "Checkout to main branch fatal"
+        git branch -D master -f
+    fi
+
+    git submodule update --init
+    error_msg "submodule init fatal for entropy-elpa"
+    # emacs init
+    cd emacs
+    if [ ! -z "$(git branch -l | grep master)" ]
+    then
+        git branch -D master
+        error_msg "delete emacs old master branch fatal"
+        git checkout -b master origin/master
+        error_msg "create new emacs master branch fatal"
+    else
+        git checkout -b master origin/master
+        error_msg "create new emacs master branch fatal"
+    fi
+    error_msg "checkout emacs repo fatal"
+    git status
+    cd "${EemacsextMake_elpadir}"
+    __elpa_worktrees_prune
+    __elpa_worktrees_init
+    if [ -z $initp ]
+    then
+        do_msg "building all elpa packages"
+        make build-all
+    else
+        echo -e "\e[32mElpa workspace init done\e[0m"
+    fi
+}
+
+# NOTE: need elpa repo inited
+# ......
+# Update entropy elpa fork with all branch update with gnu-elpa and
+# checkout entropy-master as current branch.
+EemacsextMake_BuildElpa_update ()
+{
+    EemacsextMake_BuildElpa_clean
+    echo ""
+    echo -e "\e[33m==================================================\e[0m"
+    echo -e "\e[32mUpdating elpa recipes ...\e[0m"
+    echo -e "\e[33m==================================================\e[0m"
+    cd "${EemacsextMake_elpadir}"
+    git submodule deinit --all -f
+    error_msg "submodule deinit fatal for entropy-elpa"
+    __elpa_worktrees_update
+}
+
+# NOTE: need elpa repo inited
+# ......
+# Clean elpa worktree
+# ......
+# Clean all local branches except entropy-master branch but recreate
+# entropy-emacs as current local branch before branches removing unless
+# current branch is =entropy-master= or $1 is not empty.
+EemacsextMake_BuildElpa_clean ()
+{
+    local remove_curbranch_p=$1
+    echo ""
+    echo -e "\e[33m==================================================\e[0m"
+    echo -e "\e[32mClean elpa recipes ...\e[0m"
+    echo -e "\e[33m==================================================\e[0m"
+    cd "${EemacsextMake_elpadir}"
+    if [ ! -e .git ]
+    then
+        do_msg "Initing elpa submodule"
+        cd ..
+        git submodule update --init elpa
+        error_msg "init elpa submodule fatal"
+        cd "${EemacsextMake_elpadir}"
+        error_msg "cd to elpa fatal"
+    fi
+
+    if [ "$(git rev-parse --abbrev-ref HEAD)" != "entropy-master" ]
+    then
+        do_msg "checking out entropy-master branch"
+        git branch -D entropy-master --force
+        git checkout -b entropy-master origin/entropy-master
+        error_msg "Create entropy-master branch with fatal"
+    elif [ ! -z "$remove_curbranch_p" ]
+    then
+        git checkout origin/entropy-master
+        error_msg "Checkout to top fatal"
+        git branch -D entropy-master --force
+        git checkout -b entropy-master origin/entropy-master
+        error_msg "Create entropy-master branch with fatal"
+    fi
+    git submodule deinit --all -f
+    error_msg "submodule deinit fatal for entropy-elpa"
+    if [ -d "archive" ]
+    then
+        rm -rf "${EemacsextMake_elpadir}"/archive
+        error_msg "Remove build archive fatal"
+    fi
+    if [ -d "archive-devel" ]
+    then
+        rm -rf "${EemacsextMake_elpadir}"/archive-devel
+        error_msg "Remove build archive-devel fatal"
+    fi
+    if [ -d "packages" ]
+    then
+        rm -rf "${EemacsextMake_elpadir}"/packages
+        error_msg "Remove build packages fatal"
+    fi
+
+    __elpa_worktrees_prune
+    git branch -D main -f
+    git branch -D master -f
+    echo -e "\e[32mClean elpa repo done!\e[0m"
 }
 
 # *** maintaining
@@ -380,7 +621,7 @@ EemacsextMake_Main_All ()
     echo -e "=====================================\n"
     cd "${EemacsextMake_DIR}"
     EemacsextMake_BuildRecipes
-    EemacsextMake_BuildElpa_Recipes
+    EemacsextMake_BuildElpa_Recipes_Or_Init
     EemacsextMake_Finished
 }
 
@@ -400,6 +641,9 @@ EemacsextMake_Main_Help ()
     echo -e ""
     echo -e "--------------------------------maintainability------------------------------------"
     echo -e "- 'sb-upsuggest':        get submodule update suggestions (for *maintainer* only)"
+    echo -e "- 'init-elpa'            init elpa workspace"
+    echo -e "- 'update-elpa'          update elpa with gnu-elpa"
+    echo -e "- 'clean-elpa'           clean elpa worktree and builds (need to have elpa inited)"
 }
 
 EemacsextMake_Main_Choice ()
@@ -422,8 +666,15 @@ EemacsextMake_Main_Choice ()
                        EemacsextMake_BuildRecipes ;;
 
         build-elpa_recipes) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_elpadir})"
-                            EemacsextMake_BuildElpa_Recipes ;;
-
+                            EemacsextMake_BuildElpa_Recipes_Or_Init ;;
+        init-elpa) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_elpadir})"
+                   EemacsextMake_BuildElpa_Recipes_Or_Init 'init';;
+        update-elpa)
+            EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_elpadir})"
+            EemacsextMake_BuildElpa_update ;;
+        clean-elpa)
+            #EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_elpadir})"
+            EemacsextMake_BuildElpa_clean ;;
         build-eemacs_recipes)
             echo -e "\e[31mOff-line, all of eemacs packages have been migrated into eemacs self.\e[0m"
             # EemacsextMake_Main_Tidyup_WorkTree elements/submodules/eemacs-packages
@@ -449,4 +700,5 @@ EemacsextMake_Checking_shell
 
 cd "${EemacsextMake_DIR}"
 
+EemacsextMake_MainCommand="$1"
 EemacsextMake_Main_Choice "$1"
