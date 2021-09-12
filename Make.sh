@@ -397,20 +397,25 @@ EemacsextMake_BuildElpa_Recipes_Or_Init ()
 
     git submodule update --init
     error_msg "submodule init fatal for entropy-elpa"
+
     # emacs init
     cd emacs
-    if [ ! -z "$(git branch -l | grep master)" ]
+    if [ ! -z "$(git branch -l --format='%(refname:short)' | grep '^entropy-master')" ]
+    then
+        git branch -D entropy-master
+        error_msg "emacs-repo: delete old entropy-master branch fatal"
+    fi
+    git checkout -b entropy-master HEAD
+    error_msg "emacs-repo: checkout new entropy-emacs branch fatal"
+    if [ ! -z "$(git branch -l --format='%(refname:short)' | grep '^master')" ]
     then
         git branch -D master
-        error_msg "delete emacs old master branch fatal"
-        git checkout -b master origin/master
-        error_msg "create new emacs master branch fatal"
-    else
-        git checkout -b master origin/master
-        error_msg "create new emacs master branch fatal"
+        error_msg "emacs-repo: delete old master branch fatal"
     fi
-    error_msg "checkout emacs repo fatal"
+    git checkout -b master entropy-master
+    error_msg "emacs-repo: checkout new master branch fatal"
     git status
+
     cd "${EemacsextMake_elpadir}"
     __elpa_worktrees_prune
     __elpa_worktrees_init
