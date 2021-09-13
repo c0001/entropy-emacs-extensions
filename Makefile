@@ -15,12 +15,6 @@ build-recipes:
 	$(CMD) build-recipes
 build-elpa_recipes:
 	$(CMD) build-elpa_recipes
-init-elpa:
-	$(CMD) init-elpa
-update-elpa:
-	$(CMD) update-elpa
-clean-elpa:
-	$(CMD) clean-elpa
 build-eemacs_recipes:
 	$(CMD) build-eemacs_recipes
 make-infos:
@@ -31,3 +25,9 @@ clean:
 # maintainability part
 sb-upsuggest:
 	$(CMD) sb-upsuggest
+init-elpa:
+	$(CMD) init-elpa
+update-elpa:
+	$(CMD) update-elpa
+clean-elpa:
+	$(CMD) clean-elpa
