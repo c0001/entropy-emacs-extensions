@@ -110,6 +110,7 @@ irony
 irony-eldoc
 ivy
 ivy-hydra
+ivy-prescient
 ivy-rich
 ivy-xref
 js2-mode
