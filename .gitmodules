@@ -846,3 +846,7 @@
 	path = elements/submodules/upstream/emacs-neotree
 	url = https://github.com/jaypei/emacs-neotree.git
 	branch = dev
+[submodule "elements/submodules/upstream/base16-emacs"]
+	path = elements/submodules/upstream/base16-emacs
+	url = https://github.com/belak/base16-emacs.git
+	branch = master

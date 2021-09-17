@@ -16,6 +16,7 @@ auto-sudoedit
 auto-yasnippet
 autothemer
 avy
+base16-theme
 beacon
 benchmark-init
 bind-key
