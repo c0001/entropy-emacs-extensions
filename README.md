@@ -11,7 +11,7 @@
     Author:        Entropy <bmsac0001@gmail.com>
     Maintainer:    Entropy <bmsac001@gmail.com>
     URL:           https://github.com/c0001/entropy-emacs-extensions/blob/master/entropy-emacs-extensions-load.el
-    Package-Version: 1.0.2
+    Package-Version: 1.1.0
     Compatibility: GNU Emacs emacs-version;
     Package-Requires: ((emacs "25.3") (cl-lib "0.5"))
 
