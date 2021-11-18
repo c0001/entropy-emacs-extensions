@@ -136,7 +136,9 @@ directory."
 (setq package-archives
       `(("entropy-melpa"      . ,eemacs-ext-melpa-packages)
         ("entropy-elpa"       . ,eemacs-ext-elpa-packages)
-        ("entropy-elpa-devel" . ,eemacs-ext-elpa-packages-devel)))
+        ;; NOTE: disable elpa devel channel to avoid retrieving package updated with new emacs version.
+        ;; ("entropy-elpa-devel" . ,eemacs-ext-elpa-packages-devel)
+        ))
 
 ;; * Provide
 (provide 'eemacs-ext-load)
