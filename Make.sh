@@ -616,6 +616,56 @@ EemacsextMake_Main_Tidyup_TempBranches ()
     echo ""
 }
 
+EemacsextMake_Main_GenReleaseTarball ()
+{
+    local elpa_pkgs_host="${EemacsextMake_elpadir}"/archive
+    local elpa_devel_pkgs_host="${EemacsextMake_elpadir}"/archive-devel
+    local melpa_pkgs_host="${EemacsextMake_melpadir}"/packages
+    local release_root_host="${EemacsextMake_DIR}"/release
+    local release_ver=$(cat "${EemacsextMake_DIR}"/version)
+    error_msg "eemacs-ext version flag can not be detected!"
+
+    local release_archive_base_name=entropy-emacs-extensions_build_v"${release_ver}"
+
+    local release_tmp_dir="${release_root_host}/${release_archive_base_name}"
+    if [[ -e "${release_tmp_dir}" ]]
+    then
+        rm -rf "${release_tmp_dir}"
+        error_msg "rmdir: <${release_tmp_dir}> with fatal"
+    fi
+    mkdir -p "${release_tmp_dir}"
+    error_msg "makdir: <${release_tmp_dir}> with fatal"
+
+    echo -e "--> cp elpa ..."
+    cp -a "${elpa_pkgs_host}" "${release_tmp_dir}"/elpa
+    error_msg "cp elpa fatal"
+    echo -e "--> cp elpa-devel ..."
+    cp -a "${elpa_devel_pkgs_host}" "${release_tmp_dir}"/elpa-devel
+    error_msg "cp elpa-devel fatal"
+    echo -e "--> cp melpa ..."
+    cp -a "${melpa_pkgs_host}" "${release_tmp_dir}"/melpa
+    error_msg "cp melpa fatal"
+
+    cd "${release_tmp_dir}"
+    error_msg "chdir: <${release_tmp_dir}> fatal"
+    echo -e "Gen sha256sum ..."
+    # use find to output sha256sum to updir since 'find -type f' will include the output file
+    find -type f | xargs sha256sum -b > ../sha256sum.log
+    error_msg "sha256sum: for <${release_tmp_dir}> fatal"
+    mv ../sha256sum.log .
+    error_msg "sha256sum: mv ../sha256sum.log to <${release_tmp_dir}> fatal"
+    sha256sum -c ./sha256sum.log > /dev/null
+    error_msg "fatal for recheck sha256sum for ${release_archive_base_name}"
+
+    cd "${release_root_host}"
+    error_msg "chdir: <${release_root_host}> fatal"
+
+    echo -e "--> make release tarball of ${release_archive_base_name}.tar.xz ..."
+    tar -Jcf "${release_archive_base_name}".tar.xz "${release_archive_base_name}"
+    error_msg  "make release tarball of ${release_archive_base_name}.tar.xz fatal"
+    echo -e "done"
+}
+
 EemacsextMake_Main_All ()
 {
     EemacsextMake_Main_Remove_InitFlag
@@ -643,6 +693,7 @@ EemacsextMake_Main_Help ()
     echo -e "- 'build-eemacs_recipes: build eemacs-packages'"
     echo -e "- 'clean':               clean all stuffs generated (git clean and deinit)"
     echo -e "- 'all':                 build project"
+    echo -e "_ 'release':             generate packages release tarball"
     echo -e ""
     echo -e "--------------------------------maintainability------------------------------------"
     echo -e "- 'sb-upsuggest':        get submodule update suggestions (for *maintainer* only)"
@@ -689,7 +740,7 @@ EemacsextMake_Main_Choice ()
         clean) cd "$EemacsextMake_DIR" && git clean -xfd . && git submodule deinit --all -f ;;
 
         all) EemacsextMake_Main_All ;;
-
+        release) EemacsextMake_Main_GenReleaseTarball ;;
         # maintainability part
         sb-upsuggest) EemacsextMake_Main_Choice init
                       EemacsextMake_get_submodule_update_suggestion ;;

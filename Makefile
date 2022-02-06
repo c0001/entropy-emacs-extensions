@@ -1,8 +1,13 @@
 CMD=bash Make.sh
+
+.PHONY:help release init tidy-branches patch-recipes build-recipes build-elpa_recips build-eemacs_recipes make-infos clean sb-upsuggest init-elpa update-elpa clean-elpa
+
 help:
 	$(CMD)
 all:
 	$(CMD) all
+release:
+	$(CMD) release
 init:
 	$(CMD) init
 tidy-branches:
