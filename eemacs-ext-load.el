@@ -86,6 +86,8 @@
 (require 'rx)
 (require 'cl-lib)
 
+(message "[eemacs-ext-load] Loading ...")
+
 ;; ** variables
 ;; *** customized variable
 
@@ -139,6 +141,8 @@ directory."
         ;; NOTE: disable elpa devel channel to avoid retrieving package updated with new emacs version.
         ;; ("entropy-elpa-devel" . ,eemacs-ext-elpa-packages-devel)
         ))
+
+(message "[eemacs-ext-load] Load done")
 
 ;; * Provide
 (provide 'eemacs-ext-load)
