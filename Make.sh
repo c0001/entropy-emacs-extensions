@@ -96,7 +96,7 @@ EemacsextMake_initial_failed_mkpkg_output_file="$EemacsextMake_error_log_host"/m
 EemacsextMake_Checking_shell ()
 {
     required_tools_missing=()
-    required_tools=(make emacs makeinfo tex git less)
+    required_tools=(make emacs makeinfo tex git less xargs find tar xz)
     count=0
     for item in ${required_tools[@]}
     do
