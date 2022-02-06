@@ -324,8 +324,8 @@
 	branch = master
 [submodule "elements/submodules/upstream/highlight-parentheses.el"]
 	path = elements/submodules/upstream/highlight-parentheses.el
-	url = https://github.com/tsdh/highlight-parentheses.el.git
-	branch = master
+	url = https://git.sr.ht/~tsdh/highlight-parentheses.el
+	branch = main
 [submodule "elements/submodules/upstream/highlight-indent-guides"]
 	path = elements/submodules/upstream/highlight-indent-guides
 	url = https://github.com/DarthFennec/highlight-indent-guides.git
@@ -420,7 +420,7 @@
 	branch = master
 [submodule "elements/submodules/upstream/emacs-doom-themes"]
 	path = elements/submodules/upstream/emacs-doom-themes
-	url = https://github.com/hlissner/emacs-doom-themes.git
+	url = https://github.com/doomemacs/themes.git
 	branch = master
 [submodule "elements/submodules/upstream/emacs-counsel-css"]
 	path = elements/submodules/upstream/emacs-counsel-css

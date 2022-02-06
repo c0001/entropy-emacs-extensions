@@ -1,0 +1,3 @@
+(highlight-parentheses
+ :fetcher github
+ :repo "highlight-parentheses.el")

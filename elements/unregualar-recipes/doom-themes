@@ -1,0 +1,7 @@
+(doom-themes
+ :fetcher github
+ :repo "emacs-doom-themes"
+ :files (:defaults
+         "themes/*.el"
+         "themes/*/*.el"
+         "extensions/*.el"))
