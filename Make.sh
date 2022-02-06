@@ -661,6 +661,11 @@ EemacsextMake_Main_GenReleaseTarball ()
     error_msg "chdir: <${release_root_host}> fatal"
 
     echo -e "--> make release tarball of ${release_archive_base_name}.tar.xz ..."
+    if [[ -e "${release_archive_base_name}".tar.xz ]]
+    then
+        rm "${release_archive_base_name}".tar.xz
+        error_msg "remove old release tarball fatal"
+    fi
     tar -Jcf "${release_archive_base_name}".tar.xz "${release_archive_base_name}"
     error_msg  "make release tarball of ${release_archive_base_name}.tar.xz fatal"
     echo -e "done"
