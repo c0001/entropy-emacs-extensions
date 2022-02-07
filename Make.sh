@@ -626,6 +626,7 @@ EemacsextMake_Main_GenReleaseTarball ()
     error_msg "eemacs-ext version flag can not be detected!"
 
     local release_archive_base_name=entropy-emacs-extensions_build_v"${release_ver}"
+    local release_archive_tarball_name="${release_archive_base_name}.tar.xz"
 
     local release_tmp_dir="${release_root_host}/${release_archive_base_name}"
     if [[ -e "${release_tmp_dir}" ]]
@@ -661,13 +662,13 @@ EemacsextMake_Main_GenReleaseTarball ()
     error_msg "chdir: <${release_root_host}> fatal"
 
     echo -e "--> make release tarball of ${release_archive_base_name}.tar.xz ..."
-    if [[ -e "${release_archive_base_name}".tar.xz ]]
+    if [[ -e "${release_archive_tarball_name}" ]]
     then
-        rm "${release_archive_base_name}".tar.xz
+        rm "${release_archive_tarball_name}"
         error_msg "remove old release tarball fatal"
     fi
-    tar -Jcf "${release_archive_base_name}".tar.xz "${release_archive_base_name}"
-    error_msg  "make release tarball of ${release_archive_base_name}.tar.xz fatal"
+    tar -Jcf "${release_archive_tarball_name}" "${release_archive_base_name}"
+    error_msg  "make release tarball of ${release_archive_tarball_name} fatal"
     echo -e "done"
 }
 
