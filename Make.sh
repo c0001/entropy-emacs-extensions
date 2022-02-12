@@ -81,8 +81,6 @@ EemacsextMake_local_recipes_list_file="${EemacsextMake_DIR}"/eemacs-ext-recipes-
 EemacsextMake_unregular_recipes_dir="${EemacsextMake_DIR}"/elements/unregualar-recipes
 
 EemacsextMake_error_log_host="$EemacsextMake_DIR"/build_log
-[[ -d "$EemacsextMake_error_log_host" ]] && rm -rf "$EemacsextMake_error_log_host"
-mkdir -p "$EemacsextMake_error_log_host"
 
 # The faild prompt function host list, if empty after the make
 # procedure indicates there's non error during make. Any item in this
@@ -96,7 +94,7 @@ EemacsextMake_initial_failed_mkpkg_output_file="$EemacsextMake_error_log_host"/m
 EemacsextMake_Checking_shell ()
 {
     required_tools_missing=()
-    required_tools=(make emacs makeinfo tex git less xargs find tar xz)
+    required_tools=(make emacs makeinfo tex git less xargs find tar xz date)
     count=0
     for item in ${required_tools[@]}
     do
@@ -176,6 +174,11 @@ warn_msg ()
 do_msg ()
 {
     echo -e "\e[34mDoing $1 ...\e[0m"
+}
+
+date_str_get ()
+{
+    date -u +"%Y%m%d%H%M%S"
 }
 
 
@@ -523,6 +526,43 @@ EemacsextMake_get_submodule_update_suggestion ()
     fi
 }
 
+EemacsextMake_fetch_upstreams_commits ()
+{
+    local logfile="${EemacsextMake_error_log_host}"/upstream_fetch.log
+    [[ -e "$logfile" ]] && rm "$logfile"
+    local error_cnt=0
+    local upstream_host="${EemacsextMake_upstream_submodules_dir}"
+    local pkg=''
+    cd "${upstream_host}"
+    error_msg "CD to ${upstream_host} failed"
+
+    for pkg in *
+    do
+        cd "$pkg"
+        error_msg "CD to upstream pkg dir <$pkg> failed"
+        echo "[$(date_str_get)] ---<$pkg>----------" >> "$logfile"
+        do_msg "git fetch new commits for package '$pkg' ..."
+        git fetch --all 2>> "$logfile"
+        if [[ $? -ne 0 ]]
+        then
+            echo '----------*error and failed*----------' >> "$logfile"
+            let ++error_cnt
+        else
+            echo '----------*success*----------' >> "$logfile"
+        fi
+        cd "$upstream_host"
+    done
+
+    if [[ $error_cnt -ne 0 ]]
+    then
+        echo -e "\e[31mThere's \e[33m${error_cnt}\e[0m pkgs fetch news with fatal, \
+please view log file '$logfile' for details\e[0m"
+        exit 1
+    else
+        exit 0
+    fi
+}
+
 # ** touch maked indicator
 EemacsextMake_Finished ()
 {
@@ -703,6 +743,7 @@ EemacsextMake_Main_Help ()
     echo -e ""
     echo -e "--------------------------------maintainability------------------------------------"
     echo -e "- 'sb-upsuggest':        get submodule update suggestions (for *maintainer* only)"
+    echo -e "- 'fetch-new':           fetch new commits for melpa upstream packags"
     echo -e "- 'init-elpa'            init elpa workspace"
     echo -e "- 'update-elpa'          update elpa with gnu-elpa"
     echo -e "- 'clean-elpa'           clean elpa worktree and builds (need to have elpa inited)"
@@ -729,14 +770,6 @@ EemacsextMake_Main_Choice ()
 
         build-elpa_recipes) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_elpadir})"
                             EemacsextMake_BuildElpa_Recipes_Or_Init ;;
-        init-elpa) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_elpadir})"
-                   EemacsextMake_BuildElpa_Recipes_Or_Init 'init';;
-        update-elpa)
-            EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_elpadir})"
-            EemacsextMake_BuildElpa_update ;;
-        clean-elpa)
-            #EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_elpadir})"
-            EemacsextMake_BuildElpa_clean ;;
         build-eemacs_recipes)
             echo -e "\e[31mOff-line, all of eemacs packages have been migrated into eemacs self.\e[0m"
             # EemacsextMake_Main_Tidyup_WorkTree elements/submodules/eemacs-packages
@@ -750,6 +783,20 @@ EemacsextMake_Main_Choice ()
         # maintainability part
         sb-upsuggest) EemacsextMake_Main_Choice init
                       EemacsextMake_get_submodule_update_suggestion ;;
+
+        fetch-new)
+            EemacsextMake_Main_Choice init
+            EemacsextMake_fetch_upstreams_commits
+            ;;
+
+        init-elpa) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_elpadir})"
+                   EemacsextMake_BuildElpa_Recipes_Or_Init 'init';;
+        update-elpa)
+            EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_elpadir})"
+            EemacsextMake_BuildElpa_update ;;
+        clean-elpa)
+            #EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_elpadir})"
+            EemacsextMake_BuildElpa_clean ;;
 
         # Otherwise
         *) EemacsextMake_Main_Help ;;

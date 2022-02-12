@@ -1,6 +1,5 @@
 /elements/git-temp
 /init
-/build_log
 /elements/info-files/*.info
 /annex/bin/*
 !/annex/bin/README.org

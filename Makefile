@@ -30,6 +30,8 @@ clean:
 # maintainability part
 sb-upsuggest:
 	$(CMD) sb-upsuggest
+fetch-new:
+	$(CMD) fetch-new
 init-elpa:
 	$(CMD) init-elpa
 update-elpa:
