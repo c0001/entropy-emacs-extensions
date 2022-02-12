@@ -739,7 +739,7 @@ EemacsextMake_Main_Help ()
     echo -e "- 'build-eemacs_recipes: build eemacs-packages'"
     echo -e "- 'clean':               clean all stuffs generated (git clean and deinit)"
     echo -e "- 'all':                 build project"
-    echo -e "_ 'release':             generate packages release tarball"
+    echo -e "- 'release':             generate packages release tarball"
     echo -e ""
     echo -e "--------------------------------maintainability------------------------------------"
     echo -e "- 'sb-upsuggest':        get submodule update suggestions (for *maintainer* only)"
