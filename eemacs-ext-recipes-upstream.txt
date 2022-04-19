@@ -85,8 +85,8 @@ frame-local
 ghub
 git-commit
 git-messenger
-git-timemachine
 git-modes
+git-timemachine
 gntp
 go-mode
 google-translate
@@ -196,6 +196,7 @@ transient
 treepy
 ujelly-theme
 use-package
+uuidgen
 vimish-fold
 visual-ascii-mode
 visual-regexp
