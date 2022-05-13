@@ -43,6 +43,7 @@ company-shell
 company-tern
 company-web
 conda
+consult
 copyit
 counsel
 counsel-css
@@ -71,6 +72,7 @@ elfeed
 elisp-refs
 elisp-slime-nav
 emacsql
+embark
 emmet-mode
 emms
 epl
@@ -132,6 +134,7 @@ magit-svn
 major-mode-hydra
 makey
 maple-preview
+marginalia
 markdown-mode
 markdown-preview-mode
 memoize
@@ -142,6 +145,7 @@ names
 neotree
 olivetti
 openwith
+orderless
 org-bullets
 org-download
 org-pomodoro

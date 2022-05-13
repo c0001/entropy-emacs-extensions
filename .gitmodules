@@ -850,3 +850,19 @@
 	path = elements/submodules/upstream/base16-emacs
 	url = https://github.com/belak/base16-emacs.git
 	branch = master
+[submodule "elements/submodules/upstream/embark"]
+	path = elements/submodules/upstream/embark
+	url = https://github.com/oantolin/embark.git
+	branch = master
+[submodule "elements/submodules/upstream/consult"]
+	path = elements/submodules/upstream/consult
+	url = https://github.com/minad/consult.git
+	branch = main
+[submodule "elements/submodules/upstream/marginalia"]
+	path = elements/submodules/upstream/marginalia
+	url = https://github.com/minad/marginalia.git
+	branch = main
+[submodule "elements/submodules/upstream/orderless"]
+	path = elements/submodules/upstream/orderless
+	url = https://github.com/oantolin/orderless
+	branch = master
