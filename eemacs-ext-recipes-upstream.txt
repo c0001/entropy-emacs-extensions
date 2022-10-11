@@ -81,6 +81,7 @@ eterm-256color
 exec-path-from-shell
 eyebrowse
 f
+fanyi
 find-file-in-project
 flycheck
 frame-local
@@ -91,6 +92,7 @@ git-modes
 git-timemachine
 gntp
 go-mode
+go-translate
 google-translate
 gotham-theme
 helm

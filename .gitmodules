@@ -866,3 +866,11 @@
 	path = elements/submodules/upstream/orderless
 	url = https://github.com/oantolin/orderless
 	branch = master
+[submodule "elements/submodules/upstream/fanyi.el"]
+	path = elements/submodules/upstream/fanyi.el
+	url = https://github.com/condy0919/fanyi.el.git
+	branch = main
+[submodule "elements/submodules/upstream/go-translate"]
+	path = elements/submodules/upstream/go-translate
+	url = https://github.com/lorniu/go-translate.git
+	branch = master
