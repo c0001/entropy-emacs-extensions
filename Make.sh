@@ -157,6 +157,19 @@ EemacsextMake_GetRepoPath ()
     echo "$1" | sed -E "s|${EemacsextMake_DIR}/||"
 }
 
+exit_when_error ()
+{
+    local ext_code=$1
+    if [ -z $ext_code ]
+    then
+        ext_code=1
+    fi
+    if [ $? -ne 0 ]
+    then
+        exit $ext_code
+    fi
+}
+
 error_msg ()
 {
     if [ ! $? -eq 0 ]
@@ -752,13 +765,22 @@ EemacsextMake_Main_Help ()
 EemacsextMake_Main_Choice ()
 {
     case $1 in
-        init) cd "$EemacsextMake_DIR" && git clean -xfd .
+        init) cd "$EemacsextMake_DIR"
+              exit_when_error
+              git clean -xfd .
+              exit_when_error
               EemacsextMake_Main_Tidyup_WorkTree ;;
 
-        tidy-branches) cd "$EemacsextMake_DIR" && git clean -xfd .
+        tidy-branches) cd "$EemacsextMake_DIR"
+                       exit_when_error
+                       git clean -xfd .
+                       exit_when_error
                        EemacsextMake_Main_Tidyup_TempBranches ;;
 
-        toggle-branches) cd "$EemacsextMake_DIR" && git clean -xfd .
+        toggle-branches) cd "$EemacsextMake_DIR"
+                         exit_when_error
+                         git clean -xfd .
+                         exit_when_error
                          EemacsextMake_Main_Toggle_SubBranch ;;
 
         patch-recipes) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_melpadir})"
@@ -776,7 +798,11 @@ EemacsextMake_Main_Choice ()
             # EemacsextMake_BuildRecipes eemacs
             ;;
 
-        clean) cd "$EemacsextMake_DIR" && git clean -xfd . && git submodule deinit --all -f ;;
+        clean) cd "$EemacsextMake_DIR"
+               exit_when_error
+               git clean -xfd .
+               exit_when_error
+               git submodule deinit --all -f ;;
 
         all) EemacsextMake_Main_All ;;
         release) EemacsextMake_Main_GenReleaseTarball ;;
