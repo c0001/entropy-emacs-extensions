@@ -159,6 +159,7 @@ page-break-lines
 paradox
 pfuture
 php-mode
+pinyinlib
 pkg-info
 pomidor
 poporg

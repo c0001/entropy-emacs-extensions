@@ -874,3 +874,7 @@
 	path = elements/submodules/referred/libvterm/libvterm
 	url = https://github.com/Sbozzolo/libvterm-mirror.git
 	branch = libvterm
+[submodule "elements/submodules/upstream/pinyinlib.el"]
+	path = elements/submodules/upstream/pinyinlib.el
+	url = https://github.com/cute-jumper/pinyinlib.el.git
+	branch = master
