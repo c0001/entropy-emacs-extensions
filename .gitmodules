@@ -754,10 +754,6 @@
 	path = elements/submodules/upstream/minions
 	url = https://github.com/tarsius/minions.git
 	branch = master
-[submodule "elements/submodules/referred/libvterm/libvterm"]
-	path = elements/submodules/referred/libvterm/libvterm
-	url = https://github.com/neovim/libvterm.git
-	branch = nvim
 [submodule "elements/submodules/upstream/bui.el"]
 	path = elements/submodules/upstream/bui.el
 	url = https://github.com/alezost/bui.el.git
@@ -874,3 +870,7 @@
 	path = elements/submodules/upstream/go-translate
 	url = https://github.com/lorniu/go-translate.git
 	branch = master
+[submodule "elements/submodules/referred/libvterm/libvterm-mirror"]
+	path = elements/submodules/referred/libvterm/libvterm
+	url = https://github.com/Sbozzolo/libvterm-mirror.git
+	branch = libvterm
