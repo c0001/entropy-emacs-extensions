@@ -878,3 +878,23 @@
 	path = elements/submodules/upstream/pinyinlib.el
 	url = https://github.com/cute-jumper/pinyinlib.el.git
 	branch = master
+[submodule "elements/submodules/upstream/editorconfig-emacs"]
+	path = elements/submodules/upstream/editorconfig-emacs
+	url = https://github.com/editorconfig/editorconfig-emacs.git
+	branch = master
+[submodule "elements/submodules/upstream/libmpdel"]
+	path = elements/submodules/upstream/libmpdel
+	url = https://github.com/mpdel/libmpdel.git
+	branch = master
+[submodule "elements/submodules/upstream/mpdel"]
+	path = elements/submodules/upstream/mpdel
+	url = https://github.com/mpdel/mpdel.git
+	branch = master
+[submodule "elements/submodules/upstream/ivy-mpdel"]
+	path = elements/submodules/upstream/ivy-mpdel
+	url = https://github.com/mpdel/ivy-mpdel.git
+	branch = master
+[submodule "elements/submodules/upstream/mpdel-embark"]
+	path = elements/submodules/upstream/mpdel-embark
+	url = https://github.com/mpdel/mpdel-embark.git
+	branch = main

@@ -65,6 +65,7 @@ discover-my-major
 doom-modeline
 doom-themes
 edit-indirect
+editorconfig
 eglot
 el2org
 eldoc-eval
@@ -113,6 +114,7 @@ irony
 irony-eldoc
 ivy
 ivy-hydra
+ivy-mpdel
 ivy-prescient
 ivy-rich
 ivy-xref
@@ -121,6 +123,7 @@ js2-refactor
 json-mode
 json-reformat
 json-snatcher
+libmpd-el
 log4e
 loop
 lsp-mode
@@ -141,6 +144,8 @@ markdown-mode
 markdown-preview-mode
 memoize
 minions
+mpdel
+mpdel-embark
 multi-term
 multiple-cursors
 names
