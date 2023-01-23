@@ -123,7 +123,7 @@ js2-refactor
 json-mode
 json-reformat
 json-snatcher
-libmpd-el
+libmpdel
 log4e
 loop
 lsp-mode
