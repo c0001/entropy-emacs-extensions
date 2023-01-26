@@ -256,10 +256,19 @@ was the value, it also can be a self-list of thus (i.e. car of
     ($submodule-object &optional remote-name)
   (eemacs-ext/ggsh--common-with-submodule $submodule-object
     (let ((submodule-follow-branch (alist-get 'submodule-follow-branch $submodule-object)))
-      (car (ignore-errors
-             (process-lines "git" "show-ref"
-                            (format "%s/%s" (or remote-name "origin") submodule-follow-branch)
-                            "-s" "1" "--abbrev=8"))))))
+      (car
+       (condition-case err
+           (process-lines "git" "show-ref"
+                          (format "%s/%s" (or remote-name "origin")
+                                  submodule-follow-branch)
+                          "-s" "1" "--abbrev=8")
+         (error (eemacs-ext/ggsh--error-without-debugger
+                 "No remote branch `%s' of remote `%s' in submodule `%s' (%S)"
+                 submodule-follow-branch
+                 (or remote-name "origin")
+                 (alist-get 'submodule-name
+                            $submodule-object)
+                 err)))))))
 
 (defun eemacs-ext/ggsh--get-commit-date ($submodule-object commit &optional readable)
   "Get submodule $SUBMODULE-OBJECT commit date information via
