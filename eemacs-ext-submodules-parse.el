@@ -167,7 +167,7 @@ origin one if it exists.
 
 SUBMODULE-PROP is a cons of which car is the prop symbol and cdr
 was the value, it also can be a self-list of thus (i.e. car of
-:self-lis and cdr of the list of thus)."
+:self-list and cdr of the list of thus)."
   (let* ((module $submodule-object)
          (prop submodule-prop)
          (prop-key (car prop)))
@@ -588,40 +588,44 @@ current submodule repo with `submodule-tags' key-pair."
          (default-directory
           (file-name-as-directory
            (expand-file-name submodule-dir eemacs-ext/ggsh--root-dir)))
+         ;; FIXME: only version based tag name is considerred as a
+         ;; release name since other tag will messy the result we
+         ;; expected for, but we can not guarantee this convention
+         ;; covers all repos.
          (tag-regexp "^[vV]?\\([0-9][0-9\\.]+\\)$")
-         (tags (process-lines "git" "tag"))
-         vtags-pre release release-hash)
-    (dolist (tag tags)
-      (when (string-match tag-regexp tag)
-        (let (version)
-          (setq version (match-string-no-properties 1 tag))
-          (push (cons version tag) vtags-pre))))
-
+         ;; Sort prefix with `-' to show newest created commit first
+         ;;
+         ;; See git-for-each-ref(1) an git-tag(1) for more sort types
+         (tags (process-lines "git" "tag" "--list" "--sort=-creatordate"))
+         vtags-pre fnl-release fnl-release-commit)
+    (catch :break
+      (dolist (tag tags)
+        (when (string-match-p tag-regexp tag)
+          (setq vtags-pre tag) (throw :break nil))))
     (when vtags-pre
-      (setq vtags-pre
-            (sort
-             (copy-tree vtags-pre)
-             (lambda (x y)
-               (if (version< (car y) (car x))
-                   t
-                 nil))))
-      (setq release (cdar vtags-pre)
-            release-hash
+      (setq fnl-release vtags-pre
+            fnl-release-commit
             (let ((hash
                    (shell-command-to-string
-                    (format "git log --pretty=format:%%h %s -1 --abbrev=8" release))))
-              (when (and (not (string-empty-p hash))
-                         (string-match-p "^[0-9a-z]+" hash))
-                (replace-regexp-in-string "\n" "" hash))))
+                    (format "git log --pretty=format:%%h %s -1 --abbrev=8" fnl-release))))
+              (if (and (not (string-empty-p hash))
+                       (string-match-p "^[0-9a-z]+" hash))
+                  (replace-regexp-in-string "\n" "" hash)
+                (eemacs-ext/ggsh--error-without-debugger
+                 "could not fetch final release commit for tag [%s] in submodule `%s'"
+                 fnl-release submodule-dir)))))
+    (when tags
       (setq $submodule-object
             (eemacs-ext/ggsh--append-submodule-object
              $submodule-object
              `(:self-list
-               (submodule-final-release-tag . ,release)
+               (submodule-final-release-tag . ,fnl-release)
                (submodule-final-release-tag-commit-obj
                 .
-                ,(eemacs-ext/ggsh--get-commit-object $submodule-object release-hash))
-               (submodule-tags . ,(mapcar (lambda (tag-pair) (cdr tag-pair)) vtags-pre))))))
+                ,(when fnl-release-commit
+                   (eemacs-ext/ggsh--get-commit-object
+                    $submodule-object fnl-release-commit)))
+               (submodule-tags . ,(when tags (nreverse tags)))))))
     $submodule-object))
 
 
