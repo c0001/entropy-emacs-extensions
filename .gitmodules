@@ -257,7 +257,7 @@
 [submodule "elements/submodules/upstream/magit-svn"]
 	path = elements/submodules/upstream/magit-svn
 	url = https://github.com/emacsorphanage/magit-svn.git
-	branch = main
+	branch = master
 [submodule "elements/submodules/upstream/magit"]
 	path = elements/submodules/upstream/magit
 	url = https://github.com/magit/magit.git
