@@ -65,7 +65,7 @@
 [submodule "elements/submodules/upstream/transient"]
 	path = elements/submodules/upstream/transient
 	url = https://github.com/magit/transient.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/youdao-dictionary.el"]
 	path = elements/submodules/upstream/youdao-dictionary.el
 	url = https://github.com/xuchunyang/youdao-dictionary.el.git
@@ -257,11 +257,11 @@
 [submodule "elements/submodules/upstream/magit-svn"]
 	path = elements/submodules/upstream/magit-svn
 	url = https://github.com/emacsorphanage/magit-svn.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/magit"]
 	path = elements/submodules/upstream/magit
 	url = https://github.com/magit/magit.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/macrostep"]
 	path = elements/submodules/upstream/macrostep
 	url = https://github.com/joddie/macrostep.git
@@ -361,7 +361,7 @@
 [submodule "elements/submodules/upstream/git-modes"]
 	path = elements/submodules/upstream/git-modes
 	url = https://github.com/magit/git-modes.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/ghub"]
 	path = elements/submodules/upstream/ghub
 	url = https://github.com/magit/ghub.git
@@ -612,8 +612,8 @@
 	branch = master
 [submodule "elements/submodules/upstream/emacsql"]
 	path = elements/submodules/upstream/emacsql
-	url = https://github.com/skeeto/emacsql.git
-	branch = master
+	url = https://github.com/magit/emacsql.git
+	branch = main
 [submodule "elements/submodules/upstream/ht.el"]
 	path = elements/submodules/upstream/ht.el
 	url = https://github.com/Wilfred/ht.el.git
