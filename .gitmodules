@@ -85,7 +85,7 @@
 [submodule "elements/submodules/upstream/with-editor"]
 	path = elements/submodules/upstream/with-editor
 	url = https://github.com/magit/with-editor.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/window-number"]
 	path = elements/submodules/upstream/window-number
 	url = https://github.com/nikolas/window-number.git
@@ -365,7 +365,7 @@
 [submodule "elements/submodules/upstream/ghub"]
 	path = elements/submodules/upstream/ghub
 	url = https://github.com/magit/ghub.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/f.el"]
 	path = elements/submodules/upstream/f.el
 	url = https://github.com/rejeep/f.el.git
