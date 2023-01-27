@@ -321,7 +321,7 @@
 [submodule "elements/submodules/upstream/hl-todo"]
 	path = elements/submodules/upstream/hl-todo
 	url = https://github.com/tarsius/hl-todo.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/highlight-parentheses.el"]
 	path = elements/submodules/upstream/highlight-parentheses.el
 	url = https://git.sr.ht/~tsdh/highlight-parentheses.el
@@ -389,7 +389,7 @@
 [submodule "elements/submodules/upstream/emacs-websocket"]
 	path = elements/submodules/upstream/emacs-websocket
 	url = https://github.com/ahyatt/emacs-websocket.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/emacs-web-server"]
 	path = elements/submodules/upstream/emacs-web-server
 	url = https://github.com/eschulte/emacs-web-server.git
@@ -753,7 +753,7 @@
 [submodule "elements/submodules/upstream/minions"]
 	path = elements/submodules/upstream/minions
 	url = https://github.com/tarsius/minions.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/bui.el"]
 	path = elements/submodules/upstream/bui.el
 	url = https://github.com/alezost/bui.el.git
@@ -825,7 +825,7 @@
 [submodule "elements/submodules/upstream/conda.el"]
 	path = elements/submodules/upstream/conda.el
 	url = https://github.com/necaris/conda.el.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/separedit.el"]
 	path = elements/submodules/upstream/separedit.el
 	url = https://github.com/twlz0ne/separedit.el.git
