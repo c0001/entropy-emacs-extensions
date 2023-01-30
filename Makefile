@@ -6,6 +6,7 @@ help:
 	$(CMD)
 all:
 	$(CMD) all
+	$(CMD) release
 release:
 	$(CMD) release
 init:

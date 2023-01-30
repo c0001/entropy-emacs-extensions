@@ -748,8 +748,8 @@
 	branch = master
 [submodule "elements/submodules/upstream/prescient.el"]
 	path = elements/submodules/upstream/prescient.el
-	url = https://github.com/raxod502/prescient.el.git
-	branch = master
+	url = https://github.com/radian-software/prescient.el.git
+	branch = main
 [submodule "elements/submodules/upstream/minions"]
 	path = elements/submodules/upstream/minions
 	url = https://github.com/tarsius/minions.git
