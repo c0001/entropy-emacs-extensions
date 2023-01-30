@@ -680,6 +680,7 @@ EemacsextMake_Main_GenReleaseTarball ()
 
     local release_archive_base_name=entropy-emacs-extensions_build_v"${release_ver}"
     local release_archive_tarball_name="${release_archive_base_name}.tar.xz"
+    local release_archive_sha256log_name="${release_archive_base_name}.tar.xz.sha256"
 
     local release_tmp_dir="${release_root_host}/${release_archive_base_name}"
     if [[ -e "${release_tmp_dir}" ]]
@@ -720,8 +721,16 @@ EemacsextMake_Main_GenReleaseTarball ()
         rm "${release_archive_tarball_name}"
         error_msg "remove old release tarball fatal"
     fi
+    if [[ -e "${release_archive_sha256log_name}" ]]
+    then
+        rm "${release_archive_sha256log_name}"
+        error_msg "remove old release tarball sha256sum log file fatal"
+    fi
     tar -Jcf "${release_archive_tarball_name}" "${release_archive_base_name}"
     error_msg  "make release tarball of ${release_archive_tarball_name} fatal"
+    # generate tarball sha256sum log
+    sha256sum -b "${release_archive_tarball_name}" > "${release_archive_sha256log_name}"
+    error_msg  "make sha256sum log of ${release_archive_tarball_name} fatal"
     echo -e "done"
 }
 
