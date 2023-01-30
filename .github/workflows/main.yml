@@ -34,7 +34,7 @@ jobs:
           sudo apt-get -y install make emacs texinfo texlive findutils git xz-utils
       - name: Build
         run: |
-          make release
+          make all
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
