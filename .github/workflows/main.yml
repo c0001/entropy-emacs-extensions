@@ -1,0 +1,51 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Deps
+        run:
+          sudo apt-get -y install make emacs texinfo texlive findutils git xz-utils
+      - name: Build
+        run: |
+          make all
+          make release
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: "Prebuilt for latest dev commit"
+          draft: true
+          files: |
+            release/entropy-emacs-extensions_build-*.tar.xz
+            release/entropy-emacs-extensions_build-*.tar.xz.sha256
+
+# Local Variables:
+# tab-width: 2
+# yaml-indent-offset: 2
+# End:
