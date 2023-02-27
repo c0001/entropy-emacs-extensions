@@ -898,3 +898,7 @@
 	path = elements/submodules/upstream/mpdel-embark
 	url = https://github.com/mpdel/mpdel-embark.git
 	branch = main
+[submodule "elements/submodules/upstream/iscroll"]
+	path = elements/submodules/upstream/iscroll
+	url = https://github.com/casouri/iscroll.git
+	branch = master

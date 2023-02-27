@@ -112,6 +112,7 @@ ibuffer-projectile
 impatient-mode
 irony
 irony-eldoc
+iscroll
 ivy
 ivy-hydra
 ivy-mpdel
