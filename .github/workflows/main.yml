@@ -43,7 +43,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: "PreBuilt (CI: dev)"
-          draft: true
+          prerelease: true
           files: |
             release/entropy-emacs-extensions_build_*.tar.xz
             release/entropy-emacs-extensions_build_*.tar.xz.sha256
