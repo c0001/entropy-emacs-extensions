@@ -33,6 +33,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Set Env
+        run: |
+          echo "RELEASE_DATE=$(date -u +'%Y%m%d%H%M%S')" >> ${GITHUB_ENV}
+          echo "RELEASE_VERSION=$(cat version)"          >> ${GITHUB_ENV}
       - name: Install Deps
         run:
           sudo apt-get -y install make emacs texinfo texlive findutils git xz-utils markdown
@@ -42,7 +46,8 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: "PreBuilt (CI: dev)"
+          name: "PreBuilt (CI: dev) ${{ env.RELEASE_VERSION }}/${{ env.RELEASE_DATE }}"
+          tag_name: CI/dev/${{ env.RELEASE_VERSION }}/${{ env.RELEASE_DATE }}
           prerelease: true
           files: |
             release/entropy-emacs-extensions_build_*.tar.xz
