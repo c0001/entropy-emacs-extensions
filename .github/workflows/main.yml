@@ -39,7 +39,7 @@ jobs:
           echo "RELEASE_VERSION=$(cat version)"          >> ${GITHUB_ENV}
       - name: Set Env (Tag)
         run: |
-          echo "RELEASE_TAGNAME=v${{ env.RELEASE_VERSION }}/CI/${{ github.ref_name }}/${{ env.RELEASE_DATE }}" >> ${GITHUB_ENV}
+          echo "RELEASE_TAGNAME=CI/${{ github.ref_name }}/v${{ env.RELEASE_VERSION }}/${{ env.RELEASE_DATE }}" >> ${GITHUB_ENV}
       - name: Install Deps
         run:
           sudo apt-get -y install make emacs texinfo texlive findutils git xz-utils markdown
