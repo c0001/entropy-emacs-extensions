@@ -33,21 +33,31 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Set Env
+      - name: Set Env (Top)
         run: |
           echo "RELEASE_DATE=$(date -u +'%Y%m%d%H%M%S')" >> ${GITHUB_ENV}
           echo "RELEASE_VERSION=$(cat version)"          >> ${GITHUB_ENV}
+      - name: Set Env (Tag)
+        run: |
+          echo "RELEASE_TAGNAME=v${{ env.RELEASE_VERSION }}/CI/${{ github.ref_name }}/${{ env.RELEASE_DATE }}" >> ${GITHUB_ENV}
       - name: Install Deps
         run:
           sudo apt-get -y install make emacs texinfo texlive findutils git xz-utils markdown
       - name: Build
         run: |
           make all
+      - name: "Create latest pre-release tag"
+        uses: rickstaa/action-create-tag@v1
+        id: "tag_create"
+        with:
+          tag: ${{ env.RELEASE_TAGNAME }}
+          tag_exists_error: true
+          no_verify_tag: false
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           name: "PreBuilt (CI: dev) ${{ env.RELEASE_VERSION }}/${{ env.RELEASE_DATE }}"
-          tag_name: CI/dev/${{ env.RELEASE_VERSION }}/${{ env.RELEASE_DATE }}
+          tag_name: ${{ env.RELEASE_TAGNAME }}
           prerelease: true
           files: |
             release/entropy-emacs-extensions_build_*.tar.xz
