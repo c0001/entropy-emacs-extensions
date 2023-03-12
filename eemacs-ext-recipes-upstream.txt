@@ -29,6 +29,7 @@ bui
 cal-china-x
 chinese-word-at-point
 cmake-mode
+coffee-mode
 color-theme-sanityinc-tomorrow
 command-log-mode
 company

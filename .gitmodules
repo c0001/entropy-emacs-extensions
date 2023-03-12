@@ -902,3 +902,7 @@
 	path = elements/submodules/upstream/iscroll
 	url = https://github.com/casouri/iscroll.git
 	branch = master
+[submodule "elements/submodules/upstream/coffee-mode"]
+	path = elements/submodules/upstream/coffee-mode
+	url = https://github.com/defunkt/coffee-mode.git
+	branch = master
