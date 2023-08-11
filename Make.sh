@@ -170,18 +170,29 @@ exit_when_error ()
     fi
 }
 
+ok_msg ()
+{
+    echo -e "\e[32mOK: $1\e[0m"
+}
+
 error_msg ()
+{
+    echo -e "\e[31mERROR: $1\e[0m"
+    exit 1
+}
+
+nerror_msg ()
 {
     if [ ! $? -eq 0 ]
     then
-        echo -e "\e[31m$1\e[0m"
+        echo -e "\e[31mERROR: $1\e[0m"
         exit 1
     fi
 }
 
 warn_msg ()
 {
-    echo -e "\e[33m$1\e[0m"
+    echo -e "\e[33mWARN: $1\e[0m"
 }
 
 do_msg ()
@@ -292,9 +303,9 @@ __elpa_worktrees_init ()
 {
     cd "${EemacsextMake_elpadir}"
     make setup
-    error_msg "Setup admin worktree fatal"
+    nerror_msg "Setup admin worktree fatal"
     make worktrees
-    error_msg "Setup external worktrees fatal"
+    nerror_msg "Setup external worktrees fatal"
     echo -e "\e[32melpa worktrees init done!\e[0m"
 }
 
@@ -308,7 +319,7 @@ __elpa_worktrees_prune ()
     cd "${EemacsextMake_elpadir}"
     local ext_brs_logf=./ext_brs_log.txt
     git branch -l --format='%(refname:short)' | grep -v "(HEAD" > "$ext_brs_logf"
-    error_msg "List externals pkgs branch fatal"
+    nerror_msg "List externals pkgs branch fatal"
 
     do_msg "prune worktree registries"
     git worktree prune
@@ -321,15 +332,15 @@ __elpa_worktrees_prune ()
                && [ "$(git rev-parse --abbrev-ref HEAD)" != "$branch" ]
         then
             _wname=$(echo $branch | sed 's/.*\///g')
-            error_msg "retrive <$branch> dir name fatal as <$_wname>"
+            nerror_msg "retrive <$branch> dir name fatal as <$_wname>"
             if [ -d packages/"$_wname" ]
             then
                 do_msg "remove '$_wname' worktree"
                 git worktree remove packages/"$_wname" --force
-                error_msg "Remove worktree '%s' with fatal"
+                nerror_msg "Remove worktree '%s' with fatal"
             fi
             git branch -D "$branch" --force
-            error_msg "Delete Branch '%s' with fatal"
+            nerror_msg "Delete Branch '%s' with fatal"
         fi
     done < "$ext_brs_logf"
 
@@ -338,19 +349,19 @@ __elpa_worktrees_prune ()
     then
         do_msg "remove admin worktree"
         git worktree remove admin --force
-        error_msg "Delete elpa-admin branch fatal"
+        nerror_msg "Delete elpa-admin branch fatal"
     fi
     git branch -D elpa-admin --force
     git branch -D entropy-elpa-admin --force
 
     do_msg "remove tmp log file"
     rm "$ext_brs_logf"
-    error_msg "remove tmp log file <$ext_brs_logf> fatal"
+    nerror_msg "remove tmp log file <$ext_brs_logf> fatal"
 
     if [ -h ./GNUmakefile ]
     then
         rm ./GNUmakefile
-        error_msg "Remove admin makefile <GNUmakefile> fatal"
+        nerror_msg "Remove admin makefile <GNUmakefile> fatal"
     fi
 
     echo -e "\e[32melpa worktrees prune done\e[0m"
@@ -363,10 +374,10 @@ __elpa_worktrees_update ()
     then
         do_msg "add gnu-elpa remote"
         git remote add gnu-elpa 'https://git.savannah.gnu.org/git/emacs/elpa.git'
-        error_msg "Add gnu-elpa mirror fatal"
+        nerror_msg "Add gnu-elpa mirror fatal"
     fi
     git fetch --all
-    error_msg "Sync with gnu-elpa mirror fatal"
+    nerror_msg "Sync with gnu-elpa mirror fatal"
 
     local brname=''
     local oldbrname=''
@@ -374,19 +385,19 @@ __elpa_worktrees_update ()
     do
         oldbrname=$brname
         brname=`echo $brname | sed 's/gnu-elpa\///g'`
-        error_msg "sed fatal for brname '$oldbrname'"
+        nerror_msg "sed fatal for brname '$oldbrname'"
         # create pkg branch
         if [ ! -z "$(git branch -l --format='%(refname:short)' | grep "^$brname")" ]
         then
             git branch -D "$brname" --force
         fi
         git checkout -b "$brname" "$oldbrname"
-        error_msg "git checkout $brname with upstream $oldbrname fatal"
+        nerror_msg "git checkout $brname with upstream $oldbrname fatal"
     done
 
     # return to default branch
     git checkout entropy-master
-    error_msg "fatal checkout to entropy-master branch"
+    nerror_msg "fatal checkout to entropy-master branch"
     echo -e "\e[32mYou can now 'git push --all origin' \
 to push all gnu-elpa branches to origin but not forget to \
 merge main, master, elpa-admin branch to entropy fork later.\e[0m"
@@ -407,29 +418,29 @@ EemacsextMake_BuildElpa_Recipes_Or_Init ()
     then
         git branch -D main -f
         git checkout -b main origin/entropy-master
-        error_msg "Checkout to main branch fatal"
+        nerror_msg "Checkout to main branch fatal"
         git branch -D master -f
     fi
 
     git submodule update --init
-    error_msg "submodule init fatal for entropy-elpa"
+    nerror_msg "submodule init fatal for entropy-elpa"
 
     # emacs init
     cd emacs
     if [ ! -z "$(git branch -l --format='%(refname:short)' | grep '^entropy-master')" ]
     then
         git branch -D entropy-master
-        error_msg "emacs-repo: delete old entropy-master branch fatal"
+        nerror_msg "emacs-repo: delete old entropy-master branch fatal"
     fi
     git checkout -b entropy-master HEAD
-    error_msg "emacs-repo: checkout new entropy-emacs branch fatal"
+    nerror_msg "emacs-repo: checkout new entropy-emacs branch fatal"
     if [ ! -z "$(git branch -l --format='%(refname:short)' | grep '^master')" ]
     then
         git branch -D master
-        error_msg "emacs-repo: delete old master branch fatal"
+        nerror_msg "emacs-repo: delete old master branch fatal"
     fi
     git checkout -b master entropy-master
-    error_msg "emacs-repo: checkout new master branch fatal"
+    nerror_msg "emacs-repo: checkout new master branch fatal"
     git status
 
     cd "${EemacsextMake_elpadir}"
@@ -457,7 +468,7 @@ EemacsextMake_BuildElpa_update ()
     echo -e "\e[33m==================================================\e[0m"
     cd "${EemacsextMake_elpadir}"
     git submodule deinit --all -f
-    error_msg "submodule deinit fatal for entropy-elpa"
+    nerror_msg "submodule deinit fatal for entropy-elpa"
     __elpa_worktrees_update
 }
 
@@ -481,9 +492,9 @@ EemacsextMake_BuildElpa_clean ()
         do_msg "Initing elpa submodule"
         cd ..
         git submodule update --init elpa
-        error_msg "init elpa submodule fatal"
+        nerror_msg "init elpa submodule fatal"
         cd "${EemacsextMake_elpadir}"
-        error_msg "cd to elpa fatal"
+        nerror_msg "cd to elpa fatal"
     fi
 
     if [ "$(git rev-parse --abbrev-ref HEAD)" != "entropy-master" ]
@@ -491,31 +502,31 @@ EemacsextMake_BuildElpa_clean ()
         do_msg "checking out entropy-master branch"
         git branch -D entropy-master --force
         git checkout -b entropy-master origin/entropy-master
-        error_msg "Create entropy-master branch with fatal"
+        nerror_msg "Create entropy-master branch with fatal"
     elif [ ! -z "$remove_curbranch_p" ]
     then
         git checkout origin/entropy-master
-        error_msg "Checkout to top fatal"
+        nerror_msg "Checkout to top fatal"
         git branch -D entropy-master --force
         git checkout -b entropy-master origin/entropy-master
-        error_msg "Create entropy-master branch with fatal"
+        nerror_msg "Create entropy-master branch with fatal"
     fi
     git submodule deinit --all -f
-    error_msg "submodule deinit fatal for entropy-elpa"
+    nerror_msg "submodule deinit fatal for entropy-elpa"
     if [ -d "archive" ]
     then
         rm -rf "${EemacsextMake_elpadir}"/archive
-        error_msg "Remove build archive fatal"
+        nerror_msg "Remove build archive fatal"
     fi
     if [ -d "archive-devel" ]
     then
         rm -rf "${EemacsextMake_elpadir}"/archive-devel
-        error_msg "Remove build archive-devel fatal"
+        nerror_msg "Remove build archive-devel fatal"
     fi
     if [ -d "packages" ]
     then
         rm -rf "${EemacsextMake_elpadir}"/packages
-        error_msg "Remove build packages fatal"
+        nerror_msg "Remove build packages fatal"
     fi
 
     __elpa_worktrees_prune
@@ -533,9 +544,11 @@ EemacsextMake_get_submodule_update_suggestion ()
     echo -e "\e[32mGet submodule update suggestions ...\e[0m"
     emacs --batch -q -l "$EemacsextMake_elbatch_modulesparse_elisp_file" \
           --eval "(eemacs-ext/ggsh-gen-submodule-update-suggestion)"
-    if [[ -f "$logfile" ]]
+    if [[ ! -f "$logfile" ]]
     then
-        less "$logfile"
+        error_msg "submodule update suggestion file not generated: $logfile"
+    else
+        ok_msg "submodule update suggestion file generated: $logfile"
     fi
 }
 
@@ -547,12 +560,12 @@ EemacsextMake_fetch_upstreams_commits ()
     local upstream_host="${EemacsextMake_upstream_submodules_dir}"
     local pkg=''
     cd "${upstream_host}"
-    error_msg "CD to ${upstream_host} failed"
+    nerror_msg "CD to ${upstream_host} failed"
 
     for pkg in *
     do
         cd "$pkg"
-        error_msg "CD to upstream pkg dir <$pkg> failed"
+        nerror_msg "CD to upstream pkg dir <$pkg> failed"
         echo "[$(date_str_get)] ---<$pkg>----------" >> "$logfile"
         do_msg "git fetch new commits for package '$pkg' ..."
         git fetch --all 2>> "$logfile"
@@ -676,7 +689,7 @@ EemacsextMake_Main_GenReleaseTarball ()
     local melpa_pkgs_host="${EemacsextMake_melpadir}"/packages
     local release_root_host="${EemacsextMake_DIR}"/release
     local release_ver=$(cat "${EemacsextMake_DIR}"/version)
-    error_msg "eemacs-ext version flag can not be detected!"
+    nerror_msg "eemacs-ext version flag can not be detected!"
 
     local release_archive_base_name=entropy-emacs-extensions_build_v"${release_ver}"
     local release_archive_tarball_name="${release_archive_base_name}.tar.xz"
@@ -686,51 +699,51 @@ EemacsextMake_Main_GenReleaseTarball ()
     if [[ -e "${release_tmp_dir}" ]]
     then
         rm -rf "${release_tmp_dir}"
-        error_msg "rmdir: <${release_tmp_dir}> with fatal"
+        nerror_msg "rmdir: <${release_tmp_dir}> with fatal"
     fi
     mkdir -p "${release_tmp_dir}"
-    error_msg "makdir: <${release_tmp_dir}> with fatal"
+    nerror_msg "makdir: <${release_tmp_dir}> with fatal"
 
     echo -e "--> cp elpa ..."
     cp -a "${elpa_pkgs_host}" "${release_tmp_dir}"/elpa
-    error_msg "cp elpa fatal"
+    nerror_msg "cp elpa fatal"
     echo -e "--> cp elpa-devel ..."
     cp -a "${elpa_devel_pkgs_host}" "${release_tmp_dir}"/elpa-devel
-    error_msg "cp elpa-devel fatal"
+    nerror_msg "cp elpa-devel fatal"
     echo -e "--> cp melpa ..."
     cp -a "${melpa_pkgs_host}" "${release_tmp_dir}"/melpa
-    error_msg "cp melpa fatal"
+    nerror_msg "cp melpa fatal"
 
     cd "${release_tmp_dir}"
-    error_msg "chdir: <${release_tmp_dir}> fatal"
+    nerror_msg "chdir: <${release_tmp_dir}> fatal"
     echo -e "Gen sha256sum ..."
     # use find to output sha256sum to updir since 'find -type f' will include the output file
     find -type f | xargs sha256sum -b > ../sha256sum.log
-    error_msg "sha256sum: for <${release_tmp_dir}> fatal"
+    nerror_msg "sha256sum: for <${release_tmp_dir}> fatal"
     mv ../sha256sum.log .
-    error_msg "sha256sum: mv ../sha256sum.log to <${release_tmp_dir}> fatal"
+    nerror_msg "sha256sum: mv ../sha256sum.log to <${release_tmp_dir}> fatal"
     sha256sum -c ./sha256sum.log > /dev/null
-    error_msg "fatal for recheck sha256sum for ${release_archive_base_name}"
+    nerror_msg "fatal for recheck sha256sum for ${release_archive_base_name}"
 
     cd "${release_root_host}"
-    error_msg "chdir: <${release_root_host}> fatal"
+    nerror_msg "chdir: <${release_root_host}> fatal"
 
     echo -e "--> make release tarball of ${release_archive_base_name}.tar.xz ..."
     if [[ -e "${release_archive_tarball_name}" ]]
     then
         rm "${release_archive_tarball_name}"
-        error_msg "remove old release tarball fatal"
+        nerror_msg "remove old release tarball fatal"
     fi
     if [[ -e "${release_archive_sha256log_name}" ]]
     then
         rm "${release_archive_sha256log_name}"
-        error_msg "remove old release tarball sha256sum log file fatal"
+        nerror_msg "remove old release tarball sha256sum log file fatal"
     fi
     tar -Jcf "${release_archive_tarball_name}" "${release_archive_base_name}"
-    error_msg  "make release tarball of ${release_archive_tarball_name} fatal"
+    nerror_msg  "make release tarball of ${release_archive_tarball_name} fatal"
     # generate tarball sha256sum log
     sha256sum -b "${release_archive_tarball_name}" > "${release_archive_sha256log_name}"
-    error_msg  "make sha256sum log of ${release_archive_tarball_name} fatal"
+    nerror_msg  "make sha256sum log of ${release_archive_tarball_name} fatal"
     echo -e "done"
 }
 
