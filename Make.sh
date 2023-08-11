@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 ## eemacs-ext Make.sh --- The core make procedure for eemacs-ext
 
 # * Copyright (C) 2019  Entropy
@@ -39,31 +40,11 @@ done
 EemacsextMake_DIR="$( cd -P "$( dirname "$EemacsextMake_SOURCE" )" >/dev/null && pwd )"
 set +e
 
-EemacsextMake_dir_nontrail_slash ()
-# judge path string $1 trailing slash existed status, and return the
-# justice code 0 for non-trailing-slash and 1 for otherwise, if $2
-# equal to 'lame' than return the trailing slash lamed path string.
-{
-    local trail_slash_P=$([[ ! -z $(echo $1 | grep -P "/$") ]] && echo yes || echo no)
-    if [[ ${trail_slash_P} == "yes" ]]
-    then
-        if [[ $2 == "lame" ]]
-        then
-            echo $(echo $1 | sed 's/\/$//' -)
-        else
-            echo 1
-        fi
-    else
-        if [[ $2 == "lame" ]]
-        then
-            echo $1
-        else
-            echo 0
-        fi
-    fi
-}
-
-EemacsextMake_DIR="$(EemacsextMake_dir_nontrail_slash ${EemacsextMake_DIR} lame)"
+EemacsextMake_DIR="${EemacsextMake_DIR%/}"
+if [[ -z $EemacsextMake_DIR ]] ; then
+    echo -e "\e[31mRoot make dir is root dir\e[0m" >&2
+    exit 1
+fi
 
 # ** variable declaration
 
@@ -179,7 +160,7 @@ ok_msg ()
 
 error_msg ()
 {
-    echo -e "\e[31mERROR: $1\e[0m"
+    echo -e "\e[31mERROR: $1\e[0m" >&2
     exit 1
 }
 
@@ -187,14 +168,13 @@ nerror_msg ()
 {
     if [ ! $? -eq 0 ]
     then
-        echo -e "\e[31mERROR: $1\e[0m"
-        exit 1
+        error_msg "$1"
     fi
 }
 
 warn_msg ()
 {
-    echo -e "\e[33mWARN: $1\e[0m"
+    echo -e "\e[33mWARN: $1\e[0m" >&2
 }
 
 do_msg ()
@@ -205,6 +185,7 @@ do_msg ()
 date_str_get ()
 {
     date -u +"%Y%m%d%H%M%S"
+    nerror_msg "inner: date -u"
 }
 
 
