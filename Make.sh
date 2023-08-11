@@ -26,16 +26,18 @@
 #
 # * Code
 # ** preface
+set -e
 EemacsextMake_SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$EemacsextMake_SOURCE" ]; do # resolve $EemacsextMake_SOURCE until the file is no longer a symlink
-  EemacsextMake_DIR="$( cd -P "$( dirname "$EemacsextMake_SOURCE" )" >/dev/null && pwd )"
-  EemacsextMake_SOURCE="$(readlink "$EemacsextMake_SOURCE")"
+    EemacsextMake_DIR="$( cd -P "$( dirname "$EemacsextMake_SOURCE" )" >/dev/null && pwd )"
+    EemacsextMake_SOURCE="$(readlink "$EemacsextMake_SOURCE")"
 
-  # if $EemacsextMake_SOURCE was a relative symlink, we need to resolve it relative
-  # to the path where the symlink file was located
-  [[ $EemacsextMake_SOURCE != /* ]] && EemacsextMake_SOURCE="$EemacsextMake_DIR/$EemacsextMake_SOURCE"
+    # if $EemacsextMake_SOURCE was a relative symlink, we need to resolve it relative
+    # to the path where the symlink file was located
+    [[ $EemacsextMake_SOURCE != /* ]] && EemacsextMake_SOURCE="$EemacsextMake_DIR/$EemacsextMake_SOURCE"
 done
 EemacsextMake_DIR="$( cd -P "$( dirname "$EemacsextMake_SOURCE" )" >/dev/null && pwd )"
+set +e
 
 EemacsextMake_dir_nontrail_slash ()
 # judge path string $1 trailing slash existed status, and return the
@@ -214,8 +216,8 @@ EemacsextMake_Make_Melpa_recipes ()
     make local-recipe
     if [[ $? -ne 0  ]]
     then
-       echo -e "\n\e[31mWrong exit code for recipe patch procedur, Abort! \e[0m"
-       exit
+        echo -e "\n\e[31mWrong exit code for recipe patch procedur, Abort! \e[0m"
+        exit
     else
         echo -e "\n\e[32mAdding unregular recipes ...\e[0m"
         cp -rf "${EemacsextMake_unregular_recipes_dir}"/* "${EemacsextMake_melpadir}"/recipes/
