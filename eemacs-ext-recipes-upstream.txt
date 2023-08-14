@@ -221,6 +221,7 @@ web-completion-data
 web-mode
 web-server
 websocket
+wfnames
 wgrep
 which-key
 window-number
