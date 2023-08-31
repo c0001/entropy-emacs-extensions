@@ -63,6 +63,7 @@ dired-subtree
 diredfl
 disable-mouse
 discover-my-major
+dockerfile-mode
 doom-modeline
 doom-themes
 edit-indirect

@@ -910,3 +910,7 @@
 	path = elements/submodules/upstream/wfnames
 	url = https://github.com/thierryvolpiatto/wfnames.git
 	branch = main
+[submodule "elements/submodules/upstream/dockerfile-mode"]
+	path = elements/submodules/upstream/dockerfile-mode
+	url = https://github.com/spotify/dockerfile-mode.git
+	branch = master
