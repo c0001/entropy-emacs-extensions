@@ -126,7 +126,7 @@ json-mode
 json-reformat
 json-snatcher
 libmpdel
-log-changes
+loc-changes
 log4e
 loop
 lsp-mode
