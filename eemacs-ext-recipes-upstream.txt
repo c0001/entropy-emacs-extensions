@@ -126,6 +126,7 @@ json-mode
 json-reformat
 json-snatcher
 libmpdel
+log-changes
 log4e
 loop
 lsp-mode
@@ -151,6 +152,7 @@ mpdel-embark
 multi-term
 multiple-cursors
 names
+navigel
 neotree
 olivetti
 openwith
@@ -208,6 +210,7 @@ tern
 toc-org
 transient
 treepy
+treeview
 ujelly-theme
 use-package
 uuidgen

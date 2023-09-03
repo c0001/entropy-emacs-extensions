@@ -914,3 +914,15 @@
 	path = elements/submodules/upstream/dockerfile-mode
 	url = https://github.com/spotify/dockerfile-mode.git
 	branch = master
+[submodule "elements/submodules/upstream/navigel"]
+	path = elements/submodules/upstream/navigel
+	url = https://github.com/DamienCassou/navigel.git
+	branch = master
+[submodule "elements/submodules/upstream/emacs-treeview"]
+	path = elements/submodules/upstream/emacs-treeview
+	url = https://github.com/tilmanrassy/emacs-treeview.git
+	branch = master
+[submodule "elements/submodules/upstream/emacs-loc-changes"]
+	path = elements/submodules/upstream/emacs-loc-changes
+	url = https://github.com/rocky/emacs-loc-changes.git
+	branch = master
