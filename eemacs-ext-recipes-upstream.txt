@@ -86,6 +86,7 @@ f
 fanyi
 find-file-in-project
 flycheck
+flycheck-kotlin
 frame-local
 ghub
 git-commit
@@ -125,6 +126,8 @@ js2-refactor
 json-mode
 json-reformat
 json-snatcher
+kotlin-mode
+kotlin-ts-mode
 libmpdel
 loc-changes
 log4e
@@ -154,6 +157,7 @@ multiple-cursors
 names
 navigel
 neotree
+ob-kotlin
 olivetti
 openwith
 orderless
