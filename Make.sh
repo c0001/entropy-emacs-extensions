@@ -560,6 +560,8 @@ EemacsextMake_fetch_upstreams_commits ()
             echo '----------*success*----------' >> "$logfile"
         fi
         cd "$upstream_host"
+        do_msg "waiting for next iterating (prevent SSL violation) ..."
+        sleep 2
     done
 
     if [[ $error_cnt -ne 0 ]]
