@@ -19,7 +19,6 @@ avy
 base16-theme
 beacon
 benchmark-init
-bind-key
 bing-dict
 bongo
 browse-at-remote
@@ -89,7 +88,6 @@ flycheck
 flycheck-kotlin
 frame-local
 ghub
-git-commit
 git-messenger
 git-modes
 git-timemachine
@@ -124,6 +122,7 @@ ivy-xref
 js2-mode
 js2-refactor
 json-mode
+json-navigator
 json-reformat
 json-snatcher
 kotlin-mode
@@ -216,7 +215,6 @@ transient
 treepy
 treeview
 ujelly-theme
-use-package
 uuidgen
 vimish-fold
 visual-ascii-mode

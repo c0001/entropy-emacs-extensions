@@ -942,3 +942,7 @@
 	path = elements/submodules/upstream/flycheck-kotlin
 	url = https://github.com/whirm/flycheck-kotlin.git
 	branch = master
+[submodule "elements/submodules/upstream/json-navigator"]
+	path = elements/submodules/upstream/json-navigator
+	url = https://github.com/DamienCassou/json-navigator.git
+	branch = master
