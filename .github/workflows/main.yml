@@ -49,7 +49,7 @@ jobs:
           echo "RELEASE_TAGNAME=CI/${{ github.ref_name }}/v${{ env.RELEASE_VERSION }}/${{ env.RELEASE_DATE }}" >> ${GITHUB_ENV}
       - name: Install Deps
         run:
-          sudo apt-get -y install make emacs texinfo texlive findutils git xz-utils markdown
+          sudo apt-get -y install make emacs texinfo texlive findutils git xz-utils markdown imagemagick
       - name: Build
         run: |
           make all
