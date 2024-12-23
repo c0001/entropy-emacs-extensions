@@ -139,7 +139,7 @@ directory."
       `(("entropy-melpa"      . ,eemacs-ext-melpa-packages)
         ("entropy-elpa"       . ,eemacs-ext-elpa-packages)
         ;; NOTE: disable elpa devel channel to avoid retrieving package updated with new emacs version.
-        ;; ("entropy-elpa-devel" . ,eemacs-ext-elpa-packages-devel)
+        ("entropy-elpa-devel" . ,eemacs-ext-elpa-packages-devel)
         ))
 
 (message "[eemacs-ext-load] Load done")
