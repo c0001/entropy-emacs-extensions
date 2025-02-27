@@ -134,6 +134,7 @@ loop
 lsp-mode
 lsp-pyright
 lsp-python-ms
+lsp-treemacs
 lsp-ui
 lua-mode
 lv
@@ -212,6 +213,7 @@ symbol-overlay
 tern
 toc-org
 transient
+treemacs
 treepy
 treeview
 ujelly-theme

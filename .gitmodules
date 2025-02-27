@@ -946,3 +946,11 @@
 	path = elements/submodules/upstream/json-navigator
 	url = https://github.com/DamienCassou/json-navigator.git
 	branch = master
+[submodule "elements/submodules/upstream/lsp-treemacs"]
+	path = elements/submodules/upstream/lsp-treemacs
+	url = https://github.com/emacs-lsp/lsp-treemacs.git
+	branch = master
+[submodule "elements/submodules/upstream/treemacs"]
+	path = elements/submodules/upstream/treemacs
+	url = https://github.com/Alexander-Miller/treemacs.git
+	branch = master
