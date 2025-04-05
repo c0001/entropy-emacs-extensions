@@ -97,7 +97,7 @@ EemacsextMake_Checking_shell ()
         done
         echo "Please install them before run this script -v-"
         echo "======================================"
-        exit
+        exit 1
     fi
 }
 
@@ -198,7 +198,7 @@ EemacsextMake_Make_Melpa_recipes ()
     if [[ $? -ne 0  ]]
     then
         echo -e "\n\e[31mWrong exit code for recipe patch procedur, Abort! \e[0m"
-        exit
+        exit 1
     else
         echo -e "\n\e[32mAdding unregular recipes ...\e[0m"
         cp -rf "${EemacsextMake_unregular_recipes_dir}"/* "${EemacsextMake_melpadir}"/recipes/
@@ -616,14 +616,14 @@ EemacsextMake_Main_Tidyup_WorkTree ()
     else
         git submodule deinit -f "${target_path}"
     fi
-    [[ $? -ne 0 ]] && exit
+    exit_when_error
     if [[ -z "${target_path}" ]]
     then
         git submodule update --init
     else
         git submodule update --init "${target_path}"
     fi
-    [[ $? -ne 0 ]] && exit
+    exit_when_error
     echo ""
 }
 
@@ -639,15 +639,15 @@ EemacsextMake_Main_Toggle_SubBranch ()
     else
         emacs -Q --batch -l "${EemacsextMake_elbatch_modulesparse_elisp_file}" --eval "(eemacs-ext/ggsh-gen-submodules-common-branch-toggle-bash-script t)"
     fi
-    [[ $? -ne 0 ]] && exit
+    exit_when_error
     cd "${EemacsextMake_DIR}"
     if [[ -f "${EemacsextMake_elbatch_branchtoggle_bashscript_file}" ]]
     then
         bash "${EemacsextMake_elbatch_branchtoggle_bashscript_file}"
-        [[ $? -ne 0 ]] && exit
+        exit_when_error
     else
         echo -e "\e[31mPlease initialize submodules first!\e[0m"
-        exit
+        exit 1
     fi
     echo ""
 }
