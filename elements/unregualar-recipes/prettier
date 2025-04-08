@@ -1,0 +1,5 @@
+(prettier
+ :fetcher github
+ :repo "prettier.el"
+ :branch "master"
+ :files (:defaults "*.js" "*.base64"))
