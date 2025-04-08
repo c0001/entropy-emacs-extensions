@@ -173,7 +173,7 @@ nerd-icons-corfu
 nerd-icons-dired
 nerd-icons-ibuffer
 nerd-icons-ivy-rich
-nerd-icons.el
+nerd-icons
 ob-kotlin
 olivetti
 openwith
@@ -201,7 +201,7 @@ posframe
 powerline
 powershell
 prescient
-prettier.el
+prettier
 pretty-hydra
 projectile
 pyim
