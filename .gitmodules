@@ -954,3 +954,95 @@
 	path = elements/submodules/upstream/treemacs
 	url = https://github.com/Alexander-Miller/treemacs.git
 	branch = master
+[submodule "elements/submodules/upstream/org-modern"]
+	path = elements/submodules/upstream/org-modern
+	url = https://github.com/minad/org-modern.git
+	branch = main
+[submodule "elements/submodules/upstream/all-the-icons-nerd-fonts"]
+	path = elements/submodules/upstream/all-the-icons-nerd-fonts
+	url = https://github.com/mohkale/all-the-icons-nerd-fonts.git
+	branch = master
+[submodule "elements/submodules/upstream/nerd-icons.el"]
+	path = elements/submodules/upstream/nerd-icons.el
+	url = https://github.com/rainstormstudio/nerd-icons.el.git
+	branch = main
+[submodule "elements/submodules/upstream/nerd-icons-corfu"]
+	path = elements/submodules/upstream/nerd-icons-corfu
+	url = https://github.com/LuigiPiucco/nerd-icons-corfu.git
+	branch = master
+[submodule "elements/submodules/upstream/nerd-icons-dired"]
+	path = elements/submodules/upstream/nerd-icons-dired
+	url = https://github.com/rainstormstudio/nerd-icons-dired.git
+	branch = main
+[submodule "elements/submodules/upstream/nerd-icons-ibuffer"]
+	path = elements/submodules/upstream/nerd-icons-ibuffer
+	url = https://github.com/seagle0128/nerd-icons-ibuffer.git
+	branch = main
+[submodule "elements/submodules/upstream/nerd-icons-ivy-rich"]
+	path = elements/submodules/upstream/nerd-icons-ivy-rich
+	url = https://github.com/seagle0128/nerd-icons-ivy-rich.git
+	branch = main
+[submodule "elements/submodules/upstream/tab-line-nerd-icons"]
+	path = elements/submodules/upstream/tab-line-nerd-icons
+	url = https://github.com/lucius-martius/tab-line-nerd-icons.git
+	branch = master
+[submodule "elements/submodules/upstream/treemacs-nerd-icons"]
+	path = elements/submodules/upstream/treemacs-nerd-icons
+	url = https://github.com/rainstormstudio/treemacs-nerd-icons.git
+	branch = main
+[submodule "elements/submodules/upstream/prettier.el"]
+	path = elements/submodules/upstream/prettier.el
+	url = https://github.com/jscheid/prettier.el.git
+	branch = master
+[submodule "elements/submodules/upstream/popper"]
+	path = elements/submodules/upstream/popper
+	url = https://github.com/karthink/popper.git
+	branch = master
+[submodule "elements/submodules/upstream/tabspaces"]
+	path = elements/submodules/upstream/tabspaces
+	url = https://github.com/mclear-tools/tabspaces.git
+	branch = main
+[submodule "elements/submodules/upstream/workgroups2"]
+	path = elements/submodules/upstream/workgroups2
+	url = https://github.com/pashinin/workgroups2.git
+	branch = master
+[submodule "elements/submodules/upstream/transient-posframe"]
+	path = elements/submodules/upstream/transient-posframe
+	url = https://github.com/emacsorphanage/transient-posframe.git
+	branch = master
+[submodule "elements/submodules/upstream/nerd-icons-completion"]
+	path = elements/submodules/upstream/nerd-icons-completion
+	url = https://github.com/rainstormstudio/nerd-icons-completion.git
+	branch = main
+[submodule "elements/submodules/upstream/consult-flyspell"]
+	path = elements/submodules/upstream/consult-flyspell
+	url = https://gitlab.com/OlMon/consult-flyspell.git
+	branch = master
+[submodule "elements/submodules/upstream/consult-company"]
+	path = elements/submodules/upstream/consult-company
+	url = https://github.com/mohkale/consult-company.git
+	branch = master
+[submodule "elements/submodules/upstream/consult-yasnippet"]
+	path = elements/submodules/upstream/consult-yasnippet
+	url = https://github.com/mohkale/consult-yasnippet.git
+	branch = master
+[submodule "elements/submodules/upstream/consult-projectile"]
+	path = elements/submodules/upstream/consult-projectile
+	url = https://gitlab.com/OlMon/consult-projectile.git
+	branch = master
+[submodule "elements/submodules/upstream/consult-ls-git"]
+	path = elements/submodules/upstream/consult-ls-git
+	url = https://github.com/rcj/consult-ls-git.git
+	branch = main
+[submodule "elements/submodules/upstream/embark-vc"]
+	path = elements/submodules/upstream/embark-vc
+	url = https://github.com/elken/embark-vc.git
+	branch = master
+[submodule "elements/submodules/upstream/cape"]
+	path = elements/submodules/upstream/cape
+	url = https://github.com/minad/cape.git
+	branch = main
+[submodule "elements/submodules/upstream/goggles"]
+	path = elements/submodules/upstream/goggles
+	url = https://github.com/minad/goggles.git
+	branch = main
