@@ -139,6 +139,7 @@ json-snatcher
 kotlin-mode
 kotlin-ts-mode
 libmpdel
+llama
 loc-changes
 log4e
 loop
@@ -168,12 +169,12 @@ multiple-cursors
 names
 navigel
 neotree
+nerd-icons
 nerd-icons-completion
 nerd-icons-corfu
 nerd-icons-dired
 nerd-icons-ibuffer
 nerd-icons-ivy-rich
-nerd-icons
 ob-kotlin
 olivetti
 openwith
