@@ -1050,3 +1050,7 @@
 	path = elements/submodules/upstream/llama
 	url = https://github.com/tarsius/llama.git
 	branch = main
+[submodule "elements/submodules/upstream/cfrs"]
+	path = elements/submodules/upstream/cfrs
+	url = https://github.com/Alexander-Miller/cfrs.git
+	branch = master

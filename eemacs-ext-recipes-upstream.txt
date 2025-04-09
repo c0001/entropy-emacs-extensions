@@ -28,6 +28,7 @@ buffer-move
 bui
 cal-china-x
 cape
+cfrs
 chinese-word-at-point
 cmake-mode
 coffee-mode
