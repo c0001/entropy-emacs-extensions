@@ -97,6 +97,7 @@ fanyi
 find-file-in-project
 flycheck
 flycheck-kotlin
+forge
 frame-local
 ghub
 git-messenger
@@ -125,6 +126,7 @@ impatient-mode
 irony
 irony-eldoc
 iscroll
+iter2
 ivy
 ivy-hydra
 ivy-mpdel
@@ -176,6 +178,7 @@ nerd-icons-corfu
 nerd-icons-dired
 nerd-icons-ibuffer
 nerd-icons-ivy-rich
+nvm
 ob-kotlin
 olivetti
 openwith
@@ -233,6 +236,7 @@ ssh-agency
 swiper
 symbol-overlay
 tab-line-nerd-icons
+tablist
 tabspaces
 tern
 toc-org

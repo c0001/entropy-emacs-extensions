@@ -1054,3 +1054,19 @@
 	path = elements/submodules/upstream/cfrs
 	url = https://github.com/Alexander-Miller/cfrs.git
 	branch = master
+[submodule "elements/submodules/upstream/nvm.el"]
+	path = elements/submodules/upstream/nvm.el
+	url = https://github.com/rejeep/nvm.el.git
+	branch = master
+[submodule "elements/submodules/upstream/iter2"]
+	path = elements/submodules/upstream/iter2
+	url = https://github.com/doublep/iter2.git
+	branch = master
+[submodule "elements/submodules/upstream/tablist"]
+	path = elements/submodules/upstream/tablist
+	url = https://github.com/emacsorphanage/tablist.git
+	branch = master
+[submodule "elements/submodules/upstream/forge"]
+	path = elements/submodules/upstream/forge
+	url = https://github.com/magit/forge.git
+	branch = main
