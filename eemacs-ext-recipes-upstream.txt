@@ -30,6 +30,7 @@ cal-china-x
 cape
 cfrs
 chinese-word-at-point
+closql
 cmake-mode
 coffee-mode
 color-theme-sanityinc-tomorrow

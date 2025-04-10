@@ -1070,3 +1070,7 @@
 	path = elements/submodules/upstream/forge
 	url = https://github.com/magit/forge.git
 	branch = main
+[submodule "elements/submodules/upstream/closql"]
+	path = elements/submodules/upstream/closql
+	url = https://github.com/magit/closql.git
+	branch = main
