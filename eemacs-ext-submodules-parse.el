@@ -111,16 +111,17 @@ and returning the appended new one.
 (defun eemacs-ext/ggsh--error-without-debugger (&rest args)
   "Like `error' but never trigger the emacs debugger."
   (declare (advertised-calling-convention (string &rest args) "23.1"))
-  (eemacs-ext/ggsh--without-debugger
-   (signal
-    'error
-    (list (apply #'format-message
+  (let (msg)
+    (setq msg
+          (apply #'format-message
                  (concat
                   (if noninteractive
                       "\033[31m[ERROR]\033[0m "
                     (propertize "[ERROR] " 'face 'error))
                   (car args))
-                 (cdr args))))))
+                 (cdr args)))
+    (if (not noninteractive) (signal 'error (list msg))
+      (message "%s" msg) (kill-emacs 1))))
 
 (defmacro eemacs-ext/ggsh--with-gitmodule-file-buffer (&rest body)
   "Do sth with the current .gitmodule file buffer."

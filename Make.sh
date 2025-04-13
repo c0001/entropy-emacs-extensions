@@ -79,11 +79,11 @@ EemacsextMake_Checking_shell ()
     required_tools_missing=()
     required_tools=(make emacs makeinfo tex git less xargs find tar xz date markdown)
     count=0
-    for item in ${required_tools[@]}
+    for item in "${required_tools[@]}"
     do
 
-        if [[ -z $(command -v $item) ]];then
-            required_tools_missing[$count]=$item
+        if [[ -z $(command -v "$item") ]];then
+            required_tools_missing["$count"]="$item"
             let count++
         fi
     done
@@ -91,7 +91,7 @@ EemacsextMake_Checking_shell ()
         echo -e "\n-->Shell dependencies satisfied!\n"
     else
         echo "==========Missing dependency=========="
-        for item in ${required_tools_missing[@]}
+        for item in "${required_tools_missing[@]}"
         do
             echo "Missing '$item'."
         done
@@ -126,8 +126,8 @@ EemacsextMake_wait_seconds ()
 {
     secs=$1
     shift
-    msg=$@
-    while [ $secs -gt 0 ]
+    msg="$*"
+    while [[ $secs -gt 0 ]]
     do
         printf "\r\033[KWaiting %.d seconds $msg" $((secs--))
         sleep 1
@@ -142,14 +142,14 @@ EemacsextMake_GetRepoPath ()
 
 exit_when_error ()
 {
-    local ext_code=$1
-    if [ -z $ext_code ]
+    local ext_code="$1"
+    if [[ -z $ext_code ]]
     then
         ext_code=1
     fi
-    if [ $? -ne 0 ]
+    if [[ $? -ne 0 ]]
     then
-        exit $ext_code
+        exit "$ext_code"
     fi
 }
 
@@ -741,6 +741,7 @@ EemacsextMake_Main_All ()
     echo -e "\e[32mMain process starting ....\e[0m"
     echo -e "=====================================\n"
     cd "${EemacsextMake_DIR}"
+    exit_when_error
     EemacsextMake_BuildRecipes
     EemacsextMake_BuildElpa_Recipes_Or_Init
     EemacsextMake_Finished
@@ -788,12 +789,13 @@ EemacsextMake_Main_Choice ()
                          exit_when_error
                          git clean -xfd .
                          exit_when_error
+                         EemacsextMake_Main_Tidyup_TempBranches
                          EemacsextMake_Main_Toggle_SubBranch ;;
 
         patch-recipes) EemacsextMake_Main_Tidyup_WorkTree "$(EemacsextMake_GetRepoPath ${EemacsextMake_melpadir})"
                        EemacsextMake_Make_Melpa_recipes ;;
 
-        build-recipes) EemacsextMake_Main_Choice init
+        build-recipes) :
                        EemacsextMake_Main_Choice toggle-branches
                        EemacsextMake_BuildRecipes ;;
 
