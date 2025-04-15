@@ -60,6 +60,7 @@ counsel-css
 counsel-ffdata
 counsel-projectile
 counsel-world-clock
+dap-mode
 dash
 dash-functional
 dashboard
@@ -147,9 +148,12 @@ llama
 loc-changes
 log4e
 loop
+lsp-docker
+lsp-java
 lsp-mode
 lsp-pyright
 lsp-python-ms
+lsp-treemacs
 lsp-treemacs
 lsp-ui
 lua-mode
