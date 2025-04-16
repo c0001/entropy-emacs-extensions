@@ -188,12 +188,18 @@ date_str_get ()
     nerror_msg "inner: date -u"
 }
 
+do_cd ()
+{
+    cd "${@}"
+    nerror_msg "err: cd ${*}"
+}
+
 
 # *** melpa build branch
 EemacsextMake_Make_Melpa_recipes ()
 {
     echo -e "\n\e[32mPatching recipes ...\e[0m"
-    cd "${EemacsextMake_melpadir}"
+    do_cd "${EemacsextMake_melpadir}"
     make local-recipe
     if [[ $? -ne 0  ]]
     then
@@ -232,7 +238,7 @@ EemacsextMake_BuildRecipes ()
 
     recipeslen="${#EemacsextMake_local_recipes[@]}"
 
-    cd "${EemacsextMake_melpadir}"
+    do_cd "${EemacsextMake_melpadir}"
 
     for which in "${EemacsextMake_local_recipes[@]}"
     do
@@ -255,7 +261,7 @@ EemacsextMake_BuildRecipes ()
         make archive-contents
     fi
     # recovery the recipes patch
-    cd "${EemacsextMake_melpadir}" && git checkout recipes && git clean -xfd recipes
+    do_cd "${EemacsextMake_melpadir}" && git checkout recipes && git clean -xfd recipes
 }
 
 EemacsextMake_RecipeBuild_ErrorPrompts ()
@@ -284,7 +290,7 @@ EemacsextMake_RecipeBuild_ErrorPrompts ()
 # just used in main or entropy-master branch
 __elpa_worktrees_init ()
 {
-    cd "${EemacsextMake_elpadir}"
+    do_cd "${EemacsextMake_elpadir}"
     make setup
     nerror_msg "Setup admin worktree fatal"
     make worktrees
@@ -299,11 +305,8 @@ __elpa_worktrees_init ()
 # checkouted worktrees and admin makefile
 __elpa_worktrees_prune ()
 {
-    cd "${EemacsextMake_elpadir}"
-    local ext_brs_logf=./ext_brs_log.txt
-    git branch -l --format='%(refname:short)' | grep -v "(HEAD" > "$ext_brs_logf"
-    nerror_msg "List externals pkgs branch fatal"
-
+    do_cd "${EemacsextMake_elpadir}"
+    nerror_msg
     do_msg "prune worktree registries"
     git worktree prune
 
@@ -323,9 +326,13 @@ __elpa_worktrees_prune ()
                 nerror_msg "Remove worktree '%s' with fatal"
             fi
             git branch -D "$branch" --force
-            nerror_msg "Delete Branch '%s' with fatal"
+            nerror_msg "Delete Branch '${branch}' with fatal"
         fi
-    done < "$ext_brs_logf"
+        # NOTE: trim the ambiguous branch name with remote name since
+        # they are not exists which is prefixed by git to distinguish
+        # thus as remote-name: gnu-elpa where the repo also has a
+        # branch named gnu-elpa.
+    done < <(git branch --list --format='%(refname:short)' | grep -P -v '^heads/')
 
     if [ ! -z "$(git branch -v | grep 'entropy-elpa-admin')" ] && \
            [ -d admin ]
@@ -336,10 +343,6 @@ __elpa_worktrees_prune ()
     fi
     git branch -D elpa-admin --force
     git branch -D entropy-elpa-admin --force
-
-    do_msg "remove tmp log file"
-    rm "$ext_brs_logf"
-    nerror_msg "remove tmp log file <$ext_brs_logf> fatal"
 
     if [ -h ./GNUmakefile ]
     then
@@ -352,7 +355,7 @@ __elpa_worktrees_prune ()
 
 __elpa_worktrees_update ()
 {
-    cd "${EemacsextMake_elpadir}"
+    do_cd "${EemacsextMake_elpadir}"
     if [ -z "$(git remote -v | grep 'gnu-elpa')" ]
     then
         do_msg "add gnu-elpa remote"
@@ -395,7 +398,7 @@ EemacsextMake_BuildElpa_Recipes_Or_Init ()
     echo -e "\e[33m==================================================\e[0m"
     echo -e "\e[32mBuilding elpa recipes ...\e[0m"
     echo -e "\e[33m==================================================\e[0m"
-    cd "${EemacsextMake_elpadir}"
+    do_cd "${EemacsextMake_elpadir}"
 
     if [ ! "$(git rev-parse --abbrev-ref HEAD)" = main ]
     then
@@ -409,7 +412,7 @@ EemacsextMake_BuildElpa_Recipes_Or_Init ()
     nerror_msg "submodule init fatal for entropy-elpa"
 
     # emacs init
-    cd emacs
+    do_cd emacs
     if [ ! -z "$(git branch -l --format='%(refname:short)' | grep '^entropy-master')" ]
     then
         git branch -D entropy-master
@@ -426,7 +429,7 @@ EemacsextMake_BuildElpa_Recipes_Or_Init ()
     nerror_msg "emacs-repo: checkout new master branch fatal"
     git status
 
-    cd "${EemacsextMake_elpadir}"
+    do_cd "${EemacsextMake_elpadir}"
     __elpa_worktrees_prune
     __elpa_worktrees_init
     if [ -z $initp ]
@@ -449,7 +452,7 @@ EemacsextMake_BuildElpa_update ()
     echo -e "\e[33m==================================================\e[0m"
     echo -e "\e[32mUpdating elpa recipes ...\e[0m"
     echo -e "\e[33m==================================================\e[0m"
-    cd "${EemacsextMake_elpadir}"
+    do_cd "${EemacsextMake_elpadir}"
     git submodule deinit --all -f
     nerror_msg "submodule deinit fatal for entropy-elpa"
     __elpa_worktrees_update
@@ -469,15 +472,14 @@ EemacsextMake_BuildElpa_clean ()
     echo -e "\e[33m==================================================\e[0m"
     echo -e "\e[32mClean elpa recipes ...\e[0m"
     echo -e "\e[33m==================================================\e[0m"
-    cd "${EemacsextMake_elpadir}"
+    do_cd "${EemacsextMake_elpadir}"
     if [ ! -e .git ]
     then
         do_msg "Initing elpa submodule"
-        cd ..
+        do_cd ..
         git submodule update --init elpa
         nerror_msg "init elpa submodule fatal"
-        cd "${EemacsextMake_elpadir}"
-        nerror_msg "cd to elpa fatal"
+        do_cd "${EemacsextMake_elpadir}"
     fi
 
     if [ "$(git rev-parse --abbrev-ref HEAD)" != "entropy-master" ]
@@ -542,13 +544,11 @@ EemacsextMake_fetch_upstreams_commits ()
     local error_cnt=0
     local upstream_host="${EemacsextMake_upstream_submodules_dir}"
     local pkg=''
-    cd "${upstream_host}"
-    nerror_msg "CD to ${upstream_host} failed"
+    do_cd "${upstream_host}"
 
     for pkg in *
     do
-        cd "$pkg"
-        nerror_msg "CD to upstream pkg dir <$pkg> failed"
+        do_cd "$pkg"
         echo "[$(date_str_get)] ---<$pkg>----------" >> "$logfile"
         do_msg "git fetch new commits for package '$pkg' ..."
         git fetch --all 2>> "$logfile"
@@ -559,7 +559,7 @@ EemacsextMake_fetch_upstreams_commits ()
         else
             echo '----------*success*----------' >> "$logfile"
         fi
-        cd "$upstream_host"
+        do_cd "$upstream_host"
         do_msg "waiting for next iterating (prevent SSL violation) ..."
         sleep 2
     done
@@ -609,7 +609,7 @@ EemacsextMake_Main_Tidyup_WorkTree ()
         echo -e "\e[32mTidy up working directory ...\e[0m \e[31m[⚠ ALL]\e[0m"
     fi
     EemacsextMake_wait_seconds 10 "\e[33m[you can cancel this procedure in 10s]\e[0m ..."
-    cd "${EemacsextMake_DIR}"
+    do_cd "${EemacsextMake_DIR}"
     if [[ -z "${target_path}" ]]
     then
         git submodule deinit --all -f
@@ -631,7 +631,7 @@ EemacsextMake_Main_Toggle_SubBranch ()
 {
     [[ -f "${EemacsextMake_elbatch_branchtoggle_bashscript_file}" ]] && rm -f "${EemacsextMake_elbatch_branchtoggle_bashscript_file}"
     local recovery=$1
-    cd "${EemacsextMake_DIR}"
+    do_cd "${EemacsextMake_DIR}"
     if [[ -z $recovery ]]
     then
         echo -e "\e[32mToggle submodule branch ...\e[0m"
@@ -640,7 +640,7 @@ EemacsextMake_Main_Toggle_SubBranch ()
         emacs -Q --batch -l "${EemacsextMake_elbatch_modulesparse_elisp_file}" --eval "(eemacs-ext/ggsh-gen-submodules-common-branch-toggle-bash-script t)"
     fi
     exit_when_error
-    cd "${EemacsextMake_DIR}"
+    do_cd "${EemacsextMake_DIR}"
     if [[ -f "${EemacsextMake_elbatch_branchtoggle_bashscript_file}" ]]
     then
         bash "${EemacsextMake_elbatch_branchtoggle_bashscript_file}"
@@ -656,7 +656,7 @@ EemacsextMake_Main_Tidyup_TempBranches ()
 {
     echo -e "\e[32mDelete temporal branches ...\e[0m"
     EemacsextMake_Main_Toggle_SubBranch t
-    cd "${EemacsextMake_DIR}"
+    do_cd "${EemacsextMake_DIR}"
     git submodule foreach \
         "if test ! -z \"\$(git for-each-ref --format=\"%(refname:short)\" refs/heads/EemacsExtTempo-*)\" ;then \
             git for-each-ref --format=\"%(refname:short)\" refs/heads/EemacsExtTempo-* | xargs git branch -D -f; \
@@ -699,7 +699,7 @@ EemacsextMake_Main_GenReleaseTarball ()
     cp -a "${melpa_pkgs_host}" "${release_tmp_dir}"/melpa
     nerror_msg "cp melpa fatal"
 
-    cd "${release_tmp_dir}"
+    do_cd "${release_tmp_dir}"
     nerror_msg "chdir: <${release_tmp_dir}> fatal"
     echo -e "Gen sha256sum ..."
     # use find to output sha256sum to updir since 'find -type f' will include the output file
@@ -710,7 +710,7 @@ EemacsextMake_Main_GenReleaseTarball ()
     sha256sum -c ./sha256sum.log > /dev/null
     nerror_msg "fatal for recheck sha256sum for ${release_archive_base_name}"
 
-    cd "${release_root_host}"
+    do_cd "${release_root_host}"
     nerror_msg "chdir: <${release_root_host}> fatal"
 
     echo -e "--> make release tarball of ${release_archive_base_name}.tar.xz ..."
@@ -740,8 +740,7 @@ EemacsextMake_Main_All ()
     EemacsextMake_Main_Toggle_SubBranch
     echo -e "\e[32mMain process starting ....\e[0m"
     echo -e "=====================================\n"
-    cd "${EemacsextMake_DIR}"
-    exit_when_error
+    do_cd "${EemacsextMake_DIR}"
     EemacsextMake_BuildRecipes
     EemacsextMake_BuildElpa_Recipes_Or_Init
     EemacsextMake_Finished
@@ -773,20 +772,17 @@ EemacsextMake_Main_Help ()
 EemacsextMake_Main_Choice ()
 {
     case $1 in
-        init) cd "$EemacsextMake_DIR"
-              exit_when_error
+        init) do_cd "$EemacsextMake_DIR"
               git clean -xfd .
               exit_when_error
               EemacsextMake_Main_Tidyup_WorkTree ;;
 
-        tidy-branches) cd "$EemacsextMake_DIR"
-                       exit_when_error
+        tidy-branches) do_cd "$EemacsextMake_DIR"
                        git clean -xfd .
                        exit_when_error
                        EemacsextMake_Main_Tidyup_TempBranches ;;
 
-        toggle-branches) cd "$EemacsextMake_DIR"
-                         exit_when_error
+        toggle-branches) do_cd "$EemacsextMake_DIR"
                          git clean -xfd .
                          exit_when_error
                          EemacsextMake_Main_Tidyup_TempBranches
@@ -807,8 +803,7 @@ EemacsextMake_Main_Choice ()
             # EemacsextMake_BuildRecipes eemacs
             ;;
 
-        clean) cd "$EemacsextMake_DIR"
-               exit_when_error
+        clean) do_cd "$EemacsextMake_DIR"
                git clean -xfd .
                exit_when_error
                git submodule deinit --all -f ;;
@@ -842,7 +837,7 @@ EemacsextMake_Main_Choice ()
 
 EemacsextMake_Checking_shell
 
-cd "${EemacsextMake_DIR}"
+do_cd "${EemacsextMake_DIR}"
 
 EemacsextMake_MainCommand="$1"
 EemacsextMake_Main_Choice "$1"
