@@ -123,6 +123,7 @@ ht
 htmlize
 hydra
 ialign
+ibuffer-project
 ibuffer-projectile
 impatient-mode
 irony

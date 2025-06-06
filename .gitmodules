@@ -1102,3 +1102,7 @@
 	path = elements/submodules/upstream/ert-runner.el
 	url = https://github.com/rejeep/ert-runner.el.git
 	branch = master
+[submodule "elements/submodules/upstream/emacs-ibuffer-project"]
+	path = elements/submodules/upstream/emacs-ibuffer-project
+	url = https://github.com/muffinmad/emacs-ibuffer-project.git
+	branch = master
