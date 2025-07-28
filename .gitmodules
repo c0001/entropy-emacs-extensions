@@ -1106,3 +1106,7 @@
 	path = elements/submodules/upstream/emacs-ibuffer-project
 	url = https://github.com/muffinmad/emacs-ibuffer-project.git
 	branch = master
+[submodule "elements/submodules/upstream/vue-mode"]
+	path = elements/submodules/upstream/vue-mode
+	url = https://github.com/AdamNiederer/vue-mode.git
+	branch = master
