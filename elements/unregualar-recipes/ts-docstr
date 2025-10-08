@@ -1,0 +1,4 @@
+(ts-docstr
+ :fetcher github
+ :repo "ts-docstr"
+ :files (:defaults))

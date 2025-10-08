@@ -1,0 +1,4 @@
+(rainbow-csv
+ :fetcher github
+ :repo "rainbow-csv"
+ :files (:defaults))

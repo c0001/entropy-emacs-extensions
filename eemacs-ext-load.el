@@ -1,4 +1,4 @@
-;;; entropy-emacs-extensions-load.el --- enntropy emacs git charged extensions management
+;;; entropy-emacs-extensions-load.el --- enntropy emacs git charged extensions management  -*- lexical-binding: t; -*-
 ;;
 ;; * Copyright (C) 2018 Entropy
 ;; #+BEGIN_EXAMPLE

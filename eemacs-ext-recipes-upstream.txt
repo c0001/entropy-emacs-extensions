@@ -39,7 +39,9 @@ company
 company-anaconda
 company-box
 company-c-headers
+company-emmet
 company-irony
+company-paths
 company-php
 company-prescient
 company-quickhelp
@@ -74,6 +76,7 @@ diredfl
 disable-mouse
 discover-my-major
 dockerfile-mode
+docstr
 doom-modeline
 doom-themes
 edit-indirect
@@ -218,6 +221,7 @@ projectile
 pyim
 pyim-basedict
 pythonic
+rainbow-csv
 rainbow-delimiters
 request
 rg
@@ -252,6 +256,7 @@ treemacs
 treemacs-nerd-icons
 treepy
 treeview
+ts-docstr
 ujelly-theme
 uuidgen
 vimish-fold

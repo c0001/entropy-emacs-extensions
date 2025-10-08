@@ -1,0 +1,4 @@
+(company-emmet
+ :fetcher github
+ :repo "company-emmet"
+ :files (:defaults))
