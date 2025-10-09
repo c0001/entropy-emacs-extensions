@@ -110,7 +110,7 @@ git-modes
 git-timemachine
 gntp
 go-mode
-go-translate
+gt
 goggles
 google-translate
 gotham-theme
@@ -123,7 +123,6 @@ highlight-indent-guides
 highlight-parentheses
 hl-todo
 ht
-htmlize
 hydra
 ialign
 ibuffer-project

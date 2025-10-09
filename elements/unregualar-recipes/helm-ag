@@ -1,0 +1,3 @@
+(helm-ag
+ :repo "helm-ag"
+ :fetcher github)

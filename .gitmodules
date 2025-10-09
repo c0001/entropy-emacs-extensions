@@ -406,10 +406,6 @@
 	path = elements/submodules/upstream/emacs-memoize
 	url = https://github.com/skeeto/emacs-memoize.git
 	branch = master
-[submodule "elements/submodules/upstream/emacs-htmlize"]
-	path = elements/submodules/upstream/emacs-htmlize
-	url = https://github.com/hniksic/emacs-htmlize.git
-	branch = master
 [submodule "elements/submodules/upstream/helm-ag"]
 	path = elements/submodules/upstream/helm-ag
 	url = https://github.com/emacsorphanage/helm-ag.git
@@ -866,9 +862,9 @@
 	path = elements/submodules/upstream/fanyi.el
 	url = https://github.com/condy0919/fanyi.el.git
 	branch = main
-[submodule "elements/submodules/upstream/go-translate"]
-	path = elements/submodules/upstream/go-translate
-	url = https://github.com/lorniu/go-translate.git
+[submodule "elements/submodules/upstream/gt.el"]
+	path = elements/submodules/upstream/gt.el
+	url = https://github.com/lorniu/gt.el
 	branch = master
 [submodule "elements/submodules/referred/libvterm/libvterm-mirror"]
 	path = elements/submodules/referred/libvterm/libvterm
