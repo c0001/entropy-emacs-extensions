@@ -110,10 +110,10 @@ git-modes
 git-timemachine
 gntp
 go-mode
-gt
 goggles
 google-translate
 gotham-theme
+gt
 helm
 helm-ag
 helm-core
@@ -123,6 +123,7 @@ highlight-indent-guides
 highlight-parentheses
 hl-todo
 ht
+htmlize
 hydra
 ialign
 ibuffer-project

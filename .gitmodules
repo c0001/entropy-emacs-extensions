@@ -1126,3 +1126,7 @@
 	path = elements/submodules/upstream/company-paths
 	url = https://github.com/emacs-vs/company-paths.git
 	branch = master
+[submodule "elements/submodules/upstream/htmlize"]
+	path = elements/submodules/upstream/htmlize
+	url = https://github.com/emacsorphanage/htmlize
+	branch = master
