@@ -1130,3 +1130,7 @@
 	path = elements/submodules/upstream/htmlize
 	url = https://github.com/emacsorphanage/htmlize
 	branch = master
+[submodule "elements/submodules/upstream/cond-let"]
+	path = elements/submodules/upstream/cond-let
+	url = https://github.com/tarsius/cond-let.git
+	branch = main

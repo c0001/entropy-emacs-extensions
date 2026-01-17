@@ -48,6 +48,7 @@ company-quickhelp
 company-shell
 company-tern
 company-web
+cond-let
 conda
 consult
 consult-company
