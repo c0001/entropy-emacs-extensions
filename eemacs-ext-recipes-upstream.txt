@@ -64,6 +64,7 @@ counsel-ffdata
 counsel-projectile
 counsel-world-clock
 dap-mode
+dart-mode
 dash
 dash-functional
 dashboard
@@ -153,6 +154,7 @@ llama
 loc-changes
 log4e
 loop
+lsp-dart
 lsp-docker
 lsp-java
 lsp-mode

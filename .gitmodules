@@ -1134,3 +1134,11 @@
 	path = elements/submodules/upstream/cond-let
 	url = https://github.com/tarsius/cond-let.git
 	branch = main
+[submodule "elements/submodules/upstream/lsp-dart"]
+	path = elements/submodules/upstream/lsp-dart
+	url = https://github.com/emacs-lsp/lsp-dart.git
+	branch = master
+[submodule "elements/submodules/upstream/dart-mode"]
+	path = elements/submodules/upstream/dart-mode
+	url = https://github.com/emacsorphanage/dart-mode.git
+	branch = main
