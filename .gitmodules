@@ -634,10 +634,6 @@
 	path = elements/submodules/upstream/projectile
 	url = https://github.com/bbatsov/projectile.git
 	branch = master
-[submodule "elements/submodules/upstream/helm-pt"]
-	path = elements/submodules/upstream/helm-pt
-	url = https://github.com/ralesi/helm-pt.git
-	branch = master
 [submodule "elements/submodules/upstream/epl"]
 	path = elements/submodules/upstream/epl
 	url = https://github.com/cask/epl.git

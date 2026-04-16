@@ -119,7 +119,6 @@ gt
 helm
 helm-ag
 helm-core
-helm-pt
 hide-mode-line
 highlight-indent-guides
 highlight-parentheses
