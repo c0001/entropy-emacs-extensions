@@ -217,7 +217,7 @@
 [submodule "elements/submodules/upstream/page-break-lines"]
 	path = elements/submodules/upstream/page-break-lines
 	url = https://github.com/purcell/page-break-lines.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/ox-gfm"]
 	path = elements/submodules/upstream/ox-gfm
 	url = https://github.com/larstvei/ox-gfm.git
