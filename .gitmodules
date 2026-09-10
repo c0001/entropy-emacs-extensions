@@ -561,7 +561,7 @@
 [submodule "elements/submodules/upstream/elfeed"]
 	path = elements/submodules/upstream/elfeed
 	url = https://github.com/skeeto/elfeed.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/elisp-refs"]
 	path = elements/submodules/upstream/elisp-refs
 	url = https://github.com/Wilfred/elisp-refs.git
