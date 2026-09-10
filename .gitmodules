@@ -245,7 +245,7 @@
 [submodule "elements/submodules/upstream/mode-line-bell"]
 	path = elements/submodules/upstream/mode-line-bell
 	url = https://github.com/purcell/mode-line-bell.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/markdown-preview-mode"]
 	path = elements/submodules/upstream/markdown-preview-mode
 	url = https://github.com/ancane/markdown-preview-mode.git
@@ -433,7 +433,7 @@
 [submodule "elements/submodules/upstream/disable-mouse"]
 	path = elements/submodules/upstream/disable-mouse
 	url = https://github.com/purcell/disable-mouse.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/dired-quick-sort"]
 	path = elements/submodules/upstream/dired-quick-sort
 	url = https://github.com/emacsmirror/dired-quick-sort.git
@@ -485,7 +485,7 @@
 [submodule "elements/submodules/upstream/color-theme-sanityinc-tomorrow"]
 	path = elements/submodules/upstream/color-theme-sanityinc-tomorrow
 	url = https://github.com/purcell/color-theme-sanityinc-tomorrow.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/chinese-word-at-point.el"]
 	path = elements/submodules/upstream/chinese-word-at-point.el
 	url = https://github.com/xuchunyang/chinese-word-at-point.el.git
@@ -625,11 +625,11 @@
 [submodule "elements/submodules/upstream/elisp-slime-nav"]
 	path = elements/submodules/upstream/elisp-slime-nav
 	url = https://github.com/purcell/elisp-slime-nav.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/ibuffer-projectile"]
 	path = elements/submodules/upstream/ibuffer-projectile
 	url = https://github.com/purcell/ibuffer-projectile.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/projectile"]
 	path = elements/submodules/upstream/projectile
 	url = https://github.com/bbatsov/projectile.git
@@ -721,7 +721,7 @@
 [submodule "elements/submodules/upstream/diredfl"]
 	path = elements/submodules/upstream/diredfl
 	url = https://github.com/purcell/diredfl.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/olivetti"]
 	path = elements/submodules/upstream/olivetti
 	url = https://github.com/rnkn/olivetti.git
@@ -813,7 +813,7 @@
 [submodule "elements/submodules/upstream/exec-path-from-shell"]
 	path = elements/submodules/upstream/exec-path-from-shell
 	url = https://github.com/purcell/exec-path-from-shell.git
-	branch = master
+	branch = main
 [submodule "elements/submodules/upstream/conda.el"]
 	path = elements/submodules/upstream/conda.el
 	url = https://github.com/necaris/conda.el.git
