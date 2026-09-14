@@ -367,8 +367,13 @@ __elpa_worktrees_update ()
 
     local brname=''
     local oldbrname=''
-    for brname in  `git branch -al gnu-elpa/* --format='%(refname:short)'`
+    for brname in  `git branch -al 'gnu-elpa/*' --format='%(refname:short)'`
     do
+        # skip for 'gnu-elpa/HEAD' ref in shorthands of 'gnu-elpa'
+        # where is ambiguous with remote name.
+        if [[ ! $brname =~ / ]]; then
+            continue
+        fi
         oldbrname=$brname
         brname=`echo $brname | sed 's/gnu-elpa\///g'`
         nerror_msg "sed fatal for brname '$oldbrname'"
@@ -434,6 +439,9 @@ EemacsextMake_BuildElpa_Recipes_Or_Init ()
     __elpa_worktrees_init
     if [ -z $initp ]
     then
+        if ! command -v lzip 1>/dev/null 2>&1 ; then
+            error_msg "command lzip not found"
+        fi
         do_msg "building all elpa packages"
         make build-all
     else
