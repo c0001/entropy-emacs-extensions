@@ -266,7 +266,6 @@ visual-ascii-mode
 visual-regexp
 volatile-highlights
 vterm
-vue-mode
 w3m
 web-beautify
 web-completion-data
