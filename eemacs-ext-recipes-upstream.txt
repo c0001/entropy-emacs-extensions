@@ -83,6 +83,7 @@ doom-modeline
 doom-themes
 edit-indirect
 editorconfig
+eglot-java
 el2org
 eldoc-eval
 elfeed

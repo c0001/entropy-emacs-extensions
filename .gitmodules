@@ -1134,3 +1134,7 @@
 	path = elements/submodules/upstream/dart-mode
 	url = https://github.com/emacsorphanage/dart-mode.git
 	branch = main
+[submodule "elements/submodules/upstream/eglot-java"]
+	path = elements/submodules/upstream/eglot-java
+	url = https://github.com/yveszoundi/eglot-java.git
+	branch = main
